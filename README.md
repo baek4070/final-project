@@ -2,6 +2,27 @@
 
 # 거래 플랫폼
 
+## db정보 SQL 파일 참조할것
+
+## 사용도구 및 라이브러리
+- java 1.8
+- springframework 5.2.19.RELEASE
+- jstl 1.2
+- servlet-api 3.1.0
+- jsp-api 2.3.3
+- junit 4.13.2
+- mysql-connector 8.0.27
+- HikariCP 4.0.3
+- mybatis 3.5.9
+- mybatis-spring 2.0.6
+- lombok 1.18.22
+- log4jdbc 1.16
+- jackson-databind 2.13.1
+- commons-fileupload 1.4
+- imgscalr-lib 4.2
+- aspectjtools 1.9.7
+- xercesImpl 2.9.1
+- tomcat 9.0
 ## 파트
 
 - 회원관리 : 김회진
