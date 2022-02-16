@@ -8,6 +8,7 @@
 </head>
 <body>
 	<form action="resister" method="POST">
+			<input type="hidden" name="userId" value="imsi"/>
 		<table border=1>
 			<tr>
 				<td>제목</td>
