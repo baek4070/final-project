@@ -12,13 +12,13 @@ public interface UserService {
 	UserVO signIn(UserDTO dto) throws Exception;
 	
 	// 정보 수정
-	void updateSign() throws Exception;
+	UserVO updateSign(int uno) throws Exception;
 	
 	// 로그아웃
 	void signOut() throws Exception;
 	
 	// 아이디 사용
 	UserVO getUserById(String u_id) throws Exception;
-	
+
 	
 }

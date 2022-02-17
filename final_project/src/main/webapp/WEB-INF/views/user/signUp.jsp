@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/user/header.jsp"/>
+<jsp:include page="../home/home.jsp"/>
 <style>
 	#signInBtn{
 		width:100%;
@@ -44,7 +44,7 @@
 		<tr>
 			<td colspan=2>
 				<input type="submit" id="signInBtn" value="회원가입"/>
-				<input type="button" onclick="location.href='${path}/sign/signIn';" value="SIGN IN"/>
+				<input type="button" onclick="location.href='${path}/user/signIn';" value="SIGN IN"/>
 			</td>
 		</tr>
 	</table>

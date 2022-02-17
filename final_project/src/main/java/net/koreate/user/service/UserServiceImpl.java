@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService {
 	
 
 	@Override
-	public void updateSign() throws Exception {
-
+	public UserVO updateSign(int uno) throws Exception {
+		return ud.update(uno);
 	}
 
 	@Override
@@ -41,5 +41,7 @@ public class UserServiceImpl implements UserService {
 	public UserVO getUserById(String u_id) throws Exception {
 		return ud.getUserById(u_id);
 	}
+
+	
 
 }

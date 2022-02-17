@@ -19,6 +19,7 @@ public class SignUpInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		System.out.println("signUpPost preHandle");
+		
 		String u_pw = request.getParameter("u_pw");
 		String u_repw = request.getParameter("u_repw");
 		
@@ -41,7 +42,4 @@ public class SignUpInterceptor extends HandlerInterceptorAdapter {
 		}
 		return true;
 	}
-
-	
-	
 }

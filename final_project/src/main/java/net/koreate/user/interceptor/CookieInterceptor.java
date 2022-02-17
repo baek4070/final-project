@@ -21,12 +21,13 @@ public class CookieInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		
+		/*
 		if(session.getAttribute("userInfo") != null) {
 			System.out.println("사용자 정보에 이 계정 이미 존재");
 			return true;
 		}
-		
+		*/
+		System.out.println("쿠키 preHandler");
 		Cookie cookie = WebUtils.getCookie(request, "signInCookie");
 		if(cookie != null) {
 			UserVO vo = us.getUserById(cookie.getValue());
@@ -37,7 +38,4 @@ public class CookieInterceptor extends HandlerInterceptorAdapter {
 		}
 		return true;
 	}
-
-	
-	
 }
