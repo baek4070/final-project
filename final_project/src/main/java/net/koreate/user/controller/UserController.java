@@ -98,8 +98,8 @@ public class UserController {
 	
 	// 회원정보 수정하기
 	@PostMapping("signUpdatePost")
-	public String signUpdatePost(int uno,ModelAndView mav) throws Exception {
-		us.updateSign(uno);
+	public String signUpdatePost(UserVO vo,ModelAndView mav) throws Exception {
+		us.updateSign(vo);
 		System.out.println("mav : "+mav);
 		
 		return null;

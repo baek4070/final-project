@@ -25,7 +25,7 @@ public interface UserDAO {
 
 	// 사용자 정보 수정
 	@Update("UPDATE * FROM trade_user SET "
-			+ " WHERE u")
+			+ " WHERE u_id = #{u_id}")
 	UserVO update(int uno) throws Exception;
 	
 }

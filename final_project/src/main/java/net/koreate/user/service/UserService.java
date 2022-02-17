@@ -12,7 +12,7 @@ public interface UserService {
 	UserVO signIn(UserDTO dto) throws Exception;
 	
 	// 정보 수정
-	UserVO updateSign(int uno) throws Exception;
+	UserVO updateSign(UserVO vo) throws Exception;
 	
 	// 로그아웃
 	void signOut() throws Exception;
