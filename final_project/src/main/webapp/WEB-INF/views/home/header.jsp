@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>홈</title>
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body id="test">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -19,10 +20,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="board/list">게시판</a>
+          <a class="nav-link" href="${pageContext.request.contextPath}/board/list">게시판</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="qnaboard/list">QnA</a>
+          <a class="nav-link" href="${pageContext.request.contextPath}/qnaboard/list">QnA</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">등등...</a>
@@ -40,10 +41,10 @@
       </ul>
       <ul class="navbar-nav ms-md-auto">
       	<li class="nav-item">
-      		<a class="nav-link" href="user/signIn">로그인</a>
+      		<a class="nav-link" href="${pageContext.request.contextPath}/user/signIn">로그인</a>
       	</li>
       	<li class="nav-item">
-      		<a class="nav-link" href="user/signUp">회원가입</a>
+      		<a class="nav-link" href="${pageContext.request.contextPath}/user/signUp">회원가입</a>
       	</li>
       </ul>
     </div>
