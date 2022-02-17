@@ -28,7 +28,7 @@ public class UserController {
 	
 	@GetMapping("/signIn")
 	public String signIn() {
-		return "/user/signIn";
+		return "user/signIn";
 	}
 
 	@GetMapping("/signUp")
@@ -51,15 +51,15 @@ public class UserController {
 		return "user/signUp";
 	}
 	
-	// È¸¿ø°¡ÀÔ ¹öÆ° ´­·¶À»¶§
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@PostMapping("signUpPost")
 	public String signUp(UserVO vo,ModelAndView mav,RedirectAttributes rttr) throws Exception{
 		us.signUp(vo);
 		System.out.println(vo);
-		rttr.addFlashAttribute("message","È¸¿ø°¡ÀÔ ¼º°ø");
+		rttr.addFlashAttribute("message","È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		return "redirect:/user/signIn";
 	}
-	// ·Î±×ÀÎ ¹öÆ° Å¬¸¯
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½
 	@PostMapping("signInPost")
 	public ModelAndView signIn(UserDTO dto,ModelAndView mav) throws Exception{
 	//	us.signIn(dto);
@@ -68,7 +68,7 @@ public class UserController {
 		mav.setViewName("redirect:/");
 		return mav;
 	}
-	// ·Î±×¾Æ¿ô
+	// ï¿½Î±×¾Æ¿ï¿½
 	@GetMapping("/signOut")
 	public String signOut(HttpSession session,
 			HttpServletRequest request,
@@ -96,7 +96,7 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	// È¸¿øÁ¤º¸ ¼öÁ¤ÇÏ±â
+	// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	@PostMapping("signUpdatePost")
 	public String signUpdatePost(UserVO vo,ModelAndView mav) throws Exception {
 		us.updateSign(vo);
