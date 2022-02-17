@@ -24,6 +24,8 @@
 	<bean id="sqlSessionFactory"
 		 class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds"/>
+		<property name="typeAliasesPackage" value="net.koreate.*.vo, net.koreate.*.util"/>
+		<property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
 	</bean>
 	
 	<mybatis-spring:scan base-package="net.koreate.*.dao"/>
@@ -35,6 +37,8 @@
 	<!-- @Scheduled 등록된 빈 객체 중에 어노테이션을 검색해서 작업을 실행 -->
 	<task:annotation-driven/>
 	
+
+	<context:component-scan base-package="net.koreate.board.service" />
 </beans>
 
 
