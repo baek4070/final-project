@@ -24,20 +24,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int listCount(Criteria cri) {
-		int list = 0;
-		try {
-			list = dao.listCount(cri);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	@Override
 	public PageMaker getPageMaker(Criteria cri) throws Exception {
-		int totalCount = dao.listCount(cri);
+		int totalCount = dao.listCount();
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(totalCount);
@@ -46,27 +34,30 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void register(BoardVO board) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public String register(BoardVO board) throws Exception {
+		int result = dao.insert(board);
+		return getMessage(result, "등록");
 	}
 
 	@Override
-	public BoardVO read(int bno) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardVO get(int bno) throws Exception {
+		return dao.read(bno);
 	}
 
 	@Override
-	public boolean modify(BoardVO board) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+	public String modify(BoardVO board) throws Exception {
+		int result = dao.update(board);
+		return getMessage(result, "수정");
 	}
 
 	@Override
-	public boolean remove(int bno) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+	public String delete(int bno) throws Exception {
+		int result = dao.delete(bno);
+		return getMessage(result, "삭제");
+	}
+	
+	private String getMessage(int result, String type) {
+		return (result > 0) ? type + " 성공" : type + " 실패";
 	}
 
 }

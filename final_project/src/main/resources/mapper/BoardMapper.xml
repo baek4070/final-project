@@ -3,14 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.koreate.board.dao.BoardDAO">
 	<!-- 검색 -->
-	<select id="list" parameterType="criteria" resultType="boardVO">
-		SELECT * FROM board ORDER BY bno DESC limit #{pageStart}, #{perPageNum}
-	</select>
-	
 	<select id="listCount" resultType="int">
 		SELECT COUNT(*) FROM board
 	</select>
 	
+	<select id="list" parameterType="criteria" resultType="boardVO">
+		SELECT * FROM board ORDER BY bno DESC limit #{startRow}, #{perPageNum}
+	</select>
+
 	<!-- 삽입 -->
 	<insert id="insert" parameterType="boardVO">
 		INSERT INTO board (title,content,writer)
@@ -23,7 +23,7 @@
 	</select>
 	
 	<!-- 수정 -->
-	<update id="update" parameterType="int">
+	<update id="update" parameterType="BoardVO">
 		UPDATE board SET
 		title		= #{title},
 		content		= #{content},
