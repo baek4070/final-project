@@ -17,10 +17,10 @@
     </div>
 </div>
 <div class="col-10 offset-1">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
-    <div class="collapse navbar-collapse" id="navbarColor02">
+    <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link active" href="#">Home
@@ -115,5 +115,4 @@
 	</div>
 </div>
 </div>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/home/footer.jsp"/>

@@ -7,8 +7,17 @@
 <meta charset="UTF-8">
 <title>홈</title>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+	.remote{
+		position: fixed;
+		right: 3%;
+		bottom: 50px;
+		text-align:center;
+		width: 120px;
+	}
+</style>
 </head>
-<body id="test">
+<body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">사이트</a>
@@ -29,7 +38,7 @@
           <a class="nav-link" href="#">등등...</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="toggle" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
           <div class="dropdown-menu" id="drop" aria-labelledby="toggle">
             <a class="dropdown-item" href="user/signIn">Action</a>
             <a class="dropdown-item" href="user/signUp">Another action</a>
@@ -49,6 +58,10 @@
       </ul>
     </div>
   </div>
+  <div class="remote">
+  	<button type="button" class="btn btn-secondary" id="remoteTop" >△</button><br/><br/>
+  	<button type="button" class="btn btn-secondary" id="remoteBottom" >▽</button>
+  </div>
 </nav>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
@@ -62,6 +75,12 @@ $(document).click(function(){
     $('#drop').hide();
 });
 
+$("#remoteTop").click(function(){
+    $(window).scrollTop(0);
+});
 
+$("#remoteBottom").click(function(){
+	window.scrollTo(0,document.body.scrollHeight);
+});
 	
 </script>
