@@ -54,10 +54,21 @@
 	<div class="row">
 		<div class="col-lg-4">
 		    <div class="card border-secondary mb-3" style="max-width: 20rem;">
-		  		<div class="card-header">Header</div>
+		  		<div class="card-header">Q&A</div>
+		  			<table class="table table-hover">
+		  				<c:if test="${!empty qlist}">
+		  					<c:forEach var="question" items="${qlist}">
+		  				<tr>
+		  					<td style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath}/qnaboard/list?=${question.qno}'">Q. ${question.title}</td>
+		  				</tr>
+		  					</c:forEach>
+		  				</c:if>
+		  				<c:if test="${empty qlist}">
+		  					<h3>내용이 없습니다.</h3>
+		  				</c:if>
+    					
+		  			</table>
 		 		 	<div class="card-body">
-		  	 			 <h4 class="card-title">Secondary card title</h4>
-		 	  			 <p class="card-text"></p>
 		 		 </div>
 			</div>
 		</div>

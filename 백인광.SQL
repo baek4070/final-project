@@ -21,3 +21,14 @@ CREATE TABLE qna_tbl(
     filename VARCHAR(300),
     filepath VARCHAR(300)
 );
+
+INSERT INTO qna_tbl(userId, title, content, userNickname) VALUES ('user1','1번째 작성','1번째 작성함','1번');
+INSERT INTO qna_tbl(userId, title, content, userNickname) VALUES ('user2','2번째 작성','1번째 작성함','1번');
+INSERT INTO qna_tbl(userId, title, content, userNickname) VALUES ('user3','3번째 작성','1번째 작성함','1번');
+INSERT INTO qna_tbl(userId, title, content, userNickname) VALUES ('user4','4번째 작성','1번째 작성함','1번');
+INSERT INTO qna_tbl(userId, title, content, userNickname) VALUES ('user5','5번째 작성','1번째 작성함','1번');
+INSERT INTO qna_tbl(userId, title, content, userNickname) VALUES ('user6','6번째 작성','1번째 작성함','1번');
+
+SELECT * FROM qna_tbl;
+
+commit;
