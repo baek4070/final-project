@@ -60,10 +60,11 @@ public class UserController {
 	}
 	@PostMapping("signInPost")
 	public ModelAndView signIn(UserDTO dto,ModelAndView mav) throws Exception{
-	//	us.signIn(dto);
-		mav.addObject("logDTO",dto);
-		System.out.println(dto);
-		mav.setViewName("redirect:/");
+		String uname = us.signIn(dto).getU_name();
+		mav.addObject("logDTO",uname);
+		System.out.println(uname);
+		System.out.println(mav);
+		mav.setViewName("home/home");
 		return mav;
 	}
 
