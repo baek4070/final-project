@@ -14,23 +14,17 @@ public class UserServiceImpl implements UserService {
 	@Inject
 	UserDAO ud;
 	
-	// ȸ������
 	@Override
 	public void signUp(UserVO vo) throws Exception {
 		ud.signUp(vo);
 	}
 	
-	// �α���
 	@Override
 	public UserVO signIn(UserDTO dto) throws Exception {
 		return ud.signIn(dto);
 	}
 	
-
-	@Override
-	public UserVO updateSign(int uno) throws Exception {
-		return ud.update(uno);
-	}
+	
 
 	@Override
 	public void signOut() throws Exception {
@@ -44,7 +38,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO updateSign(UserVO vo) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

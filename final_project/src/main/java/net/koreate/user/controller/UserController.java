@@ -51,15 +51,13 @@ public class UserController {
 		return "user/signUp";
 	}
 	
-	// ȸ������ ��ư ��������
 	@PostMapping("signUpPost")
 	public String signUp(UserVO vo,ModelAndView mav,RedirectAttributes rttr) throws Exception{
 		us.signUp(vo);
 		System.out.println(vo);
-		rttr.addFlashAttribute("message","ȸ������ ����");
+		rttr.addFlashAttribute("message","???????");
 		return "redirect:/user/signIn";
 	}
-	// �α��� ��ư Ŭ��
 	@PostMapping("signInPost")
 	public ModelAndView signIn(UserDTO dto,ModelAndView mav) throws Exception{
 	//	us.signIn(dto);
@@ -68,7 +66,7 @@ public class UserController {
 		mav.setViewName("redirect:/");
 		return mav;
 	}
-	// �α׾ƿ�
+
 	@GetMapping("/signOut")
 	public String signOut(HttpSession session,
 			HttpServletRequest request,
@@ -96,7 +94,6 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	// ȸ������ �����ϱ�
 	@PostMapping("signUpdatePost")
 	public String signUpdatePost(UserVO vo,ModelAndView mav) throws Exception {
 		us.updateSign(vo);
