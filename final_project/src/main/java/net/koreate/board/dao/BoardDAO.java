@@ -1,19 +1,27 @@
 package net.koreate.board.dao;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Select;
-
 import net.koreate.board.util.Criteria;
 import net.koreate.board.vo.BoardVO;
 
 public interface BoardDAO {
 	
-	//@Select
-	//("SELECT * FROM board ORDER BY bno DESC limit #{page}, #{perPageNum}")
-	List<BoardVO> list(Criteria cri) throws Exception;
+	// 검색
+	public List<BoardVO> list(Criteria cri) throws Exception;
 
-	//@Select("SELECT count(*) from board")
-	int listCount(Criteria cri);
+	// 전체 게시물 수
+	public int listCount() throws Exception;
+	
+	// 삽입
+	public int insert(BoardVO board) throws Exception;
+	
+	// 선택
+	public BoardVO read(int bno) throws Exception;
+	
+	// 수정
+	public int update(BoardVO board) throws Exception;
+	
+	// 삭제
+	public int delete(int bno) throws Exception;
 	
 }
