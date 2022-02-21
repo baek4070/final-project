@@ -52,7 +52,7 @@
       <c:when test="${!empty userInfo}">
       <ul class="navbar-nav ms-md-auto">
       	<li class="nav-item">
-      		<a class="nav-link" href="#">${userInfo.u_id}님 반갑습니다.</a>
+      		<a class="nav-link" href="${pageContext.request.contextPath}/user/info">${userInfo.u_id}님 반갑습니다.</a>
       	</li>
        	<li class="nav-item">
       		<a class="nav-link" href="${pageContext.request.contextPath}/user/signOut">로그아웃</a>
@@ -77,6 +77,54 @@
   	<button type="button" class="btn btn-secondary" id="remoteBottom" >▽</button>
   </div>
 </nav>
+<div class="col-10 offset-1 my-2">
+	<div class="row" style="margin-top:100px;"">
+	<div class="col-lg-5" style="margin-top:5px;">
+		<h1>사이트 아이콘</h1>
+	</div>
+		<div class="col-lg-3 offset-4" style="margin-top:16px;">
+			<div class="input-group mb-3">
+	    		<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"">
+	    		<button class="btn btn-primary" type="button" id="button-addon2"">Button</button>
+	    	</div>
+    	</div>
+    </div>
+</div>
+<div class="col-10 offset-1">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">content1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">content2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">content more</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	

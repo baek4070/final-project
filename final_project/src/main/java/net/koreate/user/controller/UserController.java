@@ -15,8 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
-import com.mysql.cj.Session;
-
 import net.koreate.user.service.UserService;
 import net.koreate.user.vo.UserDTO;
 import net.koreate.user.vo.UserVO;
