@@ -10,4 +10,6 @@ public interface QnABoardService {
 	void regist(QnABoardVO vo) throws Exception;
 	
 	List<QnABoardVO> list() throws Exception;
+	
+	QnABoardVO detail(int qno) throws Exception;
 }

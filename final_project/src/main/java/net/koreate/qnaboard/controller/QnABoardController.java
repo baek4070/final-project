@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.koreate.qnaboard.service.QnABoardService;
 import net.koreate.qnaboard.vo.QnABoardVO;
@@ -34,5 +35,15 @@ public class QnABoardController {
 	public String resister(QnABoardVO vo) throws Exception {
 		qs.regist(vo);
 		return "redirect:/qnaboard/list";
+	}
+	
+	@GetMapping("/detail")
+	public String detail(
+			int qno,
+			Model model
+			) throws Exception{
+		QnABoardVO vo = qs.detail(qno);
+		model.addAttribute("vo",vo);
+		return "qnaboard/detail";
 	}
 }

@@ -15,4 +15,7 @@ public interface QnABoardDAO {
 	
 	@Select("SELECT * FROM qna_tbl")
 	List<QnABoardVO> list() throws Exception;
+	
+	@Select("SELECT * FROM qna_tbl WHERE qno=#{qno}")
+	QnABoardVO detail(int bno) throws Exception;
 }

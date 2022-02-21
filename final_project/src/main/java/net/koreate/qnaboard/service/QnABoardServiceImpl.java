@@ -27,4 +27,10 @@ public class QnABoardServiceImpl implements QnABoardService {
 		return dao.list();
 	}
 
+	@Override
+	public QnABoardVO detail(int qno) throws Exception {
+		
+		return dao.detail(qno);
+	}
+
 }
