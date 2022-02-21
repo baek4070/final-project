@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import com.mysql.cj.Session;
+
 import net.koreate.user.service.UserService;
 import net.koreate.user.vo.UserDTO;
 import net.koreate.user.vo.UserVO;
@@ -60,10 +62,9 @@ public class UserController {
 	}
 	@PostMapping("signInPost")
 	public ModelAndView signIn(UserDTO dto,ModelAndView mav) throws Exception{
-		String uname = us.signIn(dto).getU_name();
-		mav.addObject("logDTO",uname);
-		System.out.println(uname);
-		System.out.println(mav);
+		// us.signIn(dto);
+		mav.addObject("logDTO",dto);
+		System.out.println(dto);
 		mav.setViewName("home/home");
 		return mav;
 	}

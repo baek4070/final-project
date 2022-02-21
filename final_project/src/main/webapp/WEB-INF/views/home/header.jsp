@@ -49,10 +49,10 @@
         </li>
       </ul>
       <c:choose>
-      <c:when test="${!empty logDTO}">
+      <c:when test="${!empty userInfo}">
       <ul class="navbar-nav ms-md-auto">
       	<li class="nav-item">
-      		<a class="nav-link" href="#">${logDTO}님 반갑습니다.</a>
+      		<a class="nav-link" href="#">${userInfo.u_id}님 반갑습니다.</a>
       	</li>
        	<li class="nav-item">
       		<a class="nav-link" href="${pageContext.request.contextPath}/user/signOut">로그아웃</a>
