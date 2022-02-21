@@ -5,41 +5,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>상품 정보</h2>
-	<form action="/board/register" method="post">
+	<form action="/board/register" method="post" enctype="multipart/form-data">
 		<table id="boardRegisterWrap" border="1">
-			<!-- 제목 -->
 			<tr>
 				<td>제목</td>
-				<td>
-					<input type="text" name="title" placeholder="제목을 입력해주세요."/>
-				</td>
+				<td><input type="text" name="title" placeholder="제목을 입력해주세요."/></td>
 			</tr>
-			<!-- 상품설명 -->
-			<tr>
-				<td>상품설명</td>
-				<td>
-					<textarea name="content" rows="10" cols="35"></textarea>
-				</td>
-			</tr>
-			<!-- 작성자 -->
 			<tr>
 				<td>작성자</td>
-				<td>
-					<input type="text" name="writer"/>
-				</td>
+				<td><input type="text" name="writer"/></td>
 			</tr>
-			<!-- 버튼 -->
 			<tr>
-				<td>
-					<div id="buttonWrap">
-						<button type="submit" id="register">물품등록</button>
-						<button type="button" id="list">목록으로</button>
-					</div>
+				<td>상품설명</td>
+				<td><textarea name="content"></textarea></td>
+			</tr>
+			<tr>
+				<td>첨부파일</td>
+				<td><input type="file" name="uploadFile"/></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button type="submit" id="register">물품등록</button>
+					<button type="button" id="list">목록으로</button>
 				</td>
 			</tr>
 		</table>

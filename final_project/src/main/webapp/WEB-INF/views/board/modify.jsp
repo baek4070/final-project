@@ -5,70 +5,69 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<h2>Board Modify Page</h2>
-	<form role="form" action="/board/modify" method="post">
-		<div class="form-group">
-		<label>Bno</label> <input class="form-control" name="bno"
-		value='<c:out value="${board.bno}"/>' readonly/>
-	</div>
-	<div class="form-group">
-		<label>Title</label> <input class="form-control" name="title"
-		value='<c:out value="${board.title}"/>' />
-	</div>
-	<div class="form-group">
-		<label>content</label> <textarea class="form-control" name="content" rows="3">
-		<c:out value="${board.content}"/></textarea>
-	</div>
-	<div class="form-group">
-		<label>Writer</label> <input class="form-control" name="writer"
-		value='<c:out value="${board.writer}"/>' readonly/>
-	</div>
-	<%-- <div class="form-group">
-		<label>Regdate</label> <input class="form-control" name="regdate"
-		value='<f:formatDate pattern="yyyy-MM-dd"
-               value="${board.regdate}"/>' readonly/>
-	</div>
-	<div class="form-group">
-		<label>Updatedate</label> <input class="form-control" name="updatedate"
-		value='<f:formatDate pattern="yyyy-MM-dd"
-        value="${board.updateDate}"/>' readonly/>
-	</div> --%>
-	<button type="submit" data-oper="modify">Modify</button>
-	<button type="submit" data-oper="remove">Remove</button>
-	<button type="submit" data-oper="list">List</button>
-	
-	<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>' />
-	<input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>' />
+	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
+	<h2>BoardModify Page</h2>
+	<form id="modifyForm" action="" method="get">
+		<table>
+			<tr>
+				<td>글번호</td>
+				<td><input type="text" name="bno" value="${board.bno}" readonly/></td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td>
+					<input type="text" name="title" value="${board.title}"/>
+				</td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td>
+					<input type="text" name="writer" value="${board.writer}"/>
+				</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+					<textarea name="content">${board.content}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button type="submit" data-oper="modify">수정</button>
+					<button type="submit" data-oper="list">목록</button>
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="bno" value="${board.bno}"/>
+		<input type="hidden" name="page" value="${cri.page}"/> 
+		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
 	</form>
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		var formObj = $("form");
-		$("button").on("click",function(e){
-			e.preventDefault();
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script>
+		$(document).ready(function(){
 			
-			var operation = $(this).data("oper");
-			console.log(operation);
+			var modifyForm = $("#modifyForm");
 			
-			if(operation == "remove"){
-				formObj.attr("action","/board/remove");
-			} else if(operation == "list"){
-				// move to list
-				formObj.attr("action", "/board/list").attr("method","get");
-				var pageNumTag = $("input[name='pageNum']").clone();
-				var amountTag = $("input[name='amount']").clone();
+			$("button").on("click", function(e){
+				e.preventDefault();
+				var operation = $(this).data("oper");
 				
-				formObj.empty();
-				formObj.append(pageNumTag);
-				formObj.append(amountTag);
-			}
-			formObj.submit();
+				switch(operation) {
+					case "modify":
+						modifyForm.attr("action", "/board/modify").attr("method", "post");
+						break;
+					case "list":
+						modifyForm.attr("action", "/board/list").attr("method", "get");
+						break;
+				}
+				modifyForm.submit();
+			});
 		});
-	});
-</script>
+	</script>
+</body>
 </html>

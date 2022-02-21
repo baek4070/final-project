@@ -5,15 +5,68 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+
+	.boardItem {
+		justify-content: center;
+		height: 200px;
+		align-content: center;
+		border: 0.5px solid #ccc;
+		cursor: pointer;
+	}
+	
+	.boardWriter {
+		text-align: right;
+	}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+	<div>
+	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>BoardList Page</h2>
 	<form action="register" method="get">
 		<button>새 게시물 작성</button>
 	</form>
-	<hr/>
+	<div class="row">
+		<c:choose>
+	  	 	<c:when test="${!empty list}">
+	  	 		<c:forEach items="${list}" var="board">
+	  	 			<div class="col-lg-4">
+	  	 				<div class="boardItem mx-2 my-4" onclick="location.href='detail?bno=${board.bno}'">
+	  	 					<div>${board.title}</div>
+	  	 					<div class="boardWriter">${board.writer}</div>
+	  	 				</div>
+					</div>
+	  	 		</c:forEach>
+	  	 	<!-- 페이징 블럭 시작 -->
+	  	 	<ul class="pagination">
+				<c:if test="${pm.prev}">
+					<li class="page-item">
+      					<a class="page-link" href="${pm.startPage-1}">&laquo;</a>
+    				</li>
+				</c:if>
+				<c:forEach var="num" begin="${pm.startPage}" end="${pm.endPage}">
+					<li class="page-item">
+      					<a class="page-link" href="${num}">${num}</a>
+    				</li>
+				</c:forEach>
+				<c:if test="${pm.next}">
+					<li class="page-item">
+						<a class="page-link" href="${pm.endPage+1}">&raquo;</a>
+					</li>
+				</c:if>
+			</ul>
+	  	 	<!-- 페이징 블럭 끝 -->
+	  	 	</c:when>
+	  	 	<c:otherwise>
+	  	 		<h3>등록된 게시물이 없습니다.</h3>
+	  	 	</c:otherwise>
+   		</c:choose>
+	</div>
+	<%-- <hr/>
 	<table border="1" style="border-collapse: collapse;">
 	    <tr>
 	        <th>#</th>
@@ -27,12 +80,9 @@
 	  	 	<c:when test="${!empty list}">
 	  	 		<c:forEach items="${list}" var="board">
 			  		<tr>
-				  		<td><c:out value="${board.bno}"/></td>
-				  		<td>
-				  			<a href="detail?bno=${board.bno}">
-				  			<c:out value="${board.title}"/></a>
-				  		</td>
-				  		<td><c:out value="${board.writer}"/></td>
+				  		<td>${board.bno}</td>
+				  		<td><a href="detail?bno=${board.bno}">${board.title}</a></td>
+				  		<td>${board.writer}</td>
 				  		<td><f:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/></td>
 				  		<td><f:formatDate pattern="yyyy-MM-dd" value="${board.updateDate}"/></td>
 			  		</tr>
@@ -43,10 +93,8 @@
 						<c:if test="${pm.prev}">
 							<a href="${pm.startPage-1}">[이전]</a>
 						</c:if>
-						<c:forEach var="i"
-						 begin="${pm.startPage}"
-						 end="${pm.endPage}">
-							<a href="${i}">[${i}]</a>
+						<c:forEach var="num" begin="${pm.startPage}" end="${pm.endPage}">
+							<a href="${num}">[${num}]</a>
 						</c:forEach>
 						<c:if test="${pm.next}">
 							<a href="${pm.endPage+1}">[다음]</a>
@@ -61,7 +109,11 @@
 	  	 	</c:otherwise>
    		</c:choose>
    		<!-- 게시글 목록 출력 끝 -->
-	</table>
+	</table> --%>
+	<form id="listForm">
+		<input type="hidden" name="page" value="${pm.cri.page}"/>
+		<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
+	</form>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -69,26 +121,28 @@
 			
 			registerCheck(result);
 			
-			history.replaceState({},null,null);
+			history.replaceState({}, null, null);
 			
 			function registerCheck(result) {
 				if(result === '' || history.state) {
 					return;
 				}
-				alert("게시물이 등록되었습니다.");
+				alert(result);
 			}
 			
-			$("#pagination a").on("click",function(event){
-				// a tag의 기본 이벤트 (hyperlink) 이벤트 무시
-				event.preventDefault();
+			// 페이징 블록 클릭
+			$(".pagination a").on("click", function(e){
+				e.preventDefault();
+				
 				var targetPage = $(this).attr("href");
-				// alert(targetPage);
 				var listForm = $("#listForm");
 				listForm.find("[name='page']").val(targetPage);
-				listForm.attr("action","listPage");
+				listForm.attr("action", "list");
 				listForm.submit();
 			});
 		});
 	</script>
+	</div>
+	<jsp:include page="/WEB-INF/views/home/footer.jsp"/>
 </body>
 </html>

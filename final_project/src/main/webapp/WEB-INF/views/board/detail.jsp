@@ -5,66 +5,71 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>BoardDetail Page</h2>
-	<table>
-		<tr>
-			<td>#</td>
-			<td>${board.bno}</td>
-			<td>
-				<input type="text" name="bno" value='<c:out value="${board.bno}"/>' readonly/>
-			</td>
-		</tr>
-	</table>
-	<div class="form-group">
-		<label>Bno</label> <input class="form-control" name="bno"
-		value='<c:out value="${board.bno}"/>' readonly/>
-	</div>
-	<div class="form-group">
-		<label>Title</label> <input class="form-control" name="title"
-		value='<c:out value="${board.title}"/>' readonly/>
-	</div>
-	<div class="form-group">
-		<label>content</label> <input class="form-control" name="content"
-		value='<c:out value="${board.content}"/>' readonly/>
-	</div>
-	<div class="form-group">
-		<label>Writer</label> <input class="form-control" name="writer"
-		value='<c:out value="${board.writer}"/>' readonly/>
-	</div>
-	<div class="form-group">
-		<label>Regdate</label> <input class="form-control" name="regdate"
-		value='<f:formatDate pattern="yyyy-MM-dd"
-               value="${board.regdate}"/>' readonly/>
-	</div>
-	<div class="form-group">
-		<label>Updatedate</label> <input class="form-control" name="updatedate"
-		value='<f:formatDate pattern="yyyy-MM-dd"
-        value="${board.updateDate}"/>' readonly/>
-	</div>
-	<button data-oper="modify">Modify</button>
-	<button data-oper="list">List</button>
-	<form id="operForm" action="/board/modify" method="get">
-		<input type="hidden" id="bno" name="bno" value='<c:out value="${board.bno}"/>' />
-		<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>' /> 
-		<input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>'/>
- 	</form>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<form id="detailForm" action="" method="get">
+		<table>
+			<tr>
+				<td>글번호</td>
+				<td><input type="text" name="title" value="${board.bno}" readonly/></td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td>
+					<input type="text" name="title" value="${board.title}" readonly/>
+				</td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td>
+					<input type="text" name="writer" value="${board.writer}" readonly/>
+				</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+					<textarea readonly>${board.content}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<button type="submit" data-oper="modify">수정</button>
+					<button type="submit" data-oper="remove">삭제</button>
+					<button type="submit" data-oper="list">목록</button>
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="bno" value="${board.bno}"/>
+		<input type="hidden" name="page" value="${cri.page}"/> 
+		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
+	</form>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			var operForm = $("#operForm");
 			
-			$("button[data-oper='modify']").on("click",function(e){
-				operForm.attr("action","/board/modify").submit();
-			});
+			var detailForm = $("#detailForm");
 			
-			$("button[data-oper='list']").on("click",function(e){
-				operForm.find("#bno").remove();
-				operForm.attr("action","/board/list")
-				operForm.submit();
+			$("button").on("click", function(e){
+				e.preventDefault();
+				var operation = $(this).data("oper");
+				
+				switch(operation) {
+					case "modify":
+						detailForm.attr("action", "/board/modify").attr("method", "get");
+						break;
+					case "remove":
+						detailForm.attr("action", "/board/remove").attr("method", "post");
+						break;
+					case "list":
+						detailForm.attr("action", "/board/list").attr("method", "get");
+						break;
+				}
+				detailForm.submit();
 			});
 		});
 	</script>
