@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<jsp:include page="../home/home.jsp"/>
+<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 
 <form action="signUpdatePost" method="POST">
+	<input type="hidden" name="uno" id="uno"/>
 	<table border=1>
 		<tr>
 			<th colspan=2><h1>회원정보 수정</h1></th>

@@ -5,20 +5,19 @@ import net.koreate.user.vo.UserVO;
 
 public interface UserService {
 
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	void signUp(UserVO vo) throws Exception;
 
-	// ·Î±×ÀÎ
+	// ë¡œê·¸ì¸
 	UserVO signIn(UserDTO dto) throws Exception;
 	
-	// Á¤º¸ ¼öÁ¤
+	// ì •ë³´ ìˆ˜ì •
 	UserVO updateSign(UserVO vo) throws Exception;
 	
-	// ·Î±×¾Æ¿ô
+	// ë¡œê·¸ì•„ì›ƒ
 	void signOut() throws Exception;
 	
-	// ¾ÆÀÌµğ »ç¿ë
+	// ì•„ì´ë”” ì‚¬ìš©
 	UserVO getUserById(String u_id) throws Exception;
 
-	
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../home/home.jsp"/>
+<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 <form action="signInPost" method="POST">
 	<table>
 		<tr>

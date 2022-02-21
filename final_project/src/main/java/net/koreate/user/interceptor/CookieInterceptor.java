@@ -23,11 +23,11 @@ public class CookieInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		/*
 		if(session.getAttribute("userInfo") != null) {
-			System.out.println("»ç¿ëÀÚ Á¤º¸¿¡ ÀÌ °èÁ¤ ÀÌ¹Ì Á¸Àç");
+			System.out.println("ì‚¬ìš©ì ì •ë³´ì— ì´ ê³„ì • ì´ë¯¸ ì¡´ì¬");
 			return true;
 		}
 		*/
-		System.out.println("ÄíÅ° preHandler");
+		System.out.println("ì¿ í‚¤ preHandler");
 		Cookie cookie = WebUtils.getCookie(request, "signInCookie");
 		if(cookie != null) {
 			UserVO vo = us.getUserById(cookie.getValue());

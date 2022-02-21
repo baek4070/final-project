@@ -9,12 +9,12 @@ import net.koreate.user.vo.UserVO;
 
 public interface UserDAO {
 
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	@Insert("INSERT INTO trade_user(u_id,u_pw,u_name) "
 			+ " VALUES(#{u_id},#{u_pw},#{u_name})")
 	void signUp(UserVO vo) throws Exception;
 
-	// ·Î±×ÀÎ
+	// ë¡œê·¸ì¸
 	@Select("SELECT * FROM trade_user "
 			+ " WHERE u_id = #{u_id} AND u_pw = #{u_pw}")
 	UserVO signIn(UserDTO dto) throws Exception;
@@ -23,9 +23,9 @@ public interface UserDAO {
 		  +" WHERE u_id = #{u_id}")
 	UserVO getUserById(String u_id) throws Exception;
 
-	// »ç¿ëÀÚ Á¤º¸ ¼öÁ¤
+	// ì‚¬ìš©ì ì •ë³´ ìˆ˜ì •
 	@Update("UPDATE * FROM trade_user SET "
-			+ " WHERE u_id = #{u_id}")
-	UserVO update(int uno) throws Exception;
-	
+			+ " WHERE u_id = #{u_id} AND u_pw = ${u_pw}")
+	UserVO update(UserVO vo) throws Exception;
+
 }

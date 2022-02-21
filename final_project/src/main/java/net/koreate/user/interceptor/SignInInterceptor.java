@@ -48,7 +48,7 @@ public class SignInInterceptor extends HandlerInterceptorAdapter {
 		UserDTO dto = (UserDTO)map.get("userDTO");
 		System.out.println("SignInInterceptor"+dto);
 		
-		// ¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£ ÀÏÄ¡ÇÏ´Â »ç¿ëÀÚ °Ë»ö
+		// ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜í•˜ëŠ” ì‚¬ìš©ì ê²€ìƒ‰
 		UserVO vo = us.signIn(dto);
 		HttpSession session = request.getSession();
 		if(vo != null) {
@@ -64,11 +64,12 @@ public class SignInInterceptor extends HandlerInterceptorAdapter {
 				System.out.println("cookie value : "+cookie.getValue());
 			}
 		}else if(vo == null) {
-			// ·Î±×ÀÎ ½Ã ¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö¾Ê°Å³ª ¾ÆÀÌµğ & ºñ¹Ğ¹øÈ£°¡ Æ²·ÈÀ»¶§
-			session.setAttribute("message", "Á¸ÀçÇÏÁö¾Ê´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+			// ë¡œê·¸ì¸ ì‹œ ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ì•Šê±°ë‚˜ ì•„ì´ë”” & ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ì„ë•Œ
+			session.setAttribute("message", "ì¡´ì¬í•˜ì§€ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
 		}
 	}
 
 	
 	
 }
+

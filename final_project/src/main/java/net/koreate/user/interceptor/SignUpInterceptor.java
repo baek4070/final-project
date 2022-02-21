@@ -26,20 +26,23 @@ public class SignUpInterceptor extends HandlerInterceptorAdapter {
 		RequestDispatcher rd = request.getRequestDispatcher("signUp");
 		String message = "";
 		if(!u_pw.equals(u_repw)) {
-			message = "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+			message = "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
 			request.setAttribute("message", message);
 			rd.forward(request, response);
 			return false;
 		}
-		
+		/*
 		String u_id = request.getParameter("u_id");
 		UserVO userInfo = us.getUserById(u_id);
 		if(userInfo != null) {
-			message = u_id+"´Â ÀÌ¹Ì »ç¿ëÁßÀÎ ¾ÆÀÌµğÀÔ´Ï´Ù.";
+			message = u_id+"ëŠ” ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ ì•„ì´ë””ì…ë‹ˆë‹¤.";
 			request.setAttribute("message", message);
 			rd.forward(request, response);
 			return false;
 		}
+		*/
 		return true;
+		
 	}
 }
+

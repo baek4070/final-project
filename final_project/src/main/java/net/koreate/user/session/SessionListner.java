@@ -16,7 +16,7 @@ public class SessionListner implements HttpSessionListener, HttpSessionAttribute
 	public static Hashtable<String,Object> sessionRepository;
 	
 	public SessionListner() {
-		System.out.println("sessionEventListner »ı¼º");
+		System.out.println("sessionEventListner ìƒì„±");
 		if(sessionRepository == null) {
 			sessionRepository = new Hashtable<>();
 		}
@@ -24,9 +24,9 @@ public class SessionListner implements HttpSessionListener, HttpSessionAttribute
 	
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
-		System.out.println("attributeAdded È£Ãâ");
+		System.out.println("attributeAdded í˜¸ì¶œ");
 		System.out.println("sessionID : "+event.getSession().getId());
-		System.out.println("session¿¡ Ãß°¡µÈ attribute name : "+event.getName()+event.getValue());
+		System.out.println("sessionì— ì¶”ê°€ëœ attribute name : "+event.getName()+event.getValue());
 		if(event.getName().equals("userInfo")) {
 			HttpSession session = event.getSession();
 			System.out.println("userInfo regist : "+session.getId());
@@ -47,12 +47,12 @@ public class SessionListner implements HttpSessionListener, HttpSessionAttribute
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
-		System.out.printf("session »ı¼º id %s %n ",se.getSession().getId());
+		System.out.printf("session ìƒì„± id %s %n ",se.getSession().getId());
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
-//		System.out.printf("Session »èÁ¦ session id %s %n,",se.getSession().getId());
+//		System.out.printf("Session ì‚­ì œ session id %s %n,",se.getSession().getId());
 	//	sessionRepository.remove(se.getSession().getId());
 	}
 
