@@ -1,14 +1,12 @@
 package net.koreate.board.controller;
 
 import java.io.File;
-import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +26,9 @@ import net.koreate.board.vo.BoardVO;
 public class BoardController {
 
 	@Inject
+	ServletContext context;
+	
+	@Inject
 	BoardService service;
 	
 	@GetMapping("/list")
@@ -42,17 +43,24 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr) throws Exception {
+	public String register(
+			BoardVO board,
+			RedirectAttributes rttr,
+			HttpServletRequest request) throws Exception {
+		String uploadFolder = context.getRealPath("/resources/img");
+		System.out.println("폴더경로:"+uploadFolder);
 		String fileName = null;
 		MultipartFile uploadFile = board.getUploadFile();
+		System.out.println(board);
 		if (!uploadFile.isEmpty()) {
 			String originalFileName = uploadFile.getOriginalFilename();
-			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
-			UUID uuid = UUID.randomUUID();	//UUID 구하기
-			fileName = uuid + "." + ext;
-			uploadFile.transferTo(new File("C:\\upload\\" + fileName));
+			System.out.println("originalFileName:"+originalFileName);
+			fileName = uploadFile.getOriginalFilename();
+			File saveFile = new File(uploadFolder, originalFileName);
+			uploadFile.transferTo(saveFile);
 		}
 		board.setFileName(fileName);
+		board.setFilePath(uploadFolder);
 		String result = service.register(board);
 		rttr.addFlashAttribute("result", result);
 		return "redirect:/board/list";

@@ -13,33 +13,39 @@
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>BoardModify Page</h2>
 	<form id="modifyForm" action="" method="get">
-		<table>
+		<table class="table table-hover">
 			<tr>
 				<td>글번호</td>
-				<td><input type="text" name="bno" value="${board.bno}" readonly/></td>
+				<td><input type="text" class="form-control" name="bno" value="${board.bno}" readonly/></td>
 			</tr>
 			<tr>
 				<td>제목</td>
 				<td>
-					<input type="text" name="title" value="${board.title}"/>
+					<input type="text" class="form-control" name="title" value="${board.title}"/>
 				</td>
 			</tr>
 			<tr>
 				<td>작성자</td>
 				<td>
-					<input type="text" name="writer" value="${board.writer}"/>
+					<input type="text" class="form-control" name="writer" value="${board.writer}"/>
 				</td>
 			</tr>
 			<tr>
 				<td>내용</td>
 				<td>
-					<textarea name="content">${board.content}</textarea>
+					<textarea class="form-control" name="content">${board.content}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>이미지</td>
+				<td>
+					<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button type="submit" data-oper="modify">수정</button>
-					<button type="submit" data-oper="list">목록</button>
+					<button class="btn btn-primary" type="submit" data-oper="modify">수정</button>
+					<button class="btn btn-primary" type="submit" data-oper="list">목록</button>
 				</td>
 			</tr>
 		</table>

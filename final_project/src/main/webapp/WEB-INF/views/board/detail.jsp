@@ -5,6 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	img {
+		max-width: 1000px;
+	}
+</style>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -13,34 +18,40 @@
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>BoardDetail Page</h2>
 	<form id="detailForm" action="" method="get">
-		<table>
+		<table class="table table-hover">
 			<tr>
 				<td>글번호</td>
-				<td><input type="text" name="title" value="${board.bno}" readonly/></td>
+				<td><input type="text" class="form-control" name="title" value="${board.bno}" readonly/></td>
 			</tr>
 			<tr>
 				<td>제목</td>
 				<td>
-					<input type="text" name="title" value="${board.title}" readonly/>
+					<input type="text" class="form-control" name="title" value="${board.title}" readonly/>
 				</td>
 			</tr>
 			<tr>
 				<td>작성자</td>
 				<td>
-					<input type="text" name="writer" value="${board.writer}" readonly/>
+					<input type="text" class="form-control" name="writer" value="${board.writer}" readonly/>
 				</td>
 			</tr>
 			<tr>
 				<td>내용</td>
 				<td>
-					<textarea readonly>${board.content}</textarea>
+					<textarea class="form-control" readonly>${board.content}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>이미지</td>
+				<td class="col-lg-4">
+					<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="3">
-					<button type="submit" data-oper="modify">수정</button>
-					<button type="submit" data-oper="remove">삭제</button>
-					<button type="submit" data-oper="list">목록</button>
+					<button class="btn btn-primary" type="submit" data-oper="modify">수정</button>
+					<button class="btn btn-primary" type="submit" data-oper="remove">삭제</button>
+					<button class="btn btn-primary" type="submit" data-oper="list">목록</button>
 				</td>
 			</tr>
 		</table>

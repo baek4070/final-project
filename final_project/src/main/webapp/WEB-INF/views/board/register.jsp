@@ -12,7 +12,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>상품 정보</h2>
-	<form action="/board/register" method="post" enctype="multipart/form-data">
+	<form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
 		<table id="boardRegisterWrap" border="1">
 			<tr>
 				<td>제목</td>

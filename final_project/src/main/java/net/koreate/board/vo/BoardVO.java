@@ -15,5 +15,6 @@ public class BoardVO {
 	private Date regdate;
 	private Date updateDate;
 	private String fileName;
+	private String filePath;
 	private MultipartFile uploadFile;
 }

@@ -7,17 +7,19 @@
 <head>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <style>
+	img {
+		width: 302px; height: 150px;
+		object-fit: contain;
+	}
 
-	.boardItem {
-		justify-content: center;
-		height: 200px;
-		align-content: center;
-		border: 0.5px solid #ccc;
-		cursor: pointer;
+	.row {
+		align-content: space-around;
+		margin: auto;
 	}
 	
-	.boardWriter {
-		text-align: right;
+	.pagination {
+		display: flex;
+		align-items: center;
 	}
 </style>
 <meta charset="UTF-8">
@@ -28,18 +30,27 @@
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>BoardList Page</h2>
 	<form action="register" method="get">
-		<button>새 게시물 작성</button>
+		<button class="btn btn-primary">새 게시물 작성</button>
 	</form>
-	<div class="row">
+		<div class="row">
 		<c:choose>
 	  	 	<c:when test="${!empty list}">
 	  	 		<c:forEach items="${list}" var="board">
-	  	 			<div class="col-lg-4">
+	  	 			<div class="card border-primary mb-3 p-0 mx-2" style="max-width: 19rem; height: 200px;" onclick="location.href='detail?bno=${board.bno}'">
+			  		<div class="card-body p-0" style="cursor: pointer;">
+						<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+			  		</div>
+		  				<div style="cursor: pointer; background-color: #ccc;">
+		  					<div>${board.title}</div>
+	  	 					<div class="boardWriter">${board.writer}</div>
+		  				</div>
+					</div>
+	  	 			<%-- <div class="col-lg-4">
 	  	 				<div class="boardItem mx-2 my-4" onclick="location.href='detail?bno=${board.bno}'">
 	  	 					<div>${board.title}</div>
 	  	 					<div class="boardWriter">${board.writer}</div>
 	  	 				</div>
-					</div>
+					</div> --%>
 	  	 		</c:forEach>
 	  	 	<!-- 페이징 블럭 시작 -->
 	  	 	<ul class="pagination">
