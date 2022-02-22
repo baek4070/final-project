@@ -20,4 +20,6 @@ public interface UserService {
 	// 아이디 사용
 	UserVO getUserById(String u_id) throws Exception;
 
+	boolean getUsersById(String u_id) throws Exception;
+
 }

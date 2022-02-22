@@ -41,6 +41,12 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	@Override
+	public boolean getUsersById(String u_id) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 
 }
