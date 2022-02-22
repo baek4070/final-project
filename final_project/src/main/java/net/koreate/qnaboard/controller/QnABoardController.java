@@ -7,9 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.koreate.qnaboard.service.QnABoardService;
+import net.koreate.qnaboard.util.QnACriteria;
+import net.koreate.qnaboard.util.QnAPageMaker;
 import net.koreate.qnaboard.vo.QnABoardVO;
 
 @Controller
@@ -21,8 +22,14 @@ public class QnABoardController {
 	
 
 	@RequestMapping("/list")
-	public String list(Model model) throws Exception{
-		model.addAttribute("list",qs.list());
+	public String list(
+			Model model,
+			QnACriteria cri
+			) throws Exception{
+		System.out.println(cri);
+		model.addAttribute("list",qs.list(cri));
+		QnAPageMaker pm = qs.getPageMaker(cri);
+		model.addAttribute("pm",pm);
 		return "qnaboard/list";
 	}
 	

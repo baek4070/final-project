@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import net.koreate.qnaboard.dao.QnABoardDAO;
+import net.koreate.qnaboard.util.QnACriteria;
+import net.koreate.qnaboard.util.QnAPageMaker;
 import net.koreate.qnaboard.vo.QnABoardVO;
 
 @Service
@@ -22,9 +24,9 @@ public class QnABoardServiceImpl implements QnABoardService {
 	}
 
 	@Override
-	public List<QnABoardVO> list() throws Exception {
+	public List<QnABoardVO> list(QnACriteria cri) throws Exception {
 		
-		return dao.list();
+		return dao.list(cri);
 	}
 
 	@Override
@@ -32,5 +34,17 @@ public class QnABoardServiceImpl implements QnABoardService {
 		
 		return dao.detail(qno);
 	}
+
+	@Override
+	public QnAPageMaker getPageMaker(QnACriteria cri) throws Exception {
+			QnAPageMaker pageMaker = new QnAPageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setDisplayPageNum(5);
+			int totalCount = dao.listCount(cri);
+			pageMaker.setTotalCount(totalCount);
+			return pageMaker;
+	}
+	
+	
 
 }

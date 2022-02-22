@@ -30,6 +30,21 @@
 				</tr>
 			</c:otherwise>
 		</c:choose>
+		<!-- 페이징 블럭 -->
+		<tr>
+			<th colspan="5">
+				<c:if test="${pm.prev}">
+					<a href="list?page=${pm.startPage-1}">[이전]</a>
+				</c:if>
+				<c:forEach var="i" begin="${pm.startPage}" 
+								   end="${pm.endPage}">
+				   <a href="list${pm.search(i)}">[${i}]</a>
+				</c:forEach>
+				<c:if test="${pm.next}">
+					<a href="list?page=${pm.endPage+1}">[다음]</a>
+				</c:if>
+			</th>
+		</tr>
 	</table>
 	<a href="write" class="btn btn-outline-danger" >글쓰기</a>
 </body>
