@@ -3,8 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-
-<div class="mx-5 my-5">
 	<div class="row">
 		<div class="col-lg-4">
 		    <div class="card border-secondary mb-3" style="max-width: 20rem;">
@@ -45,10 +43,6 @@
 		 		 </div>
 			</div>
 		</div>
-	</div>
-</div>
-<div class="mx-5 my-5">
-	<div class="row">
 		<div class="col-lg-4">
 		    <div class="card border-secondary mb-3" style="max-width: 20rem;">
 		  		<div class="card-header">Header</div>
@@ -78,6 +72,9 @@
 			</form>
 		</div>
 	</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <jsp:include page="/WEB-INF/views/home/footer.jsp"/>
