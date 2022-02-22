@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
@@ -20,7 +21,7 @@ import net.koreate.user.vo.UserDTO;
 import net.koreate.user.vo.UserVO;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
 	@Inject
@@ -51,13 +52,24 @@ public class UserController {
 		return "user/signUp";
 	}
 	
-	@PostMapping("signUpPost")
-	public String signUp(UserVO vo,ModelAndView mav,RedirectAttributes rttr) throws Exception{
-		us.signUp(vo);
+	// 아이디 중복체크
+	@PostMapping("/uidCheck")
+	@ResponseBody
+	public boolean uidCheck(String u_id) throws Exception{
+		System.out.println("이게 아닌가");
+		boolean isCheck = us.getUsersById(u_id);
+		System.out.println("이게 맞나");
+		System.out.println(isCheck);
+		return isCheck;
+	}
+	
+	@PostMapping("/signUpPost")
+	public String signUp(UserVO vo) throws Exception{
 		System.out.println(vo);
-		rttr.addFlashAttribute("message","???????");
+		us.signUp(vo);
 		return "redirect:/user/signIn";
 	}
+	
 	@PostMapping("signInPost")
 	public ModelAndView signIn(UserDTO dto,ModelAndView mav) throws Exception{
 		// us.signIn(dto);
@@ -85,6 +97,7 @@ public class UserController {
 			}
 			*/
 		}
+		
 		Cookie cookie = WebUtils.getCookie(request, "signInCookie");
 		if(cookie != null) {
 			cookie.setMaxAge(0);
@@ -93,7 +106,7 @@ public class UserController {
 		}
 		return "redirect:/";
 	}
-	
+
 	@PostMapping("signUpdatePost")
 	public String signUpdatePost(UserVO vo,ModelAndView mav) throws Exception {
 		us.updateSign(vo);
