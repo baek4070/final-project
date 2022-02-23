@@ -6,8 +6,12 @@
 <html>
 <head>
 <style>
+	.title {
+		max-width: 200px;
+	}
+
 	img {
-		max-width: 1000px;
+		max-width: 700px;
 	}
 </style>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
@@ -20,35 +24,35 @@
 	<form id="detailForm" action="" method="get">
 		<table class="table table-hover">
 			<tr>
-				<td>글번호</td>
+				<td class="title">글번호</td>
 				<td><input type="text" class="form-control" name="title" value="${board.bno}" readonly/></td>
 			</tr>
 			<tr>
-				<td>제목</td>
+				<td class="title">제목</td>
 				<td>
 					<input type="text" class="form-control" name="title" value="${board.title}" readonly/>
 				</td>
 			</tr>
 			<tr>
-				<td>작성자</td>
+				<td class="title">작성자</td>
 				<td>
 					<input type="text" class="form-control" name="writer" value="${board.writer}" readonly/>
 				</td>
 			</tr>
 			<tr>
-				<td>내용</td>
+				<td class="title">내용</td>
 				<td>
 					<textarea class="form-control" readonly>${board.content}</textarea>
 				</td>
 			</tr>
 			<tr>
-				<td>이미지</td>
+				<td class="title">이미지</td>
 				<td class="col-lg-4">
-					<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+					<img id="img" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3">
+				<td class="title" colspan="3">
 					<button class="btn btn-primary" type="submit" data-oper="modify">수정</button>
 					<button class="btn btn-primary" type="submit" data-oper="remove">삭제</button>
 					<button class="btn btn-primary" type="submit" data-oper="list">목록</button>
