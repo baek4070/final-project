@@ -26,5 +26,9 @@
 			<td colspan="5" class="text-center">${vo.filename}</td>
 		</tr>
 	</table>
+	<a href="modify" class="btn btn-outline-danger" >수정</a>
+	<a href="delete" class="btn btn-outline-danger" >삭제</a>
+	<a href="reply" class="btn btn-outline-danger" >답글</a>
+	<a href="list" class="btn btn-outline-danger" >목록으로</a>
 </body>
 </html>
