@@ -11,19 +11,19 @@
 		<tr>
 			<td>아이디</td>
 			<td>
-				<input type="text" name="u_id" id="u_id" value="${userInfo.u_id}" />
+				<input type="text" name="u_id" id="u_id" value="${user.u_id}" />
 			</td>
 		</tr>
 		<tr>
 			<td>이름</td>
 			<td>
-				<input type="text" name="u_name" id="u_name" value="${userInfo.u_name}" /> 
+				<input type="text" name="u_name" id="u_name" value="${user.u_name}" /> 
 			</td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
 			<td>
-				<input type="text" name="u_pw" id="u_pw" value="${userInfo.u_pw}" /> 
+				<input type="text" name="u_pw" id="u_pw" value="${USER.u_pw}" /> 
 			</td>
 		</tr>
 		<tr>

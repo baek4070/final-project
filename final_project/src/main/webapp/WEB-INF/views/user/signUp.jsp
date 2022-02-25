@@ -4,7 +4,9 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <style>
-
+	#emailCodeWrap{
+		display:none;
+	}
 </style>
 <div class="container">
 	<form id="signUpForm" action="${pageContext.request.contextPath}/user/signUpPost" method="POST">
@@ -16,6 +18,12 @@
 				<td>아이디(email)</td>
 				<td>
 					<input type="text" class="form-control" name="u_id" id="u_id" autocomplete="off"/>
+					<button type="button" id="acceptEmail">이메일 인증</button>
+					<div class="result"></div>
+					<div id="emailCodeWrap">
+						<input type="text" id="emailCode"/>
+						<button type="button" id="emailAcceptBtn">인증 완료</button>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -47,7 +55,7 @@
 				<td>
 					<div class="row">
 						<div class="col-md-8">
-							<input type="text" class="form-control" name="u_post" id="u_post"/>
+							<input type="text" class="form-control" name="u_addr_post" id="u_addr_post"/>
 						</div>
 						<div class="col-md-4">
 							<input type="button" class="form-control btn btn-default" onclick="sample6_execDaumPostcode();" value="주소찾기"/>
@@ -71,6 +79,7 @@
 				</td>
 			</tr>
 		</table>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form>
 </div>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -116,12 +125,24 @@
 		}).open();
 	}
 
+	$("#u_birth").datepicker({
+		changeMonth : true,
+		changeYear : true,
+		dateFormat : "yymmdd",
+		dayNames : ['월요일','화요일','수요일','목요일','금요일','토요일','일요일'],
+		dayNamesMin : ['월','화','수','목','금','토','일'],
+		monthNamesShort : ['1','2','3','4','5','6','7','8','9','10','11','12'],
+		monthNames : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 	
+	});
+	
+	
 	$.validator.addMethod("regex",function(value,element,regexpr){
 		return regexpr.test(value);
 	});
 	
 	var regexPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 	var regexMobile = /^[0-9]{2,3}?[0-9]{3,4}?[0-9]{4}$/;			
+	
 	
 	$("#signUpForm").validate({
 		rules : {
@@ -152,7 +173,7 @@
 			u_birth : {
 				required : true
 			},
-			u_post : {
+			u_addr_post : {
 				required : true
 			},
 			u_addr : {
@@ -193,7 +214,7 @@
 			u_birth : {
 				required : "생년월일을 작성해주세요."
 			},
-			u_post : {
+			u_addr_post : {
 				required : "우편번호를 확인해 주세요."
 			},
 			u_addr : {
@@ -216,6 +237,53 @@
 		submitHandler : function(){
 			$("#signUpForm").submit();
 		}
+	});
+	
+	// 인증 코드 저장소
+	var emailCode = "";
+	
+	$("#acceptEmail").click(function(){
+		$.ajax({
+			type : "GET",
+			dataType : "text",
+			url : "${pageContext.request.contextPath}/user/checkEmail",
+			data : {
+				u_id : $("#u_id").val()
+			},
+			success : function(code){
+				// 확인용 삭제요망
+				console.log(code);
+				if(code){
+					emailCode = code;
+					alert("메일 발송완료");
+					$("#emailCodeWrap").show();
+				}else{
+					alert("발송 오류");
+				}
+			}
+		});
+	});
+	
+	var boolEmailCode = false;
+	
+	$("#emailAcceptBtn").click(function(){
+		var userCode =  $("#emailCode").val();
+		if(emailCode == userCode){
+			console.log("일치");
+			boolEmailCode = true;
+			alert("이메일 인증 완료");
+		}else{
+			console.log("불일치");
+			boolEmailCode = false;
+			alert("다시 인증해주십시오.");
+		}
+	});
+	
+	$(document).ajaxSend(function(e, xhr, options){
+		xhr.setRequestHeader(
+				// "${_csrf.parameterName}",
+				"${_csrf.headerName}",
+				"${_csrf.token}");
 	});
 	
 </script>

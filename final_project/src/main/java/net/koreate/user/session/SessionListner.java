@@ -24,9 +24,6 @@ public class SessionListner implements HttpSessionListener, HttpSessionAttribute
 	
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
-		System.out.println("attributeAdded 호출");
-		System.out.println("sessionID : "+event.getSession().getId());
-		System.out.println("session에 추가된 attribute name : "+event.getName()+event.getValue());
 		if(event.getName().equals("userInfo")) {
 			HttpSession session = event.getSession();
 			System.out.println("userInfo regist : "+session.getId());
@@ -36,8 +33,6 @@ public class SessionListner implements HttpSessionListener, HttpSessionAttribute
 	
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
-//		System.out.println("remove session : "+event.getSession().getId());
-	//	sessionRepository.remove(event.getSession().getId());
 	}
 
 	@Override
@@ -47,13 +42,10 @@ public class SessionListner implements HttpSessionListener, HttpSessionAttribute
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
-		System.out.printf("session 생성 id %s %n ",se.getSession().getId());
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
-//		System.out.printf("Session 삭제 session id %s %n,",se.getSession().getId());
-	//	sessionRepository.remove(se.getSession().getId());
 	}
 
 }

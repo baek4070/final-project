@@ -1,6 +1,5 @@
 package net.koreate.user.service;
 
-import net.koreate.user.vo.UserDTO;
 import net.koreate.user.vo.UserVO;
 
 public interface UserService {
@@ -9,7 +8,7 @@ public interface UserService {
 	void signUp(UserVO vo) throws Exception;
 
 	// 로그인
-	UserVO signIn(UserDTO dto) throws Exception;
+//	UserVO signIn(UserDTO dto) throws Exception;
 	
 	// 정보 수정
 	UserVO updateSign(UserVO vo) throws Exception;
@@ -22,4 +21,6 @@ public interface UserService {
 
 	boolean getUsersById(String u_id) throws Exception;
 
+	void updateVisitDate(String u_id) throws Exception;
+	
 }

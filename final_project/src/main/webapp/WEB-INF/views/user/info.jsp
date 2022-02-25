@@ -9,13 +9,13 @@
 		<tr>
 			<td>아이디</td>
 			<td>
-				<input type="text" name="u_id" id="u_id" value="${userInfo.u_id}" readonly/>
+				<input type="text" name="u_id" id="u_id" value="${user.u_id}" readonly/>
 			</td>
 		</tr>
 		<tr>
 			<td>이름</td>
 			<td>
-				<input type="text" name="u_name" id="u_name" value="${userInfo.u_name}" readonly/> 
+				<input type="text" name="u_name" id="u_name" value="${user.u_name}" readonly/> 
 			</td>
 			
 		</tr>

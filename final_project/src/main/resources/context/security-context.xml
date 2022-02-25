@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	
+	<bean id="customUserService" class="net.koreate.user.security.CustomUserDetailService"/>
+	
+	<bean id="signInSuccessHandler" class="net.koreate.user.security.signInSuccessHandler"/>
+	
+	<bean id="loginfailHandler" class="net.koreate.user.security.loginfailHandler"/>
+	
+	<bean id="accessdeniedHandler" class="net.koreate.user.security.AccessDeniedHandler"/>
+	
+	<security:http auto-config="true">
+		<!-- 동시 접속 차단 -->
+		<security:access-denied-handler ref="accessdeniedHandler"/>
+	
+		<security:form-login 
+				login-page="/user/signIn"
+				username-parameter="u_id"
+				password-parameter="u_pw"
+				login-processing-url="/user/signIn"
+				authentication-success-handler-ref="signInSuccessHandler"
+				authentication-failure-handler-ref="loginfailHandler"
+				/>
+
+		<security:remember-me
+			remember-me-cookie="userCookie"
+			remember-me-parameter="userCookie"
+			token-validity-seconds="604800"
+		/>
+		
+		<security:session-management>
+			<security:concurrency-control 
+				error-if-maximum-exceeded="false"
+				max-sessions="1"
+				expired-url="/signOff"
+			/>
+		</security:session-management>
+		
+		<security:logout logout-url="/user/signOut" logout-success-url="/" delete-cookies="userCookie"/>
+		
+		
+	</security:http>
+	
+	<!-- 권한 부여,비밀번호 암호화 -->
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customUserService">
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+
+</beans>
