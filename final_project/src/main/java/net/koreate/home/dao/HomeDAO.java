@@ -12,6 +12,12 @@ public interface HomeDAO {
 	@Select("SELECT * FROM qna_tbl ORDER BY qno DESC limit 1,5")
 	List<QnABoardVO> QnaList();
 
+	@Select("SELECT * FROM board ORDER BY bno DESC limit 1,5")
+	List<BoardVO> BoardListSearch(BoardVO bvo);
+
+	@Select("SELECT * FROM qna_tbl ORDER BY qno DESC limit 1,5")
+	List<QnABoardVO> QnAListSearch(QnABoardVO qvo);
+
 	/*
 	 * @Select("SELECT * FROM board ORDER BY bno DESC limit 1,5") List<BoardVO>
 	 * BoardList();

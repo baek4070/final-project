@@ -22,6 +22,19 @@ public class HomeServiceImpl implements HomeService {
 		return qlist;
 	}
 
+	@Override
+	public List<BoardVO> boardListSearch(BoardVO bvo) {
+		List<BoardVO> blist = dao.BoardListSearch(bvo);
+		return blist;
+	}
+
+	@Override
+	public List<QnABoardVO> qlistSearch(QnABoardVO qvo) {
+		List<QnABoardVO> qlist = dao.QnAListSearch(qvo);
+		return qlist;
+	}
+
+
 	/*
 	 * @Override public List<BoardVO> blist() throws Exception { List<BoardVO> blist
 	 * = dao.BoardList(); return blist; }
