@@ -11,10 +11,35 @@
 <style>
 	.remote{
 		position: fixed;
-		right: 1%;
+		right: 0.1%;
 		bottom: 50px;
 		text-align:center;
 		width: 120px;
+		z-index:999;
+	}
+	
+	#navLeft{
+		max-height:300px;
+		border: 0.5px solid gray;
+		border-radius:5px;
+		max-width: 200px;
+		padding:0;
+	}
+	
+	.nav-item{
+		margin : 5px 0 5px 0px;
+		cursor:pointer;
+	}
+	
+	#navLeft ul li a{
+		padding-left:10px;
+	}
+	
+	#navLeft ul li a:hover{
+		background-color:gray;
+		color:white;
+		text-align:center;
+		padding-left:0px;
 	}
 	
 </style>
@@ -23,7 +48,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">사이트</a>
-    <div class="collapse navbar-collapse" id="navbarColor01">
+    <div class="navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link active" href="${path}">홈
@@ -84,19 +109,19 @@
 	<div class="col-lg-5" style="margin-top:5px;">
 		<h1>사이트 아이콘</h1>
 	</div>
-		<div class="col-lg-3 offset-4" style="margin-top:16px;">
+		<div class="col-lg-3 ms-md-auto" style="margin-top:16px;">
 			<div class="input-group mb-3">
-	    		<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-	    		<button class="btn btn-primary" type="button" id="button-addon2">Button</button>
+	    		<input type="text" class="form-control" placeholder="상품 검색" >
+	    		<button class="btn btn-primary" type="button" id="button-addon2">검색</button>
 	    	</div>
     	</div>
     </div>
 </div>
-<div class="col-10 offset-1">
+<div class="col-10 offset-1 ">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
-    <div class="collapse navbar-collapse" id="navbarColor03">
+    <div class="navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link active" href="#">Home
@@ -113,8 +138,8 @@
           <a class="nav-link" href="#">content more</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu">
+          <a class="nav-link dropdown-toggle" id="toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu" id="drop">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something else here</a>
@@ -127,15 +152,27 @@
   </div>
 </nav>
 </div>
-<div class="row offset-1">
-	<div id="navLeft" class="col-lg-2 bg-primary navbar-dark">
+<div class="row col-10 offset-1">
+	<div id="navLeft" class="col-lg-2 navbar-light my-1">
 		<ul class="navbar-nav ms-md-auto">
 			<li class="nav-item">
-      			<a class="nav-link" href="${path}/user/signIn">로그인</a>
+      			<a class="nav-link" href="${path}/user/signIn">상품1</a>
+      		</li>
+      		<li class="nav-item">
+      			<a class="nav-link" href="${path}/user/signIn">상품2</a>
+      		</li>
+      		<li class="nav-item">
+      			<a class="nav-link" href="${path}/user/signIn">상품3</a>
+      		</li>
+      		<li class="nav-item">
+      			<a class="nav-link" href="${path}/user/signIn">상품4</a>
+      		</li>
+      		<li class="nav-item">
+      			<a class="nav-link" href="${path}/user/signIn">상품5</a>
       		</li>
       	</ul>
 	</div>
-<div class="contentWrap col-lg-9">
+<div class="contentWrap col-lg-10 my-5">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	

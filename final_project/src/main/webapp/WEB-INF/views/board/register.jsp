@@ -5,46 +5,142 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	#remove_img {
+		display: none;
+	}
+
+	#img {
+		max-width: 300px;
+	}
+
+	.img_cover {
+		position: relative;
+		cursor: pointer;
+		width: 150px; height: 150px;
+		padding: 10px;
+		font-size: 1rem;
+		font-weight: 400;
+		line-height: 1.5;
+		color: #333;
+		background-color: #fff;
+		background-clip: padding-box;
+		border: 1px solid #ced4da;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		border-radius: 0.25rem;
+		transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	}
+</style>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2>상품 정보</h2>
+	<h2>BoardRegister Page</h2>
 	<form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
-		<table id="boardRegisterWrap" border="1">
+		<table class="table table-hover">
 			<tr>
 				<td>제목</td>
-				<td><input type="text" name="title" placeholder="제목을 입력해주세요."/></td>
+				<td><input class="form-control" type="text" name="title" placeholder="제목을 입력해주세요." required/></td>
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name="writer"/></td>
+				<td><input class="form-control" type="text" name="writer" required/></td>
 			</tr>
 			<tr>
 				<td>상품설명</td>
-				<td><textarea name="content"></textarea></td>
+				<td><textarea class="form-control" name="content" required></textarea></td>
 			</tr>
 			<tr>
-				<td>첨부파일</td>
-				<td><input type="file" name="uploadFile"/></td>
+				<td>이미지</td>
+				<td>
+					<div class="img_cover" onclick="imgUpload()">
+						<img id="img" alt="이미지 등록" src="${path}/resources/img/camera.png">
+					</div>
+					<div style="margin-top: 7.5px;">
+						<button class="btn btn-primary" type="button" id="remove_img" style="width: 150px;">이미지 삭제</button>
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button type="submit" id="register">물품등록</button>
-					<button type="button" id="list">목록으로</button>
+					<button class="btn btn-primary" type="submit" id="register">물품등록</button>
+					<button class="btn btn-primary" type="button" id="list">목록으로</button>
 				</td>
 			</tr>
 		</table>
+		<input id="uploadFile" type="file" name="uploadFile" style="display:none;"
+		onchange="profileUpload(this.files)"/>
+		<input type="hidden" name="uimage" id="uimage"/>
 	</form>
+	<button onclick="test()">파일 정보 확인</button>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	$(function(){
 		$("#list").on("click", function(){
-			location.href="/home/board/list";
+			location.href="/board/list";
+		});
+		formData = new FormData();
+	});
+	
+	function imgUpload() {
+		$("#uploadFile").click();
+	}
+	
+	function profileUpload(files){
+		console.log(files[0]);
+		//var formData = new FormData();
+		formData.append("file",files[0]);
+		// encType = urlEncoded
+		$.ajax({
+			type : "POST",
+			url : "uploadAjax",
+			data : formData,
+			// key=value 형태의 Query String으로 변환을 하지않는다.
+			processData : false,
+			contentType : false,
+			dataType : "text",
+			success : function(result){
+				// alert(result);
+				$("#img").attr("src","${path}/resources/img/"+result);
+				$("#uimage").val(result);
+				$("#remove_img").fadeIn("fast");
+			}
+		});
+	}
+	
+	// 파일 정보 삭제
+	$("#remove_img").click(function(){
+		var fileName = $("#uimage").val();
+		$.ajax({
+			url : "deleteFile",
+			type : "POST",
+			data : {fileName : fileName},
+			dataType : "text",
+			success : function(result){
+				if(result == "DELETED") {
+					alert("삭제 성공");
+					formData.delete("file");
+					
+				} else {
+					alert("삭제 실패");
+				}
+				
+				$("#img").attr("src","${path}/resources/img/camera.png");
+				$("#remove_img").fadeOut("fast");
+			},
+			error : function(res){
+				alert(res.responseText);
+			}
 		});
 	});
+	
+	function test() {
+		console.log(formData);
+	}
 </script>
 </html>

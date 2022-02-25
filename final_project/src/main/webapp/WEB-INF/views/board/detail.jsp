@@ -6,9 +6,6 @@
 <html>
 <head>
 <style>
-	img {
-		max-width: 1000px;
-	}
 </style>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <meta charset="UTF-8">
@@ -24,31 +21,33 @@
 				<td><input type="text" class="form-control" name="title" value="${board.bno}" readonly/></td>
 			</tr>
 			<tr>
-				<td>제목</td>
+				<td class="title">제목</td>
 				<td>
 					<input type="text" class="form-control" name="title" value="${board.title}" readonly/>
 				</td>
 			</tr>
 			<tr>
-				<td>작성자</td>
+				<td class="title">작성자</td>
 				<td>
 					<input type="text" class="form-control" name="writer" value="${board.writer}" readonly/>
 				</td>
 			</tr>
 			<tr>
-				<td>내용</td>
+				<td class="title">내용</td>
 				<td>
 					<textarea class="form-control" readonly>${board.content}</textarea>
 				</td>
 			</tr>
 			<tr>
-				<td>이미지</td>
-				<td class="col-lg-4">
-					<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
-				</td>
+				<td class="title">이미지</td>
+				<c:if test="${!empty board.fileName}">
+					<td>
+						<img id="img" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+					</td>
+				</c:if>
 			</tr>
 			<tr>
-				<td colspan="3">
+				<td class="title" colspan="3">
 					<button class="btn btn-primary" type="submit" data-oper="modify">수정</button>
 					<button class="btn btn-primary" type="submit" data-oper="remove">삭제</button>
 					<button class="btn btn-primary" type="submit" data-oper="list">목록</button>

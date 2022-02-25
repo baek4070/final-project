@@ -6,7 +6,9 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.koreate.board.service.BoardService;
 import net.koreate.board.util.Criteria;
+import net.koreate.board.util.FileUtils;
 import net.koreate.board.vo.BoardVO;
 
 @Controller
@@ -91,4 +94,44 @@ public class BoardController {
 		rttr.addFlashAttribute("result", result);
 		return "redirect:/board/list";
 	}
+	
+	
+	@PostMapping("uploadAjax")
+	public ResponseEntity<String> uploadAjax(
+			MultipartFile file) throws Exception{
+		/*
+		String path = FileUtils.calcPath(uploadPath);
+		System.out.println(path);
+		*/
+		ResponseEntity<String> entity = null;
+		String origin = file.getOriginalFilename();
+		String uploadPath = context.getRealPath("/resources/img");
+		String savedName 
+			= FileUtils.uploadFile(
+							origin, 
+							uploadPath,
+							file.getBytes()
+						);
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Type", "text/plain;charset=utf-8");
+		entity = new ResponseEntity<>(savedName,header,HttpStatus.OK);
+		return entity;
+	}
+	
+	// 파일 삭제 요청 처리
+	@PostMapping("deleteFile")
+	public ResponseEntity<String> deleteFile(
+				String fileName )throws Exception{
+		System.out.println("fileName delete : " + fileName);
+		ResponseEntity<String> entity = null;
+		String uploadPath = context.getRealPath("/resources/img");
+		boolean isDeleted = FileUtils.deleteFile(uploadPath, fileName);
+		if(isDeleted) {
+			entity = new ResponseEntity<>("DELETED",HttpStatus.OK);
+		}else {
+			entity = new ResponseEntity<>("FAILED",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 }

@@ -144,7 +144,6 @@
 			// 페이징 블록 클릭
 			$(".pagination a").on("click", function(e){
 				e.preventDefault();
-				
 				var targetPage = $(this).attr("href");
 				var listForm = $("#listForm");
 				listForm.find("[name='page']").val(targetPage);
