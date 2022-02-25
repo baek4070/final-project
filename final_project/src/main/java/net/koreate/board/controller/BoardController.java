@@ -117,6 +117,21 @@ public class BoardController {
 		entity = new ResponseEntity<>(savedName,header,HttpStatus.OK);
 		return entity;
 	}
-
+	
+	// 파일 삭제 요청 처리
+	@PostMapping("deleteFile")
+	public ResponseEntity<String> deleteFile(
+				String fileName )throws Exception{
+		System.out.println("fileName delete : " + fileName);
+		ResponseEntity<String> entity = null;
+		String uploadPath = context.getRealPath("/resources/img");
+		boolean isDeleted = FileUtils.deleteFile(uploadPath, fileName);
+		if(isDeleted) {
+			entity = new ResponseEntity<>("DELETED",HttpStatus.OK);
+		}else {
+			entity = new ResponseEntity<>("FAILED",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 	
 }

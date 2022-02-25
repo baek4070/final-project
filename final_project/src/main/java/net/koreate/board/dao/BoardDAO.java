@@ -24,4 +24,5 @@ public interface BoardDAO {
 	// 삭제
 	public int delete(int bno) throws Exception;
 	
+	// 파일 삭제 시 가장 최근에 등록된 게시물의 파일 이름과 파이 ㄹ경로와 
 }

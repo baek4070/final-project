@@ -6,13 +6,6 @@
 <html>
 <head>
 <style>
-	.title {
-		max-width: 200px;
-	}
-
-	img {
-		max-width: 700px;
-	}
 </style>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <meta charset="UTF-8">
@@ -24,7 +17,7 @@
 	<form id="detailForm" action="" method="get">
 		<table class="table table-hover">
 			<tr>
-				<td class="title">글번호</td>
+				<td>글번호</td>
 				<td><input type="text" class="form-control" name="title" value="${board.bno}" readonly/></td>
 			</tr>
 			<tr>
@@ -47,9 +40,11 @@
 			</tr>
 			<tr>
 				<td class="title">이미지</td>
-				<td class="col-lg-4">
-					<img id="img" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
-				</td>
+				<c:if test="${!empty board.fileName}">
+					<td>
+						<img id="img" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+					</td>
+				</c:if>
 			</tr>
 			<tr>
 				<td class="title" colspan="3">

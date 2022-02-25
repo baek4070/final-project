@@ -6,6 +6,10 @@
 <html>
 <head>
 <style>
+	#remove_img {
+		display: none;
+	}
+
 	#img {
 		max-width: 300px;
 	}
@@ -56,6 +60,9 @@
 					<div class="img_cover" onclick="imgUpload()">
 						<img id="img" alt="이미지 등록" src="${path}/resources/img/camera.png">
 					</div>
+					<div style="margin-top: 7.5px;">
+						<button class="btn btn-primary" type="button" id="remove_img" style="width: 150px;">이미지 삭제</button>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -67,7 +74,9 @@
 		</table>
 		<input id="uploadFile" type="file" name="uploadFile" style="display:none;"
 		onchange="profileUpload(this.files)"/>
+		<input type="hidden" name="uimage" id="uimage"/>
 	</form>
+	<button onclick="test()">파일 정보 확인</button>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
@@ -75,6 +84,7 @@
 		$("#list").on("click", function(){
 			location.href="/board/list";
 		});
+		formData = new FormData();
 	});
 	
 	function imgUpload() {
@@ -83,7 +93,7 @@
 	
 	function profileUpload(files){
 		console.log(files[0]);
-		var formData = new FormData();
+		//var formData = new FormData();
 		formData.append("file",files[0]);
 		// encType = urlEncoded
 		$.ajax({
@@ -97,10 +107,40 @@
 			success : function(result){
 				// alert(result);
 				$("#img").attr("src","${path}/resources/img/"+result);
-				//$("#uimage").val(result);
-				//$("#deleteImage").fadeIn("fast");
+				$("#uimage").val(result);
+				$("#remove_img").fadeIn("fast");
 			}
 		});
+	}
+	
+	// 파일 정보 삭제
+	$("#remove_img").click(function(){
+		var fileName = $("#uimage").val();
+		$.ajax({
+			url : "deleteFile",
+			type : "POST",
+			data : {fileName : fileName},
+			dataType : "text",
+			success : function(result){
+				if(result == "DELETED") {
+					alert("삭제 성공");
+					formData.delete("file");
+					
+				} else {
+					alert("삭제 실패");
+				}
+				
+				$("#img").attr("src","${path}/resources/img/camera.png");
+				$("#remove_img").fadeOut("fast");
+			},
+			error : function(res){
+				alert(res.responseText);
+			}
+		});
+	});
+	
+	function test() {
+		console.log(formData);
 	}
 </script>
 </html>
