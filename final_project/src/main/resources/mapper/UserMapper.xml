@@ -64,7 +64,26 @@
 	
 	<!-- void getUpdateVisitDate(String u_id) throws Exception; -->
 	<update id="getUpdateVisitDate" parameterType="String">
-		UPDATE trade_user SET u_visit_date = now() WHERE u_id =#{u_id}
+		UPDATE trade_user SET u_visit_date = now() WHERE u_id = #{u_id}
+	</update>
+	
+	<!-- UserVO updateUser(UserVO vo) throws Exception; -->
+	<update id="updateUser" parameterType="net.koreate.user.vo.UserVO">
+		UPDATE trade_user SET 
+		u_id = ${u_id},
+		u_pw = ${u_pw},
+		u_name = ${u_name},
+		u_birth = ${u_birth},
+		u_addr_post = ${u_addr_post},
+		u_addr = ${u_addr},
+		u_addr_detail = ${u_addr_detail},
+		u_phone = ${u_phone} 
+		WHERE uno = ${uno}
+	</update>
+	
+	<!-- void withdraw(UserVO vo) throws Exception; -->
+	<update id="withdraw" parameterType="net.koreate.user.vo.UserVO">
+		UPDATE trade_user SET u_withdraw = 'y' WHERE u_pw = ${u_pw}
 	</update>
 	
 </mapper>

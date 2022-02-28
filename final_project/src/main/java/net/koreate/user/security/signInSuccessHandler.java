@@ -1,5 +1,6 @@
 package net.koreate.user.security;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -27,12 +28,20 @@ public class signInSuccessHandler implements AuthenticationSuccessHandler {
 		System.out.println("vo"+vo);
 		
 		try {
-			us.updateVisitDate(vo.getU_id());
+			 us.updateVisitDate(vo.getU_id()); 
 		} catch (Exception e) {
-			e.printStackTrace();
+			 e.printStackTrace(); 
 		}
+		 
 		
-		String context = request.getServletContext().getContextPath();
+		System.out.println("asdasdasd");
+		/*
+		 * String context =
+		 * request.getServletContext().getContextPath()+File.separator+"qnaboard"+File.
+		 * separator+"list";
+		 */
+		String context = File.separator;
+		System.out.println(context);
 		response.sendRedirect(context);
 	}
 

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 
-<form action="${pageContext.request.contextPath}/user/signIn" method="POST">
+<form action="/user/signIn" method="POST">
 	<table>
 		<tr>
 			<th colspan="2">

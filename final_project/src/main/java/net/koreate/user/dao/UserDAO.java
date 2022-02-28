@@ -12,7 +12,7 @@ public interface UserDAO {
 	UserVO getUserById(String u_id) throws Exception;
 
 	// 사용자 정보 수정
-	UserVO update(UserVO vo) throws Exception;
+	int updateUser(UserVO vo) throws Exception;
 
 
 	// 마지막 방문일
@@ -21,5 +21,8 @@ public interface UserDAO {
 	// 권한 넣기
 //	@Insert("INSERT INTO user_auth(u_id,u_auth) VALUES(#{u_id},'ROLE_USER')")
 	void insertAuth(String u_id) throws Exception;
+	
+	// 회원 탈퇴(삭제 x u_withdraw 'y'로 변경)
+	void withdraw(UserVO vo) throws Exception;
 
 }

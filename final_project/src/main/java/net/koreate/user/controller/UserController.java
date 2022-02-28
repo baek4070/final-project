@@ -2,23 +2,17 @@ package net.koreate.user.controller;
 
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.WebUtils;
 
 import net.koreate.user.service.UserService;
 import net.koreate.user.vo.UserVO;
@@ -98,24 +92,24 @@ public class UserController {
 		us.signUp(vo);
 		return "redirect:/user/signIn";
 	}
-/*
-	@PostMapping("signInPost")
-	public String signInPost(String message,Model model) throws Exception{
-		model.addAttribute("message",message);
-		return "user/signIn";
-	}
-*/
+
 	@GetMapping("/signOut")
 	public void signOut() {
 		
 	}
 	
+	// 회원 정보 수정
 	@PostMapping("signUpdatePost")
 	public String signUpdatePost(UserVO vo,ModelAndView mav) throws Exception {
 		us.updateSign(vo);
 		System.out.println("mav : "+mav);
-		
-		return null;
+		return "redirect:/user/info";
+	}
+	
+	// 회원 탈퇴
+	@GetMapping("withdraw")
+	public void signWithdraw(UserVO vo) throws Exception{
+		us.withdraw(vo);
 	}
 	
 }

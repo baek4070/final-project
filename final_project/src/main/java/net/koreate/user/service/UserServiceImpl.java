@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVO updateSign(UserVO vo) throws Exception {
-		return null;
+	public int updateSign(UserVO vo) throws Exception {
+		return ud.updateUser(vo);
 	}
 
 	@Override
@@ -56,6 +56,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateVisitDate(String u_id) throws Exception {
 		ud.getUpdateVisitDate(u_id);
+	}
+
+	@Override
+	public void withdraw(UserVO vo) throws Exception {
+		ud.withdraw(vo);
 	}
 
 }

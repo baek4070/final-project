@@ -17,7 +17,7 @@ public class loginfailHandler implements AuthenticationFailureHandler {
 		String message = exception.getMessage();
 		System.out.println(message);
 		String context = request.getServletContext().getContextPath();
-		String url = context+"/user/signIn?message="+message;
+		String url = context+"/user/signIn";
 		response.sendRedirect(url);
 	}
 
