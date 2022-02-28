@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import net.koreate.board.vo.BoardVO;
 import net.koreate.home.service.HomeService;
@@ -31,13 +32,15 @@ public class HomeController {
 	
 	@Transactional
 	@RequestMapping("total")
-	public String totalSearch(BoardVO bvo, QnABoardVO qvo, HttpServletRequest request, Model model) {
-			String total = request.getParameter("searchValue");
-			bvo.setContent(total);
-			qvo.setContent(total);
-			model.addAttribute("bBoard",hs.boardListSearch(bvo));
+	public String totalSearch(BoardVO bvo, QnABoardVO qvo, @RequestParam("searchValue") String search, Model model) {
+			System.out.println(search);
+			/* bvo.setContent(total); */
+			qvo.setContent(search);
+			qvo.setTitle(search);
+			qvo.setUserNickname(search);
+			/* model.addAttribute("bBoard",hs.boardListSearch(bvo)); */
 			model.addAttribute("qBoard",hs.qlistSearch(qvo));
-		return "redirect:home/list";
+		return "home/list";
 	}
 	
 }

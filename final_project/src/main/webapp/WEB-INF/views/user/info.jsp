@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/> 
 <form action="userInfo" method="POST">
 	<table border=1>
 		<tr>
 			<th colspan=2><h1>회원정보</h1></th>
 		</tr>
+		<sec:authorize access="isAuthenticated()">
+		<sec:authentication var="user" property="principal.user"/>
 		<tr>
 			<td>아이디</td>
 			<td>
@@ -50,6 +53,7 @@
 				<input type="button" value="홈" onclick="location.href='${path}/home';"/>
 			</td>
 		</tr>
+		</sec:authorize>
 	</table>
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>

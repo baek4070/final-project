@@ -11,7 +11,20 @@ CREATE TABLE trade_user(
     u_id VARCHAR(50) NOT NULL,
     u_pw VARCHAR(200) NOT NULL,
     u_name VARCHAR(100) NOT NULL,
-    regdate TIMESTAMP DEFAULT now()
+    u_birth VARCHAR(100) NOT NULL,
+    u_addr_post VARCHAR(100) NOT NULL,
+    u_addr VARCHAR(50) NOT NULL,
+    u_addr_detail VARCHAR(50) NOT NULL,
+    u_phone VARCHAR(100) NOT NULL,
+    u_visit_date TIMESTAMP NOT NULL DEFAULT now(),
+    u_withdraw char(1) DEFAULT 'n'
+);
+
+CREATE TABLE user_auth(
+	uno INT,
+	u_id VARCHAR(50) NOT NULL,
+	u_auth VARCHAR(100) NOT NULL,
+	CONSTRAINT fk_uno FOREIGN KEY(uno) REFERENCES trade_user(uno)
 );
 
 DESC trade_user;
