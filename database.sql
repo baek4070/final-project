@@ -46,4 +46,20 @@ INSERT INTO qna_tbl(userId, title, content, userNickname) VALUES ('user1','1번�
 
 DESC qna_tbl;
 
+-- board 생성 및 데이터 삽입 쿼리문
+CREATE TABLE IF NOT EXISTS board(
+	bno INT PRIMARY KEY AUTO_INCREMENT,	-- 번호
+    title VARCHAR(50) NOT NULL,			-- 제목
+    content VARCHAR(50) NOT NULL,		-- 내용
+    writer VARCHAR(50) NOT NULL,		-- 작성자
+    regdate TIMESTAMP DEFAULT NOW(),	-- 등록일자
+    updateDate TIMESTAMP DEFAULT NOW(),	-- 수정일자
+    fileName varchar(500) default null, -- 파일이름
+	filePath varchar(500) default null 	-- 파일경로
+);
+
+insert into board(title,content,writer) values('테스트 제목1','테스트 내용1','최기근');
+
+-- board 생성 및 데이터 삽입 쿼리문 끝
+
 commit;
