@@ -2,13 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.koreate.board.dao.BoardDAO">
-	<!-- 검색 -->
+	<!-- 게시물 총 개수 -->
 	<select id="listCount" resultType="int">
 		SELECT COUNT(*) FROM board
+		<if test="keyword != null">
+        	where title like concat('%',#{keyword},'%')
+        </if>
 	</select>
 	
 	<select id="list" parameterType="criteria" resultType="boardVO">
-		SELECT * FROM board ORDER BY bno DESC limit #{startRow}, #{perPageNum}
+		SELECT * FROM board
+		<if test="keyword != null">
+        	where title like concat('%',#{keyword},'%' )
+        </if>
+		ORDER BY bno DESC
+		limit #{startRow}, #{perPageNum}
 	</select>
 
 	<!-- 삽입 -->

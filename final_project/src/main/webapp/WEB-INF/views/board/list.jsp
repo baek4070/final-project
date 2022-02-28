@@ -20,37 +20,77 @@
 	.pagination {
 		display: flex;
 		align-items: center;
+		justify-content: center;
+	}
+	
+	.search_box {
+	  display: block;
+	  width: 25%;
+	  padding: 0.375rem 0.75rem;
+	  font-size: 1rem;
+	  font-weight: 400;
+	  line-height: 1.5;
+	  color: #333;
+	  background-color: #fff;
+	  background-clip: padding-box;
+	  border: 1px solid #ced4da;
+	  -webkit-appearance: none;
+	  -moz-appearance: none;
+	  appearance: none;
+	  border-radius: 0.25rem;
+	  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	}
+	
+	.category {
+	  display: block;
+	  width: 15%;
+	  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+	  font-size: 1rem;
+	  font-weight: 400;
+	  line-height: 1.5;
+	  color: #333;
+	  background-color: #fff;
+	  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+	  background-repeat: no-repeat;
+	  background-position: right 0.75rem center;
+	  background-size: 16px 12px;
+	  border: 1px solid #ced4da;
+	  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	  -webkit-appearance: none;
+	  -moz-appearance: none;
+	  appearance: none;
 	}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
-	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2>BoardList Page</h2>
-	<form action="register" method="get">
-		<button class="btn btn-primary">새 게시물 작성</button>
-	</form>
+	<jsp:include page="/WEB-INF/views/home/header.jsp"/>	
+		<h2>BoardList Page</h2>
+		<form action="register" method="get">
+			<button class="btn btn-primary" style="border-radius: 0.25rem;">새 게시물 작성</button>
+		</form>
+		<div style="margin-bottom: 15px;"></div>
 		<div class="row">
 		<c:choose>
 	  	 	<c:when test="${!empty list}">
 	  	 		<c:forEach items="${list}" var="board">
 	  	 			<div class="card border-primary mb-3 p-0 mx-2" style="max-width: 19rem; height: 200px;" onclick="location.href='detail?bno=${board.bno}'">
 			  		<div class="card-body p-0" style="cursor: pointer;">
-						<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+			  			<c:choose>
+			  				<c:when test="${!empty board.fileName}">
+			  					<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+			  				</c:when>
+			  				<c:otherwise>
+								<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/camera.png">
+							</c:otherwise>
+			  			</c:choose>
 			  		</div>
 		  				<div style="cursor: pointer; background-color: #ccc;">
 		  					<div>${board.title}</div>
 	  	 					<div class="boardWriter">${board.writer}</div>
 		  				</div>
 					</div>
-	  	 			<%-- <div class="col-lg-4">
-	  	 				<div class="boardItem mx-2 my-4" onclick="location.href='detail?bno=${board.bno}'">
-	  	 					<div>${board.title}</div>
-	  	 					<div class="boardWriter">${board.writer}</div>
-	  	 				</div>
-					</div> --%>
 	  	 		</c:forEach>
 	  	 	<!-- 페이징 블럭 시작 -->
 	  	 	<ul class="pagination">
@@ -76,55 +116,26 @@
 	  	 		<h3>등록된 게시물이 없습니다.</h3>
 	  	 	</c:otherwise>
    		</c:choose>
-	</div>
-	<%-- <hr/>
-	<table border="1" style="border-collapse: collapse;">
-	    <tr>
-	        <th>#</th>
-	        <th>제목</th>
-	        <th>작성자</th>
-	        <th>작성일</th>
-	        <th>수정일</th>
-	    </tr>
-	    <!-- 게시글 목록 출력 시작 -->
-   		<c:choose>
-	  	 	<c:when test="${!empty list}">
-	  	 		<c:forEach items="${list}" var="board">
-			  		<tr>
-				  		<td>${board.bno}</td>
-				  		<td><a href="detail?bno=${board.bno}">${board.title}</a></td>
-				  		<td>${board.writer}</td>
-				  		<td><f:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/></td>
-				  		<td><f:formatDate pattern="yyyy-MM-dd" value="${board.updateDate}"/></td>
-			  		</tr>
-	  			</c:forEach>
-	  			<!-- 페이징 블럭 -->
-				<tr>
-					<th colspan="5" id="pagination">
-						<c:if test="${pm.prev}">
-							<a href="${pm.startPage-1}">[이전]</a>
-						</c:if>
-						<c:forEach var="num" begin="${pm.startPage}" end="${pm.endPage}">
-							<a href="${num}">[${num}]</a>
-						</c:forEach>
-						<c:if test="${pm.next}">
-							<a href="${pm.endPage+1}">[다음]</a>
-						</c:if>
-					</th>
-				</tr>	
-	  	 	</c:when>
-	  	 	<c:otherwise>
-	  	 		<tr>
-	  	 			<td colspan="5">등록된 게시물 없음</td>
-	  	 		</tr>
-	  	 	</c:otherwise>
-   		</c:choose>
-   		<!-- 게시글 목록 출력 끝 -->
-	</table> --%>
+   		<div class="input-group mb-3"
+   		style="justify-content: center;">
+			<select class="category" style="border-radius: 0.25rem;">
+				<option value="title">제목</option>
+				<option value="content">작성자</option>
+			</select>
+			<div style="margin-left: 10px"></div>
+			<input type="text"
+			class="search_box"
+			name="keyword"
+			style="border-radius: 0.25rem 0 0 0.25rem;"
+			placeholder="검색어를 입력하세요."
+			value="${pageMaker.cri.keyword}"/>
+			<button class="btn btn-primary" type="button" id="search_btn" style="border-radius: 0 0.25rem 0.25rem 0;">검색</button>
+		</div>
 	<form id="listForm">
 		<input type="hidden" name="page" value="${pm.cri.page}"/>
 		<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
 	</form>
+	</div>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -150,9 +161,13 @@
 				listForm.attr("action", "list");
 				listForm.submit();
 			});
+			
+			// 검색 버튼
+			$("#search_btn").on("click", function(){
+				alert("T");
+			});
 		});
 	</script>
-	</div>
 	<jsp:include page="/WEB-INF/views/home/footer.jsp"/>
 </body>
 </html>

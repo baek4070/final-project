@@ -25,7 +25,7 @@ public class PageMaker {
 	}
 
 	public PageMaker(int totalCount, Criteria cri) {
-		this(totalCount, 5, cri);
+		this(totalCount, 10, cri);
 	}
 
 	public PageMaker(int totalCount, int displayPageNum, Criteria cri) {
