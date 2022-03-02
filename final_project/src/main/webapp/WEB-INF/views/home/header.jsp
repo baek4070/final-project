@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="path" value="${pageContext.request.contextPath}" scope="session"/>
 <!DOCTYPE html>
 <html>
@@ -34,18 +35,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
-      <c:choose>
-      <c:when test="${!empty user}">
+    <sec:authorize access="isAuthenticated()">
+	<sec:authentication var="user" property="principal.user"/>
+      <c:if test="${!empty user}">
       <ul class="navbar-nav me-auto offset-10">
       	<li class="nav-item">
-      		<a class="nav-link" href="${path}/user/info">${user.u_id}님 반갑습니다.</a>
+      		<a class="nav-link" href="${path}/user/info">${user.u_name}님 반갑습니다.</a>
       	</li>
        	<li class="nav-item">
       		<a class="nav-link" href="${path}/user/signOut">로그아웃</a>
       	</li>
       </ul>
-      </c:when>
-      <c:otherwise>
+      </c:if>
+      </sec:authorize>
+      <sec:authorize access="isAnonymous()">
       <ul class="navbar-nav me-auto offset-10">
       	<li class="nav-item">
       		<a class="nav-link" href="${path}/user/signIn">로그인</a>
@@ -54,8 +57,7 @@
       		<a class="nav-link" href="${path}/user/signUp">회원가입</a>
       	</li>
       </ul>
-      </c:otherwise>
-      </c:choose>
+      </sec:authorize>
     </div>
   </div>
   <div class="remote">
@@ -71,7 +73,7 @@
 		<div class="col-lg-3 ms-md-auto" style="margin-top:16px;">
 			<div class="input-group mb-3">
 			<form action="total" id="total">
-	    		<input type="text" class="form-control" id="searchValue" placeholder="상품 검색" >
+	    		<input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="상품 검색" >
 	    		<button class="btn btn-primary totalSearch" type="button" id="button-addon2">검색</button>
 	    	</form>
 	    	</div>

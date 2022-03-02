@@ -4,9 +4,12 @@ public class Criteria {
 	
 	private int page;	// 요청(현재) 페이지 정보
 	private int perPageNum;
-
+	
+	// 검색 키워드
+	private String keyword;
+	
 	public Criteria() {
-		this(1,10);
+		this(1,12);
 	}
 	
 	public Criteria(int page, int perPageNum) {
@@ -30,11 +33,20 @@ public class Criteria {
 	public void setPerPageNum(int perPageNum) {
 		this.perPageNum = perPageNum;
 	}
-	
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + " startRow="+getStartRow()+" ]";
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", keyword=" + keyword + "]";
 	}
+	
 	
 }
 
