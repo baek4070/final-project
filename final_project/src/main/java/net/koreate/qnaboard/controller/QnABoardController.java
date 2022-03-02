@@ -78,4 +78,15 @@ public class QnABoardController {
 		System.out.println("삭제호출");
 		return "redirect:/qnaboard/list";
 	}
+	
+	@GetMapping("/reply")
+	public String reply(
+			int qno,
+			Model model
+			) throws Exception{
+		QnABoardVO vo = qs.detail(qno);
+		model.addAttribute("vo",vo);
+		return "qnaboard/reply";
+	}
+	
 }

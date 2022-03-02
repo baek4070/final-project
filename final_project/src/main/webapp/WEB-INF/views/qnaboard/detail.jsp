@@ -35,7 +35,7 @@
 	</c:if>
 	</sec:authorize>
 	<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
-	<a href="reply" class="btn btn-outline-danger" >답글</a>
+	<a href="reply?qno=${vo.qno}" class="btn btn-outline-danger" >답글</a>
 	</sec:authorize>
 	<a href="list" class="btn btn-outline-danger" >목록으로</a>
 	
