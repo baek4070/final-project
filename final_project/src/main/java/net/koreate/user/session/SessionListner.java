@@ -16,7 +16,6 @@ public class SessionListner implements HttpSessionListener, HttpSessionAttribute
 	public static Hashtable<String,Object> sessionRepository;
 	
 	public SessionListner() {
-		System.out.println("sessionEventListner 생성");
 		if(sessionRepository == null) {
 			sessionRepository = new Hashtable<>();
 		}

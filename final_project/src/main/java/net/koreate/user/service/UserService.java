@@ -11,7 +11,7 @@ public interface UserService {
 //	UserVO signIn(UserDTO dto) throws Exception;
 	
 	// 정보 수정
-	int updateSign(UserVO vo) throws Exception;
+	boolean updateSign(UserVO vo) throws Exception;
 	
 	// 로그아웃
 	void signOut() throws Exception;

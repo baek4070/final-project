@@ -41,8 +41,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int updateSign(UserVO vo) throws Exception {
-		return ud.updateUser(vo);
+	public boolean updateSign(UserVO vo) throws Exception {
+		int result = ud.updateUser(vo); 
+		return result > 0 ? true : false;
 	}
 
 	@Override

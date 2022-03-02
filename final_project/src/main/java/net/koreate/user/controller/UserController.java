@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,9 @@ public class UserController {
 	
 	@Inject
 	UserService us;
+	
+	@Inject 
+	PasswordEncoder encoder;
 	
 	@GetMapping("/signIn")
 	public String signIn(String message,Model model) {
@@ -50,7 +54,7 @@ public class UserController {
 	
 	// 회원정보 수정
 	@GetMapping("/info")
-	public String info() {
+	public String info(UserVO vo) {
 		return "/user/info";
 	}
 	
@@ -92,6 +96,7 @@ public class UserController {
 		return code;
 	}
 	
+	//회원 정보 수정
 	@PostMapping("/signUpPost")
 	public String signUp(UserVO vo) throws Exception{
 		System.out.println(vo);
@@ -101,9 +106,11 @@ public class UserController {
 
 	// 회원 정보 수정
 	@PostMapping("signUpdatePost")
-	public String signUpdatePost(UserVO vo,ModelAndView mav) throws Exception {
-		us.updateSign(vo);
-		System.out.println("mav : "+mav);
+	public String signUpdatePost(@RequestParam("uno") int uno,UserVO vo, Model model) throws Exception {
+		vo.setUno(uno);
+		boolean check = us.updateSign(vo);
+		model.addAttribute("check",check);
+		System.out.println("mav : "+model);
 		return "redirect:/user/info";
 	}
 	

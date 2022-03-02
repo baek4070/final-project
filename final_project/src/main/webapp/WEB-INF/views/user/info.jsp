@@ -5,8 +5,8 @@
 
  <sec:authorize access="isAuthenticated()">
  <sec:authentication var="user" property="principal.user"/>
-<form action="signUpdatePost" method="POST">
-	<input type="hidden" name="uno" id="uno"/>
+<form id="signUpdateForm" action="${pageContext.request.contextPath}/user/signUpdatePost" method="POST">
+	<input type="hidden" name="uno" id="uno" value="${user.uno}"/>
 	<table border=1>
 		<tr>
 			<th colspan=2><h1>회원정보 수정</h1></th>
@@ -32,7 +32,7 @@
 		<tr>
 			<td>생년월일(ex-19820607)</td>
 			<td>
-				<input type="text" name="u_birth" class="form-control" id="u_birth" value="${user.u_bir	th}" autocomplete="off"/>
+				<input type="text" name="u_birth" class="form-control" id="u_birth" value="${user.u_birth}" autocomplete="off"/>
 			</td>
 		</tr>
 		<tr>
@@ -60,7 +60,7 @@
 		</tr>
 		<tr>
 			<td colspan=2>
-				<input type="button" value="홈" onclick="location.href='${path}';"/>
+				<input type="button" value="홈" onclick="location.href='${path}/'"/>
 				<input type="submit" value="수정하기" /> 
 			</td>
 		</tr>
@@ -70,6 +70,14 @@
 </sec:authorize>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
+/* 
+	windows.onload(function(){
+		if(${check} == false){
+			alert('수정실패');
+		};
+	});
+	
+ */
 	function sample6_execDaumPostcode(){
 		new daum.Postcode({
 			oncomplete : function(data){
@@ -221,7 +229,7 @@
 	
 	$.validator.setDefaults({
 		submitHandler : function(){
-			$("#signUpForm").submit();
+			$("#signUpdateForm").submit();
 		}
 	});
 	

@@ -14,7 +14,6 @@ public interface UserDAO {
 	// 사용자 정보 수정
 	int updateUser(UserVO vo) throws Exception;
 
-
 	// 마지막 방문일
 	void getUpdateVisitDate(String u_id) throws Exception;
 	

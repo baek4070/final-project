@@ -2,7 +2,7 @@
     pageEncoding="EUC-KR"%>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 
-<form action="signUpdatePost" method="POST">
+<!-- <form action="signUpdatePost" method="POST"> -->
 	<input type="hidden" name="uno" id="uno"/>
 	<table border=1>
 		<tr>
