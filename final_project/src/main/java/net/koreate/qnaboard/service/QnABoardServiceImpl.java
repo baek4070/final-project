@@ -44,6 +44,18 @@ public class QnABoardServiceImpl implements QnABoardService {
 			pageMaker.setTotalCount(totalCount);
 			return pageMaker;
 	}
+
+	@Override
+	public void update(QnABoardVO vo) throws Exception {
+		dao.update(vo);
+		System.out.println("QnA게시판 글수정 완료");
+	}
+
+	@Override
+	public void delete(int qno) throws Exception {
+		dao.delete(qno);
+		System.out.println("QnA게시판 글삭제 완료");
+	}
 	
 	
 

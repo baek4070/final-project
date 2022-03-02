@@ -16,4 +16,8 @@ public interface QnABoardService {
 	QnABoardVO detail(int qno) throws Exception;
 	
 	public QnAPageMaker getPageMaker(QnACriteria cri) throws Exception;
+	
+	void update(QnABoardVO vo) throws Exception;
+	
+	void delete(int qno) throws Exception;
 }

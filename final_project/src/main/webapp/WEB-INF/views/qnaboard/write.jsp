@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<form action="resister" method="POST">
-			<input type="hidden" name="userId" value="imsi"/>
+				<sec:authentication property="principal" var="pinfo"/>
+			<input type="hidden" name="userId" value="${pinfo.username}"/>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<table border=1>
 			<tr>
 				<td>제목</td>
@@ -11,7 +14,7 @@
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name="userNickname" required/></td>
+				<td><input type="text" name="userNickname" value="${pinfo.user.u_name}" readonly required/></td>
 			</tr>
 			<tr>
 				<td>내용</td>

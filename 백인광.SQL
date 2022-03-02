@@ -32,3 +32,8 @@ INSERT INTO qna_tbl(userId, title, content, userNickname) VALUES ('user6','6ë²ˆì
 SELECT * FROM qna_tbl;
 
 commit;
+
+ALTER TABLE qna_tbl ADD updatedate timestamp default now();
+ALTER TABLE qna_tbl ADD deleted varchar(1) default 'n';
+
+commit;

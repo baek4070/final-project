@@ -38,10 +38,26 @@ public class QnABoardController {
 		return "qnaboard/write";
 	}
 	
+	@GetMapping("/modify")
+	public String modify(
+			int qno,
+			Model model
+			) throws Exception {
+		QnABoardVO vo = qs.detail(qno);
+		model.addAttribute("vo",vo);
+		return "qnaboard/modify";
+	}
+	
 	@PostMapping("/resister")
 	public String resister(QnABoardVO vo) throws Exception {
 		qs.regist(vo);
 		return "redirect:/qnaboard/list";
+	}
+	
+	@PostMapping("/update")
+	public String update(QnABoardVO vo) throws Exception{
+		qs.update(vo);
+		return"redirect:/qnaboard/list";
 	}
 	
 	@GetMapping("/detail")
@@ -52,5 +68,14 @@ public class QnABoardController {
 		QnABoardVO vo = qs.detail(qno);
 		model.addAttribute("vo",vo);
 		return "qnaboard/detail";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(
+			int qno
+			)throws Exception{
+		qs.delete(qno);
+		System.out.println("삭제호출");
+		return "redirect:/qnaboard/list";
 	}
 }

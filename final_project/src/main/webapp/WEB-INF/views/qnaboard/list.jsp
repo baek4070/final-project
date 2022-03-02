@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h1 class="text-center" >QnA</h1>
 	<table class="table table-hover" border=1>
@@ -10,6 +12,7 @@
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일자</th>
+			<th>마지막수정일자<th>
 			<th>첨부파일</th>
 		</tr>
 		<c:choose>
@@ -20,6 +23,7 @@
 						<td>${qnaboard.title}</td>
 						<td>${qnaboard.userNickname}</td>
 						<td><f:formatDate pattern="yyyy-MM-dd HH:mm" value="${qnaboard.regdate}"/></td>
+						<td><f:formatDate pattern="MM-dd HH:mm" value="${qnaboard.updatedate}"/></td>
 						<td>${qnaboard.filename}</td>
 					</tr>
 				</c:forEach>
@@ -46,6 +50,12 @@
 			</th>
 		</tr>
 	</table>
-	<a href="write" class="btn btn-outline-danger" >글쓰기</a>
+	
+	<sec:authentication property="principal" var="pinfo"/>
+	<sec:authorize access="isAuthenticated()">
+	
+		<a href="write" class="btn btn-outline-danger" >글쓰기</a>
+	
+	</sec:authorize>
 </body>
 </html>
