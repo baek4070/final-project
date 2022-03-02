@@ -65,17 +65,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/home/header.jsp"/>	
-		<h2>BoardList Page</h2>
-		<form action="register" method="get">
-			<button class="btn btn-primary" style="border-radius: 0.25rem;">새 게시물 작성</button>
-		</form>
-		<div style="margin-bottom: 15px;"></div>
+	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
+		<h2>전체 물품 리스트</h2>
 		<div class="row">
 		<c:choose>
 	  	 	<c:when test="${!empty list}">
 	  	 		<c:forEach items="${list}" var="board">
-	  	 			<div class="card border-primary mb-3 p-0 mx-2" style="max-width: 19rem; height: 200px;" onclick="location.href='detail?bno=${board.bno}'">
+	  	 			<div class="card border-primary mb-3 p-0 mx-2" style="max-width: 19rem; height: 200px; border-radius: 0.25rem;" onclick="location.href='detail?bno=${board.bno}'">
 			  		<div class="card-body p-0" style="cursor: pointer;">
 			  			<c:choose>
 			  				<c:when test="${!empty board.fileName}">
@@ -116,21 +112,32 @@
 	  	 		<h3>등록된 게시물이 없습니다.</h3>
 	  	 	</c:otherwise>
    		</c:choose>
-   		<div class="input-group mb-3"
-   		style="justify-content: center;">
-			<select class="category" style="border-radius: 0.25rem;">
-				<option value="title">제목</option>
-				<option value="content">작성자</option>
-			</select>
-			<div style="margin-left: 10px"></div>
-			<input type="text"
-			class="search_box"
-			name="keyword"
-			style="border-radius: 0.25rem 0 0 0.25rem;"
-			placeholder="검색어를 입력하세요."
-			value="${pageMaker.cri.keyword}"/>
-			<button class="btn btn-primary" type="button" id="search_btn" style="border-radius: 0 0.25rem 0.25rem 0;">검색</button>
-		</div>
+   		<form action="register" method="get">
+			<button class="btn btn-primary" style="border-radius: 0.25rem; float: right;">새 물품 등록</button>
+		</form>
+		<div style="margin-bottom: 15px"></div>
+   		<!-- 검색 시작 -->
+   		<form action="search" method="post">
+   			<div class="input-group mb-3"
+   			style="justify-content: center;">
+				<select name="searchType" class="category" style="border-radius: 0.25rem;">
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>
+					<option value="titcont">제목+내용</option>
+				</select>
+				<div style="margin-left: 10px"></div>
+				<input type="text" class="search_box" name="searchName"
+				style="border-radius: 0.25rem 0 0 0.25rem;"
+				placeholder="검색어를 입력하세요."/>
+				<button class="btn btn-primary" type="submit" style="border-radius: 0 0.25rem 0.25rem 0;">검색</button>
+			</div>
+			
+			<input type="hidden" name="page" value="${pm.cri.page}"/>
+			<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+   		</form>
+		<!-- 검색 끝 -->
 	<form id="listForm">
 		<input type="hidden" name="page" value="${pm.cri.page}"/>
 		<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
@@ -160,11 +167,6 @@
 				listForm.find("[name='page']").val(targetPage);
 				listForm.attr("action", "list");
 				listForm.submit();
-			});
-			
-			// 검색 버튼
-			$("#search_btn").on("click", function(){
-				alert("T");
 			});
 		});
 	</script>

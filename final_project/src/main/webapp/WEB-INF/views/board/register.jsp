@@ -43,6 +43,15 @@
 	<form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
 		<table class="table table-hover">
 			<tr>
+				<td>물품구분</td>
+				<td>
+					<select name="tradeType">
+						<option>필요해요</option>
+						<option>필요없어요</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td>제목</td>
 				<td><input class="form-control" type="text" name="title" placeholder="제목을 입력해주세요." required/></td>
 			</tr>
@@ -72,9 +81,9 @@
 				</td>
 			</tr>
 		</table>
-		<input id="uploadFile" type="file" name="uploadFile" style="display:none;"
-		onchange="profileUpload(this.files)"/>
+		<input type="file" id="profileImage" name="profileImage" accept="image/*" style="display: none;"/>
 		<input type="hidden" name="uimage" id="uimage"/>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form>
 	<button onclick="test()">파일 정보 확인</button>
 </body>
@@ -87,28 +96,46 @@
 		formData = new FormData();
 	});
 	
-	function imgUpload() {
-		$("#uploadFile").click();
+	function imgUpload(){
+		$("#profileImage").trigger("click");
 	}
 	
+	$("#profileImage").on("change", function(){
+		var files = $(this)[0].files[0];
+		console.log(files.type);
+		if (!files.type.startsWith('image/')) {
+			alert('이미지를 선택해주세요.');
+			removeImage();
+		}else{
+			var path = window.URL.createObjectURL(files);
+			$("#img").attr("src",path);	
+		}
+	});
+	/*
 	function profileUpload(files){
 		console.log(files[0]);
-		//var formData = new FormData();
+
 		formData.append("file",files[0]);
+		console.log(formData);
 		// encType = urlEncoded
 		$.ajax({
 			type : "POST",
 			url : "uploadAjax",
-			data : formData,
+			data : {
+				formData
+			},
 			// key=value 형태의 Query String으로 변환을 하지않는다.
 			processData : false,
 			contentType : false,
 			dataType : "text",
 			success : function(result){
-				// alert(result);
+				alert(result);
 				$("#img").attr("src","${path}/resources/img/"+result);
 				$("#uimage").val(result);
 				$("#remove_img").fadeIn("fast");
+			},
+			error : function(res){
+				console.log(res);
 			}
 		});
 	}
@@ -129,7 +156,6 @@
 				} else {
 					alert("삭제 실패");
 				}
-				
 				$("#img").attr("src","${path}/resources/img/camera.png");
 				$("#remove_img").fadeOut("fast");
 			},
@@ -142,5 +168,15 @@
 	function test() {
 		console.log(formData);
 	}
+	*/
+	
+	/*
+	$(document).ajaxSend(function(e, xhr, options){
+		xhr.setRequestHeader(
+				// "${_csrf.parameterName}",
+				"${_csrf.headerName}",
+				"${_csrf.token}");
+	});
+	*/
 </script>
 </html>

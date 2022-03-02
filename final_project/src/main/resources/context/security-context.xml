@@ -15,7 +15,17 @@
 	
 	<bean id="accessdeniedHandler" class="net.koreate.user.security.AccessDeniedHandler"/>
 	
+	<security:http pattern="/resources/**" security="none" />
+	
+	<!-- url에 세미콜론 허용 -->
+	<bean id="egovStrictHttpFirewall" class="org.springframework.security.web.firewall.StrictHttpFirewall">
+		<property name="allowSemicolon" value="true"/>
+	</bean>
+	<security:http-firewall ref="egovStrictHttpFirewall"/>
+	
 	<security:http auto-config="true">
+	
+	<security:csrf disabled="true"/>
 		<!-- 동시 접속 차단 -->
 		<security:access-denied-handler ref="accessdeniedHandler"/>
 	
@@ -42,7 +52,11 @@
 			/>
 		</security:session-management>
 		
+		
 		<security:logout logout-url="/user/signOut" logout-success-url="/" delete-cookies="userCookie"/>
+		
+		<security:intercept-url pattern="/board/register" 
+					access="permitAll"/>
 		
 		<security:intercept-url pattern="/user/signOut" access="authenticated"/>
 		

@@ -4,25 +4,41 @@
 <mapper namespace="net.koreate.board.dao.BoardDAO">
 	<!-- 게시물 총 개수 -->
 	<select id="listCount" resultType="int">
-		SELECT COUNT(*) FROM board
-		<if test="keyword != null">
-        	where title like concat('%',#{keyword},'%')
-        </if>
+		SELECT COUNT(*) FROM board where
+		<choose>
+			<when test="searchType == 'title'">title like '%' || #{searchName} || '%'</when>
+			<when test="searchType == 'writer'">writer like '%' || #{searchName} || '%'</when>
+			<when test="searchType == 'content'">content like '%' || #{searchName} || '%'</when>
+			<when test="searchType == 'titcont'">
+				(title like '%' || #{searchName} || '%')
+					OR
+				(content like '%' || #{searchName} || '%')
+			</when>
+			<when test="searchType == '' or searchType == null">1 = 1</when>
+		</choose>
 	</select>
 	
 	<select id="list" parameterType="criteria" resultType="boardVO">
-		SELECT * FROM board
-		<if test="keyword != null">
-        	where title like concat('%',#{keyword},'%' )
-        </if>
+		SELECT * FROM board where
+		<choose>
+			<when test="searchType == 'title'">title like '%' || #{searchName} || '%'</when>
+			<when test="searchType == 'writer'">writer like '%' || #{searchName} || '%'</when>
+			<when test="searchType == 'content'">content like '%' || #{searchName} || '%'</when>
+			<when test="searchType == 'titcont'">
+				(title like '%' || #{searchName} || '%')
+					OR
+				(content like '%' || #{searchName} || '%')
+			</when>
+			<when test="searchType == '' or searchType == null">1 = 1</when>
+		</choose>
 		ORDER BY bno DESC
 		limit #{startRow}, #{perPageNum}
 	</select>
 
 	<!-- 삽입 -->
 	<insert id="insert" parameterType="boardVO">
-		INSERT INTO board (title,content,writer,fileName,filePath)
-		VALUES (#{title},#{content},#{writer},#{fileName},#{filePath})
+		INSERT INTO board (title,content,writer,fileName,filePath,tradeType)
+		VALUES (#{title},#{content},#{writer},#{fileName},#{filePath},#{tradeType})
 	</insert>
 	
 	<!-- 선택 -->

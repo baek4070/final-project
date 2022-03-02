@@ -5,8 +5,8 @@ public class Criteria {
 	private int page;	// 요청(현재) 페이지 정보
 	private int perPageNum;
 	
-	// 검색 키워드
-	private String keyword;
+	private String searchType; // 검색 타입
+	private String searchName; // 검색어
 	
 	public Criteria() {
 		this(1,12);
@@ -34,17 +34,26 @@ public class Criteria {
 		this.perPageNum = perPageNum;
 	}
 
-	public String getKeyword() {
-		return keyword;
+	public String getSearchType() {
+		return searchType;
 	}
 
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getSearchName() {
+		return searchName;
+	}
+
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
 	}
 
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", keyword=" + keyword + "]";
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType + ", searchName="
+				+ searchName + "]";
 	}
 	
 	

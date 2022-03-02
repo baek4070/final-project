@@ -95,14 +95,13 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	
+	/*
 	@PostMapping("uploadAjax")
 	public ResponseEntity<String> uploadAjax(
 			MultipartFile file) throws Exception{
-		/*
 		String path = FileUtils.calcPath(uploadPath);
-		System.out.println(path);
-		*/
+		//System.out.println(file);
+		
 		ResponseEntity<String> entity = null;
 		String origin = file.getOriginalFilename();
 		String uploadPath = context.getRealPath("/resources/img");
@@ -117,6 +116,7 @@ public class BoardController {
 		entity = new ResponseEntity<>(savedName,header,HttpStatus.OK);
 		return entity;
 	}
+	*/
 	
 	// 파일 삭제 요청 처리
 	@PostMapping("deleteFile")
