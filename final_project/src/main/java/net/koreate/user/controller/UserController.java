@@ -38,14 +38,9 @@ public class UserController {
 		return "user/signUp";
 	}
 	
-	@GetMapping("/info")
-	public String userInfo() {
-		return "user/info";
-	}
-	
-	@GetMapping("/signUpdate")
+	@GetMapping("/update")
 	public String signUpdate() {
-		return "user/signUpdate";
+		return "user/update";
 	}
 	
 	@PostMapping("/signUp")

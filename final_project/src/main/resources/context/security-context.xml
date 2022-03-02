@@ -44,11 +44,11 @@
 		
 		<security:logout logout-url="/user/signOut" logout-success-url="/" delete-cookies="userCookie"/>
 		
-		<!-- <security:intercept-url pattern="/user/signOut" access="authenticated"/> -->
+		<security:intercept-url pattern="/user/signOut" access="authenticated"/>
 		
-		<!-- <security:intercept-url pattern="/user/**" access="isAnonymous()"/> -->
+		<security:intercept-url pattern="/user/**" access="isAnonymous()"/>
 		
-		<!-- <security:intercept-url pattern="/signOff" access="isAnonymous()"/> -->
+		<security:intercept-url pattern="/signOff" access="isAnonymous()"/>
 		
 	</security:http>
 	

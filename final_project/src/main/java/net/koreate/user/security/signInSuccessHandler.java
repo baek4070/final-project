@@ -33,8 +33,6 @@ public class signInSuccessHandler implements AuthenticationSuccessHandler {
 			 e.printStackTrace(); 
 		}
 		 
-		
-		System.out.println("asdasdasd");
 		/*
 		 * String context =
 		 * request.getServletContext().getContextPath()+File.separator+"qnaboard"+File.
