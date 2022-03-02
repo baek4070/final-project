@@ -42,6 +42,17 @@ public class UserController {
 	public String signUpdate() {
 		return "user/update";
 	}
+
+	@GetMapping("/signOut")
+	public void signOut() {
+		
+	}
+	
+	// 회원정보 수정
+	@GetMapping("/info")
+	public String info() {
+		return "/user/info";
+	}
 	
 	@PostMapping("/signUp")
 	public String postSignUp() {
@@ -88,11 +99,6 @@ public class UserController {
 		return "redirect:/user/signIn";
 	}
 
-	@GetMapping("/signOut")
-	public void signOut() {
-		
-	}
-	
 	// 회원 정보 수정
 	@PostMapping("signUpdatePost")
 	public String signUpdatePost(UserVO vo,ModelAndView mav) throws Exception {
