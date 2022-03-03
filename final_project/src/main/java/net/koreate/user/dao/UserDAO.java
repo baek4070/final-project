@@ -1,5 +1,7 @@
 package net.koreate.user.dao;
 
+import java.util.List;
+
 import net.koreate.user.vo.UserVO;
 
 public interface UserDAO {
@@ -22,6 +24,13 @@ public interface UserDAO {
 	void insertAuth(String u_id) throws Exception;
 	
 	// 회원 탈퇴(삭제 x u_withdraw 'y'로 변경)
-	void withdraw(UserVO vo) throws Exception;
+	int withdraw(UserVO vo) throws Exception;
+
+	// 수정시 데이터 반환용
+	UserVO updateData(UserVO vo) throws Exception;
+	
+	UserVO select(String u_id) throws Exception;
+
+	List<UserVO> getAll() throws Exception;
 
 }

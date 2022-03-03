@@ -23,7 +23,7 @@ public class signInSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		CustomUser user = (CustomUser)authentication.getPrincipal();
-		System.out.println("user"+user);
+		System.out.println("user : "+user);
 		UserVO vo = user.getUser();
 		System.out.println("vo"+vo);
 		
@@ -32,14 +32,20 @@ public class signInSuccessHandler implements AuthenticationSuccessHandler {
 		} catch (Exception e) {
 			 e.printStackTrace(); 
 		}
-		 
 		/*
-		 * String context =
-		 * request.getServletContext().getContextPath()+File.separator+"qnaboard"+File.
-		 * separator+"list";
-		 */
+		String result = "";
+		if(vo.getU_id().equals(user.getUsername())) {
+			System.out.println("vo.getU_id()"+vo.getU_id());
+			System.out.println("user.getUsername()"+user.getUsername());
+			result = "로그인 성공";
+			String context = File.separator+"result="+result;
+		}else {
+			result = "로그인 실패";
+			String context = File.separator+"result="+result;
+		}
+		*/
 		String context = File.separator;
-		System.out.println(context);
+		System.out.println("context " +context);
 		response.sendRedirect(context);
 	}
 

@@ -1,67 +1,70 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
- <sec:authorize access="isAuthenticated()">
- <sec:authentication var="user" property="principal.user"/>
-<form id="signUpdateForm" action="${pageContext.request.contextPath}/user/signUpdatePost" method="POST">
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<sec:authorize access="isAuthenticated()">
+<sec:authentication var="user" property="principal.user"/>
+<form id="signUpdateForm" action="${path}/user/signUpdatePost" method="POST">
 	<input type="hidden" name="uno" id="uno" value="${user.uno}"/>
 	<table border=1>
 		<tr>
-			<th colspan=2><h1>È¸¿øÁ¤º¸ ¼öÁ¤</h1></th>
+			<th colspan=2><h1>íšŒì›ì •ë³´ ìˆ˜ì •</h1></th>
 		</tr>
 		<tr>
-			<td>¾ÆÀÌµğ(email)</td>
+			<td>ì•„ì´ë””(email)</td>
 			<td>
-				<input type="text" class="form-control" name="u_id" id="u_id" autocomplete="off" value="${user.u_id}"/>
+				<input type="text" class="form-control" name="u_id" readonly value="${user.u_id}" required/>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>ì´ë¦„(2~6ìì´ë‚´)</td>
+			<td>
+				<input type="text" name="u_name" class="form-control" id="u_name" value="${user.u_name}" required/>
 			</td>
 		</tr>
 		<tr>
-			<td>ºñ¹Ğ¹øÈ£</td>
+			<td>ìƒë…„ì›”ì¼(ex-19820607)</td>
 			<td>
-				<input type="text" class="form-control" name="u_pw" id="u_pw" value="${user.u_pw}" autocomplete="off"/>
+				<input type="text" name="u_birth" class="form-control" id="u_birth" value="${user.u_birth}" autocomplete="off" required/>
 			</td>
 		</tr>
 		<tr>
-			<td>ÀÌ¸§(2~6ÀÚÀÌ³»)</td>
-			<td>
-				<input type="text" name="u_name" class="form-control" id="u_name" value="${user.u_name}"/>
-			</td>
-		</tr>
-		<tr>
-			<td>»ı³â¿ùÀÏ(ex-19820607)</td>
-			<td>
-				<input type="text" name="u_birth" class="form-control" id="u_birth" value="${user.u_birth}" autocomplete="off"/>
-			</td>
-		</tr>
-		<tr>
-			<td>ÁÖ¼Ò</td>
+			<td>ì£¼ì†Œ</td>
 			<td>
 				<div class="row">
 					<div class="col-md-8">
-						<input type="text" class="form-control" name="u_addr_post" id="u_addr_post" value="${user.u_addr_post}"/>
+						<input type="text" class="form-control" name="u_addr_post" id="u_addr_post" value="${user.u_addr_post}" required/>
 					</div>
 					<div class="col-md-4">
-						<input type="button" class="form-control btn btn-default" onclick="sample6_execDaumPostcode();" value="ÁÖ¼ÒÃ£±â"/>
+						<input type="button" class="form-control btn btn-default" onclick="sample6_execDaumPostcode();" value="ì£¼ì†Œì°¾ê¸°"/>
 					</div>
 				</div>
 				<br/>
-				<input type="text" class="form-control" name="u_addr" id="u_addr" value="${user.u_addr}"/>
+				<input type="text" class="form-control" name="u_addr" id="u_addr" value="${user.u_addr}" required/>
 				<br/>
-				<input type="text" class="form-control" name="u_addr_detail" id="u_addr_detail" value="${user.u_addr_detail}"/>
+				<input type="text" class="form-control" name="u_addr_detail" id="u_addr_detail" value="${user.u_addr_detail}" required/>
 			</td>
 		</tr>
 		<tr>
-			<td>ÀüÈ­¹øÈ£(-Á¦¿Ü ¼ıÀÚ¸¸)</td>
+			<td>ì „í™”ë²ˆí˜¸(-ì œì™¸ ìˆ«ìë§Œ)</td>
 			<td>
-				<input type="text" name="u_phone" class="form-control" id="u_phone" value="${user.u_phone}"/>
+				<input type="text" name="u_phone" class="form-control" id="u_phone" value="${user.u_phone}" required/>
+			</td>
+		</tr>
+		<tr>
+			<td>ë¹„ë°€ ë²ˆí˜¸ ì…ë ¥</td>
+			<td>
+				<input type="text" class="form-control" name="u_pw" id="u_pw" autocomplete="off" required/>
 			</td>
 		</tr>
 		<tr>
 			<td colspan=2>
-				<input type="button" value="È¨" onclick="location.href='${path}/'"/>
-				<input type="submit" value="¼öÁ¤ÇÏ±â" /> 
+				<input type="button" value="í™ˆ" onclick="location.href='${path}/'"/>
+				<input type="button" value="íšŒì›íƒˆí‡´" onclick="location.href='/user/withdraw';"/>
+				<input type="button" id="update" value="ìˆ˜ì •í•˜ê¸°" /> 
+				<input type="button" value="ê´€ë¦¬ì" onclick="location.href='/user/master';"/>
 			</td>
 		</tr>
 	</table>
@@ -70,50 +73,59 @@
 </sec:authorize>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-/* 
-	windows.onload(function(){
-		if(${check} == false){
-			alert('¼öÁ¤½ÇÆĞ');
-		};
+
+	$("#update").on("click",function(){
+		$("#signUpdateForm").submit();
+		
+		var result = '${result}';
+		
+		if(result == "ìˆ˜ì • ì„±ê³µ"){
+			alert(result);
+		}else if(result == "ìˆ˜ì • ì‹¤íŒ¨"){
+			alert(result);
+			function back(){
+				window.history.back();				
+			}
+		}
+		
 	});
-	
- */
+
 	function sample6_execDaumPostcode(){
 		new daum.Postcode({
 			oncomplete : function(data){
-				// ÁÖ¼Ò °Ë»ö °á°ú
+				// ì£¼ì†Œ ê²€ìƒ‰ ê²°ê³¼
 				console.log(data);
 				
-				var fullAddr='';	// ÃÖÁ¾ ÁÖ¼Ò
-				var extraAddr = ''; // Á¶ÇÕÇü ÁÖ¼Ò
+				var fullAddr='';	// ìµœì¢… ì£¼ì†Œ
+				var extraAddr = ''; // ì¡°í•©í˜• ì£¼ì†Œ
 				
-				// ¼±ÅÃÇÑ ÁÖ¼Ò Å¸ÀÔ¿¡ µû¶ó ÁÖ¼Ò°ªÀ» °¡Á®¿Â´Ù
-				if(data.userSelectedType === 'R'){ // µµ·Î¸í ÁÖ¼Ò
+				// ì„ íƒí•œ ì£¼ì†Œ íƒ€ì…ì— ë”°ë¼ ì£¼ì†Œê°’ì„ ê°€ì ¸ì˜¨ë‹¤
+				if(data.userSelectedType === 'R'){ // ë„ë¡œëª… ì£¼ì†Œ
 					fullAddr = data.roadAddress;
 				}else{
-					// Áö¹ø ÁÖ¼Ò
+					// ì§€ë²ˆ ì£¼ì†Œ
 					fullAddr = data.jibunAddress;
 				}
 				
-				// µµ·Î¸í ÁÖ¼Ò Å¸ÀÔ Á¶ÇÕ
+				// ë„ë¡œëª… ì£¼ì†Œ íƒ€ì… ì¡°í•©
 				if(data.userSelectedType === 'R'){
-					// ¹ıÁ¤µ¿¸íÀÌ ÀÖÀ»¶§ ¹ıÁ¤µ¿¸í Ãß°¡
+					// ë²•ì •ë™ëª…ì´ ìˆì„ë•Œ ë²•ì •ë™ëª… ì¶”ê°€
 					if(data.bname !== ''){
 						extraAddr += data.bname;
 					}
 					
-					// °Ç¹°¸íÀÌ Á¸Àç ÇÑ´Ù¸é..°Ç¹°¸í Ãß°¡
+					// ê±´ë¬¼ëª…ì´ ì¡´ì¬ í•œë‹¤ë©´..ê±´ë¬¼ëª… ì¶”ê°€
 					if(data.buildingName !== ''){
 						extraAddr += (extraAddr !== '' ?','+data.buildingName : data.buildingName);
 					}
 					
 					fullAddr += (extraAddr !== '' ? ' ('+extraAddr+')' : '');
 				}
-				// ¿ìÆí¹øÈ£ »ğÀÔ
+				// ìš°í¸ë²ˆí˜¸ ì‚½ì…
 				$("#u_addr_post").val(data.zonecode);
-				// ÀüÃ¼ ÁÖ¼Ò »ğÀÔ
+				// ì „ì²´ ì£¼ì†Œ ì‚½ì…
 				$("#u_addr").val(fullAddr);
-				// »ó¼¼ÁÖ¼Ò ÀÛ¼º
+				// ìƒì„¸ì£¼ì†Œ ì‘ì„±
 				$("#u_addr_detail").focus();
 			}
 		}).open();
@@ -123,10 +135,10 @@
 		changeMonth : true,
 		changeYear : true,
 		dateFormat : "yymmdd",
-		dayNames : ['¿ù¿äÀÏ','È­¿äÀÏ','¼ö¿äÀÏ','¸ñ¿äÀÏ','±İ¿äÀÏ','Åä¿äÀÏ','ÀÏ¿äÀÏ'],
-		dayNamesMin : ['¿ù','È­','¼ö','¸ñ','±İ','Åä','ÀÏ'],
+		dayNames : ['ì›”ìš”ì¼','í™”ìš”ì¼','ìˆ˜ìš”ì¼','ëª©ìš”ì¼','ê¸ˆìš”ì¼','í† ìš”ì¼','ì¼ìš”ì¼'],
+		dayNamesMin : ['ì›”','í™”','ìˆ˜','ëª©','ê¸ˆ','í† ','ì¼'],
 		monthNamesShort : ['1','2','3','4','5','6','7','8','9','10','11','12'],
-		monthNames : ['1¿ù','2¿ù','3¿ù','4¿ù','5¿ù','6¿ù','7¿ù','8¿ù','9¿ù','10¿ù','11¿ù','12¿ù'] 	
+		monthNames : ['1ì›”','2ì›”','3ì›”','4ì›”','5ì›”','6ì›”','7ì›”','8ì›”','9ì›”','10ì›”','11ì›”','12ì›”'] 	
 	});
 	
 	
@@ -183,46 +195,46 @@
 		},
 		messages : {
 			u_id : {
-				required : "ÀÌ¸ŞÀÏ(¾ÆÀÌµğ)¸¦ ÀÛ¼ºÇØÁÖ¼¼¿ä.",
-				email : "¿Ã¹Ù¸¥ ÀÌ¸ŞÀÏ Çü½ÄÀÌ ¾Æ´Õ´Ï´Ù.",
-				remote : "ÀÌ¹Ì Á¸ÀçÇÏ´Â IDÀÔ´Ï´Ù."
+				required : "ì´ë©”ì¼(ì•„ì´ë””)ë¥¼ ì‘ì„±í•´ì£¼ì„¸ìš”.",
+				email : "ì˜¬ë°”ë¥¸ ì´ë©”ì¼ í˜•ì‹ì´ ì•„ë‹™ë‹ˆë‹¤.",
+				remote : "ì´ë¯¸ ì¡´ì¬í•˜ëŠ” IDì…ë‹ˆë‹¤."
 			},
 			u_pw : {
-				required : "ºñ¹Ğ¹øÈ£¸¦ ÀÛ¼ºÇØÁÖ¼¼¿ä.",
-				minlength : "ºñ¹Ğ¹øÈ£´Â ÃÖ¼Ò 8±ÛÀÚ ÀÌ»óÀÔ´Ï´Ù.",
-				maxlength : "ºñ¹Ğ¹øÈ£´Â ÃÖ´ë 16±ÛÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.",
-				regex : "ºñ¹Ğ¹øÈ£´Â Æ¯¼ö¹®ÀÚ¿Í ¼ıÀÚ¸¦ Æ÷ÇÔÇØ¾ßÇÕ´Ï´Ù."
+				required : "ë¹„ë°€ë²ˆí˜¸ë¥¼ ì‘ì„±í•´ì£¼ì„¸ìš”.",
+				minlength : "ë¹„ë°€ë²ˆí˜¸ëŠ” ìµœì†Œ 8ê¸€ì ì´ìƒì…ë‹ˆë‹¤.",
+				maxlength : "ë¹„ë°€ë²ˆí˜¸ëŠ” ìµœëŒ€ 16ê¸€ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.",
+				regex : "ë¹„ë°€ë²ˆí˜¸ëŠ” íŠ¹ìˆ˜ë¬¸ìì™€ ìˆ«ìë¥¼ í¬í•¨í•´ì•¼í•©ë‹ˆë‹¤."
 			},
 			u_repw : {
-				required : "ºñ¹Ğ¹øÈ£¸¦ ÀÛ¼ºÇØÁÖ¼¼¿ä.",
-				minlength : "ºñ¹Ğ¹øÈ£´Â ÃÖ¼Ò 8±ÛÀÚ ÀÌ»óÀÔ´Ï´Ù.",
-				maxlength : "ºñ¹Ğ¹øÈ£´Â ÃÖ´ë 16±ÛÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.",
-				equalTo : "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù."
+				required : "ë¹„ë°€ë²ˆí˜¸ë¥¼ ì‘ì„±í•´ì£¼ì„¸ìš”.",
+				minlength : "ë¹„ë°€ë²ˆí˜¸ëŠ” ìµœì†Œ 8ê¸€ì ì´ìƒì…ë‹ˆë‹¤.",
+				maxlength : "ë¹„ë°€ë²ˆí˜¸ëŠ” ìµœëŒ€ 16ê¸€ìë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤.",
+				equalTo : "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."
 			},
 			u_name : {
-				required : "ÀÌ¸§À» ÀÛ¼ºÇØ ÁÖ¼¼¿ä.",
+				required : "ì´ë¦„ì„ ì‘ì„±í•´ ì£¼ì„¸ìš”.",
 				rangelength : $.validator.format(
-					"¹®ÀÚ ±æÀÌ°¡ {0}¿¡¼­ {1}»çÀÌÀÇ °ªÀ» ÀÔ·ÂÇÏ¼¼¿ä."
+					"ë¬¸ì ê¸¸ì´ê°€ {0}ì—ì„œ {1}ì‚¬ì´ì˜ ê°’ì„ ì…ë ¥í•˜ì„¸ìš”."
 				)
 			},
 			u_birth : {
-				required : "»ı³â¿ùÀÏÀ» ÀÛ¼ºÇØÁÖ¼¼¿ä."
+				required : "ìƒë…„ì›”ì¼ì„ ì‘ì„±í•´ì£¼ì„¸ìš”."
 			},
 			u_addr_post : {
-				required : "¿ìÆí¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä."
+				required : "ìš°í¸ë²ˆí˜¸ë¥¼ í™•ì¸í•´ ì£¼ì„¸ìš”."
 			},
 			u_addr : {
-				required : "ÁÖ¼Ò¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä."
+				required : "ì£¼ì†Œë¥¼ í™•ì¸í•´ ì£¼ì„¸ìš”."
 			},
 			u_addr_detail : {
-				required : "»ó¼¼ÁÖ¼Ò¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."
+				required : "ìƒì„¸ì£¼ì†Œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”."
 			},
 			u_phone : {
-				required : "ÀüÈ­¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.",
-				regex : "¿Ã¹Ù¸¥ ÀüÈ­¹øÈ£ Çü½ÄÀÌ ¾Æ´Õ´Ï´Ù."
+				required : "ì „í™”ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.",
+				regex : "ì˜¬ë°”ë¥¸ ì „í™”ë²ˆí˜¸ í˜•ì‹ì´ ì•„ë‹™ë‹ˆë‹¤."
 			}
 		},
-//		debug : true,	// È®ÀÎ ÈÄ submit ½ÇÇàÇÏÁö ¾ÊÀ½
+//		debug : true,	// í™•ì¸ í›„ submit ì‹¤í–‰í•˜ì§€ ì•ŠìŒ
 		errorElement : "span",
 		errorClass : "text-danger"
 	});
@@ -233,7 +245,7 @@
 		}
 	});
 	
-	// ÀÎÁõ ÄÚµå ÀúÀå¼Ò
+	// ì¸ì¦ ì½”ë“œ ì €ì¥ì†Œ
 	var emailCode = "";
 	
 	$("#acceptEmail").click(function(){
@@ -245,14 +257,14 @@
 				u_id : $("#u_id").val()
 			},
 			success : function(code){
-				// È®ÀÎ¿ë »èÁ¦¿ä¸Á
+				// í™•ì¸ìš© ì‚­ì œìš”ë§
 				console.log(code);
 				if(code){
 					emailCode = code;
-					alert("¸ŞÀÏ ¹ß¼Û¿Ï·á");
+					alert("ë©”ì¼ ë°œì†¡ì™„ë£Œ");
 					$("#emailCodeWrap").show();
 				}else{
-					alert("¹ß¼Û ¿À·ù");
+					alert("ë°œì†¡ ì˜¤ë¥˜");
 				}
 			}
 		});
@@ -263,13 +275,13 @@
 	$("#emailAcceptBtn").click(function(){
 		var userCode =  $("#emailCode").val();
 		if(emailCode == userCode){
-			console.log("ÀÏÄ¡");
+			console.log("ì¼ì¹˜");
 			boolEmailCode = true;
-			alert("ÀÌ¸ŞÀÏ ÀÎÁõ ¿Ï·á");
+			alert("ì´ë©”ì¼ ì¸ì¦ ì™„ë£Œ");
 		}else{
-			console.log("ºÒÀÏÄ¡");
+			console.log("ë¶ˆì¼ì¹˜");
 			boolEmailCode = false;
-			alert("´Ù½Ã ÀÎÁõÇØÁÖ½Ê½Ã¿À.");
+			alert("ë‹¤ì‹œ ì¸ì¦í•´ì£¼ì‹­ì‹œì˜¤.");
 		}
 	});
 	

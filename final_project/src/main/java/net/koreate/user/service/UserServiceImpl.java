@@ -1,5 +1,7 @@
 package net.koreate.user.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +29,6 @@ public class UserServiceImpl implements UserService {
 		System.out.println("암호화 후 : "+vo.getU_pw());
 		ud.signUp(vo);
 		ud.insertAuth(vo.getU_id());
-		
 	}
 
 	@Override
@@ -36,14 +37,25 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public String getResult(int result) {
+		return (result > 0) ? "수정 성공" : "수정 실패";
+	}
+	
+	@Override
+	public String getMessage(int message) {
+		return (message > 0) ? "탈퇴 성공" : "탈퇴 실패";
+	}
+	
+	@Override
 	public UserVO getUserById(String u_id) throws Exception {
 		return ud.getUserById(u_id);
 	}
 
 	@Override
-	public boolean updateSign(UserVO vo) throws Exception {
-		int result = ud.updateUser(vo); 
-		return result > 0 ? true : false;
+	public String updateSign(UserVO vo) throws Exception {
+		int result = ud.updateUser(vo);
+		System.out.println("service userupdate"+result);
+		return getResult(result); 
 	}
 
 	@Override
@@ -60,8 +72,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void withdraw(UserVO vo) throws Exception {
-		ud.withdraw(vo);
+	public String withdraw(UserVO vo) throws Exception {
+		int message = ud.withdraw(vo);
+		return getMessage(message);
+	}
+
+	@Override
+	public UserVO updateData(UserVO vo) throws Exception {
+		return ud.updateData(vo);
+	}
+
+	@Override
+	public UserVO select(String u_id) throws Exception{
+		return ud.select(u_id);
+	}
+
+	@Override
+	public List<UserVO> getAll() throws Exception {
+		return ud.getAll();
 	}
 
 }

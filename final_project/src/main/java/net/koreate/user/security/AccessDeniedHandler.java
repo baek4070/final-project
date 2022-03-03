@@ -14,7 +14,7 @@ public class AccessDeniedHandler implements org.springframework.security.web.acc
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
-		System.out.println(accessDeniedException.getMessage());
+		System.out.println("말레이시아에서 접속합"+accessDeniedException.getMessage());
 		response.setContentType("html/text;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print("<script>");

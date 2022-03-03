@@ -1,5 +1,7 @@
 package net.koreate.user.service;
 
+import java.util.List;
+
 import net.koreate.user.vo.UserVO;
 
 public interface UserService {
@@ -11,7 +13,7 @@ public interface UserService {
 //	UserVO signIn(UserDTO dto) throws Exception;
 	
 	// 정보 수정
-	boolean updateSign(UserVO vo) throws Exception;
+	String updateSign(UserVO vo) throws Exception;
 	
 	// 로그아웃
 	void signOut() throws Exception;
@@ -26,6 +28,21 @@ public interface UserService {
 	void updateVisitDate(String u_id) throws Exception;
 
 	// 회원 탈퇴
-	void withdraw(UserVO vo) throws Exception;
+	String withdraw(UserVO vo) throws Exception;
+	
+	// 메시지 전달용
+	String getMessage(int result) throws Exception;
+
+	// 메시지 전달용
+	String getResult(int result) throws Exception;
+
+	UserVO updateData(UserVO vo) throws Exception;
+
+	UserVO select(String u_id) throws Exception;
+
+	List<UserVO> getAll() throws Exception;
+
+	
+
 	
 }

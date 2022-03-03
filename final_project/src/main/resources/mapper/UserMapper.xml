@@ -59,7 +59,7 @@
 		user_auth AS auth
 		on user.u_id = auth.u_id
 		WHERE user.u_id = #{u_id}
-		AND u_withdraw = 'n';
+		AND u_withdraw = 'n'
 	</select>
 	
 	<!-- void getUpdateVisitDate(String u_id) throws Exception; -->
@@ -70,20 +70,32 @@
 	<!-- UserVO updateUser(UserVO vo) throws Exception; -->
 	<update id="updateUser" parameterType="net.koreate.user.vo.UserVO">
 		UPDATE trade_user SET 
-		u_id = #{u_id},
-		u_pw = #{u_pw},
 		u_name = #{u_name},
 		u_birth = #{u_birth},
 		u_addr_post = #{u_addr_post},
 		u_addr = #{u_addr},
 		u_addr_detail = #{u_addr_detail},
 		u_phone = #{u_phone} 
-		WHERE uno = #{uno}
+		WHERE u_id = #{u_id}
 	</update>
 	
-	<!-- void withdraw(UserVO vo) throws Exception; -->
+	<!-- int withdraw(UserVO vo) throws Exception; -->
 	<update id="withdraw" parameterType="net.koreate.user.vo.UserVO">
-		UPDATE trade_user SET u_withdraw = 'y' WHERE u_pw = #{u_pw}
+		UPDATE trade_user SET u_withdraw = 'y' WHERE u_id = #{u_id}
 	</update>
+	
+	<!-- UserVO updateData(UserVO vo) throws Exception; -->
+	<select id="updateData" parameterType="net.koreate.user.vo.UserVO" resultMap="userMap">
+		SELECT * FROM trade_user WHERE uno = #{uno}
+	</select>
+	
+	<select id="select" parameterType="java.lang.String" resultType="net.koreate.user.vo.UserVO">
+		SELECT * FROM trade_user WHERE u_id = #{u_id}	 
+	</select>
+	
+	<!-- List<UserVO> getAll() throws Exception; -->
+	<select id="getAll" resultMap="userMap">
+		SELECT * FROM trade_user
+ 	</select>
 	
 </mapper>
