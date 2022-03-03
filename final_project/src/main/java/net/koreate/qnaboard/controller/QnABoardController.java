@@ -3,6 +3,7 @@ package net.koreate.qnaboard.controller;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,10 +48,11 @@ public class QnABoardController {
 		model.addAttribute("vo",vo);
 		return "qnaboard/modify";
 	}
-	
+	@Transactional
 	@PostMapping("/resister")
 	public String resister(QnABoardVO vo) throws Exception {
 		qs.regist(vo);
+		qs.setRoot();
 		return "redirect:/qnaboard/list";
 	}
 	
@@ -89,4 +91,12 @@ public class QnABoardController {
 		return "qnaboard/reply";
 	}
 	
+	@PostMapping("/resisterReply")
+	public String resisterReply(
+			QnABoardVO vo
+			) throws Exception{
+		qs.registerReply(vo);
+		System.out.println("답글달기 완료");
+		return "redirect:/qnaboard/list";
+	}
 }

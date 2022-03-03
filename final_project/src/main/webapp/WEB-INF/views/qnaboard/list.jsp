@@ -5,25 +5,32 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h1 class="text-center" >QnA</h1>
+	<h1 class="text-center" >질문과 답하기</h1>
 	<table class="table table-hover" border=1>
 		<tr>
 			<th scope="row">번호</th>
 			<th>제목</th>
 			<th>작성자</th>
-			<th>작성일자</th>
-			<th>마지막수정일자<th>
+			<th>작성일</th>
+			<th>마지막수정<th>
 			<th>첨부파일</th>
 		</tr>
 		<c:choose>
 			<c:when test="${!empty list}">
 				<c:forEach var="qnaboard" items="${list}">
 					<tr style="cursor:pointer;" onclick="location.href='detail?qno=${qnaboard.qno}'">
-						<td>${qnaboard.qno}</td>
+						<td>${qnaboard.root}</td>
 						<td>${qnaboard.title}</td>
 						<td>${qnaboard.userNickname}</td>
 						<td><f:formatDate pattern="yyyy-MM-dd HH:mm" value="${qnaboard.regdate}"/></td>
-						<td><f:formatDate pattern="MM-dd HH:mm" value="${qnaboard.updatedate}"/></td>
+						<c:choose>
+							<c:when test="${qnaboard.regdate eq qnaboard.updatedate}">
+								<td></td>
+							</c:when>
+							<c:otherwise>
+								<td><f:formatDate pattern="MM월dd일 HH시" value="${qnaboard.updatedate}"/></td>
+							</c:otherwise>
+						</c:choose>
 						<td>${qnaboard.filename}</td>
 					</tr>
 				</c:forEach>
@@ -51,11 +58,35 @@
 		</tr>
 	</table>
 	
-	<sec:authentication property="principal" var="pinfo"/>
+	<select>
+		<option value="n">미선택</option>
+		<option value="t">제목</option>
+		<option value="c">내용</option>
+		<option value="tc">제목+내용</option>
+	</select>
+	<input type="text" id="keyword"/>
+	<input type="button" value="검색" id="searchBtn"/>
+	<hr/>
 	<sec:authorize access="isAuthenticated()">
 	
 		<a href="write" class="btn btn-outline-danger" >글쓰기</a>
 	
 	</sec:authorize>
+	
+	
+	
+	
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script>
+		// 검색 요청
+		$("#searchBtn").click(function(){
+			var searchType = $("select option:selected").val();
+			var keyword = $("#keyword").val();
+			console.log("searchType : " + searchType);
+			console.log("keyword : " + keyword);
+			location.href="list?searchType="+searchType+"&keyword="+keyword;
+		});
+		
+	</script>
 </body>
 </html>

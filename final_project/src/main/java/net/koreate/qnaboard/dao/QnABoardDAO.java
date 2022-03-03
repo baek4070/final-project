@@ -38,5 +38,18 @@ public interface QnABoardDAO {
 	
 	@Update("UPDATE qna_tbl SET deleted = 'y' WHERE qno=#{qno}")
 	void delete(int qno) throws Exception;
-	;
+
+	@Update("UPDATE qna_tbl SET root =last_insert_id()  WHERE qno = last_insert_id()")
+	void setRoot() throws Exception;
+	
+	@Update("UPDATE qna_tbl SET seq = seq + 1"
+			+ " WHERE root = #{root} AND seq > #{seq}")
+	void updateReply(QnABoardVO vo) throws Exception;
+	
+	@Insert("INSERT INTO qna_tbl (userId, title, content, userNickname, root, seq, depth)"
+			+ " VALUES(#{userId},#{title},#{content},#{userNickname},#{root},#{seq},#{depth})")
+	void registerReply(QnABoardVO vo) throws Exception;
+	
+	
+	
 }

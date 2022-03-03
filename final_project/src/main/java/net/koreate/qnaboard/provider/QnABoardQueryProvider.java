@@ -47,7 +47,7 @@ public class QnABoardQueryProvider {
 		sql.SELECT("*");
 		sql.FROM("qna_tbl");
 		getSearchWhere(cri,sql);
-		sql.ORDER_BY("qno desc");
+		sql.ORDER_BY("root DESC, seq ASC");
 		sql.LIMIT(cri.getStartRow()+","+cri.getPerPageNum());
 		String query =sql.toString();
 		System.out.println(query);

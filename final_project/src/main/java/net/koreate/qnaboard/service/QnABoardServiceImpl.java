@@ -56,6 +56,19 @@ public class QnABoardServiceImpl implements QnABoardService {
 		dao.delete(qno);
 		System.out.println("QnA게시판 글삭제 완료");
 	}
+
+	@Override
+	public void setRoot() throws Exception {
+		dao.setRoot();
+	}
+
+	@Override
+	public void registerReply(QnABoardVO vo) throws Exception {
+		dao.updateReply(vo);
+		vo.setDepth(vo.getDepth()+1);
+		vo.setSeq(vo.getSeq()+1);
+		dao.registerReply(vo);
+	}
 	
 	
 

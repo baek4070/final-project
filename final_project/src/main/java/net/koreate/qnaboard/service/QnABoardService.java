@@ -20,4 +20,8 @@ public interface QnABoardService {
 	void update(QnABoardVO vo) throws Exception;
 	
 	void delete(int qno) throws Exception;
+	
+	void setRoot() throws Exception;
+	
+	void registerReply(QnABoardVO vo) throws Exception;
 }

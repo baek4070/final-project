@@ -37,3 +37,9 @@ ALTER TABLE qna_tbl ADD updatedate timestamp default now();
 ALTER TABLE qna_tbl ADD deleted varchar(1) default 'n';
 
 commit;
+
+ALTER TABLE qna_tbl ADD root int default 0;
+ALTER TABLE qna_tbl ADD depth int default 0;
+ALTER TABLE qna_tbl ADD seq int default 0;
+
+commit;

@@ -34,9 +34,11 @@
 	<a href="#" id="delete" class="btn btn-outline-danger" data-uri="delete?qno=${vo.qno}" >삭제</a>
 	</c:if>
 	</sec:authorize>
+	
 	<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
 	<a href="reply?qno=${vo.qno}" class="btn btn-outline-danger" >답글</a>
 	</sec:authorize>
+	
 	<a href="list" class="btn btn-outline-danger" >목록으로</a>
 	
 	

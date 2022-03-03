@@ -35,6 +35,9 @@
 	<form action="resisterReply" method="POST">
 				<sec:authentication property="principal" var="pinfo"/>
 			<input type="hidden" name="userId" value="${pinfo.username}"/>
+			<input type="hidden" name="seq" value="${vo.seq}"/>
+			<input type="hidden" name="depth" value="${vo.depth}"/>
+			<input type="hidden" name="root" value="${vo.root}"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<table border=1>
 			<tr>

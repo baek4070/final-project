@@ -18,4 +18,7 @@ public class QnABoardVO {
 	private int viewcnt;
 	private String filename;
 	private String filepath;
+	private int root;
+	private int depth;
+	private int seq;
 }
