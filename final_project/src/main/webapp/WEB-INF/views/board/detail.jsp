@@ -2,10 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
 <style>
+	#img {
+		width: 300px; height: 300px;
+		border-radius: 0.5rem;
+	}
 </style>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <meta charset="UTF-8">
@@ -13,12 +18,29 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2>BoardDetail Page</h2>
+	<h2>물품 상세정보</h2>
 	<form id="detailForm" action="" method="get">
 		<table class="table table-hover">
 			<tr>
 				<td>글번호</td>
 				<td><input type="text" class="form-control" name="title" value="${board.bno}" readonly/></td>
+			</tr>
+			<tr>
+				<td>물품구분</td>
+				<td>
+					<c:choose>
+						<c:when test="${board.tradeType eq 'buy'}">
+							<input type="text" class="form-control" name="tradeType" value="필요해요" readonly/>
+						</c:when>
+						<c:otherwise>
+							<input type="text" class="form-control" name="tradeType" value="필요없어요" readonly/>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
+			<tr>
+				<td>카테고리</td>
+				<td><input type="text" class="form-control" name="category" value="${board.category}" readonly/></td>
 			</tr>
 			<tr>
 				<td class="title">제목</td>
@@ -48,9 +70,14 @@
 			</tr>
 			<tr>
 				<td class="title" colspan="3">
-					<button class="btn btn-primary" type="submit" data-oper="modify">수정</button>
-					<button class="btn btn-primary" type="submit" data-oper="remove">삭제</button>
-					<button class="btn btn-primary" type="submit" data-oper="list">목록</button>
+					<sec:authentication property="principal" var="pinfo"/>
+					<sec:authorize access="isAuthenticated()">
+						<c:if test="${pinfo.user.u_id eq board.writerId or pinfo.user.u_id eq 'admin@admin' }">
+							<button class="btn btn-primary" type="submit" data-oper="modify" style="border-radius: 0.25rem;">수정</button>
+							<button class="btn btn-primary" type="submit" data-oper="remove" style="border-radius: 0.25rem;">삭제</button>
+						</c:if>
+					</sec:authorize>
+					<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem;">목록</button>
 				</td>
 			</tr>
 		</table>

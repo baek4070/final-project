@@ -4,41 +4,60 @@
 <mapper namespace="net.koreate.board.dao.BoardDAO">
 	<!-- 게시물 총 개수 -->
 	<select id="listCount" resultType="int">
-		SELECT COUNT(*) FROM board where
-		<choose>
-			<when test="searchType == 'title'">title like '%' || #{searchName} || '%'</when>
-			<when test="searchType == 'writer'">writer like '%' || #{searchName} || '%'</when>
-			<when test="searchType == 'content'">content like '%' || #{searchName} || '%'</when>
-			<when test="searchType == 'titcont'">
-				(title like '%' || #{searchName} || '%')
-					OR
-				(content like '%' || #{searchName} || '%')
-			</when>
-			<when test="searchType == '' or searchType == null">1 = 1</when>
-		</choose>
+		SELECT COUNT(*) FROM board
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'title' and keyword != null and keyword != '' ">
+				AND title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'content' and keyword != null and keyword != '' ">
+				AND content like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'writer' and keyword != null and keyword != '' ">
+				AND writer like CONCAT('%', #{keyword}, '%')
+			</if>	
+			<if test="searchType == 'titcont' and keyword != null and keyword != '' ">
+				AND (
+				title like CONCAT('%', #{keyword}, '%')
+				OR
+				content like CONCAT('%', #{keyword}, '%')
+				)
+			</if>	
+		</trim>
 	</select>
 	
 	<select id="list" parameterType="criteria" resultType="boardVO">
-		SELECT * FROM board where
-		<choose>
-			<when test="searchType == 'title'">title like '%' || #{searchName} || '%'</when>
-			<when test="searchType == 'writer'">writer like '%' || #{searchName} || '%'</when>
-			<when test="searchType == 'content'">content like '%' || #{searchName} || '%'</when>
-			<when test="searchType == 'titcont'">
-				(title like '%' || #{searchName} || '%')
-					OR
-				(content like '%' || #{searchName} || '%')
-			</when>
-			<when test="searchType == '' or searchType == null">1 = 1</when>
-		</choose>
+		SELECT * FROM board
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'title' and keyword != null and keyword != '' ">
+				AND title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'content' and keyword != null and keyword != '' ">
+				AND content like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'writer' and keyword != null and keyword != '' ">
+				AND writer like CONCAT('%', #{keyword}, '%')
+			</if>	
+			<if test="searchType == 'titcont' and keyword != null and keyword != '' ">
+				AND (
+				title like CONCAT('%', #{keyword}, '%')
+				OR
+				content like CONCAT('%', #{keyword}, '%')
+				)
+			</if>	
+		</trim>
 		ORDER BY bno DESC
 		limit #{startRow}, #{perPageNum}
 	</select>
 
 	<!-- 삽입 -->
 	<insert id="insert" parameterType="boardVO">
-		INSERT INTO board (title,content,writer,fileName,filePath,tradeType)
-		VALUES (#{title},#{content},#{writer},#{fileName},#{filePath},#{tradeType})
+		INSERT INTO board (title,content,writer,writerId,fileName,filePath,tradeType,category)
+		VALUES (#{title},#{content},#{writer},#{writerId},#{fileName},#{filePath},
+		<choose>
+			<when test="tradeType == '필요해요'">"buy",</when>
+			<when test="tradeType == '필요없어요'">"cell",</when>
+		</choose>
+		#{category})
 	</insert>
 	
 	<!-- 선택 -->
@@ -51,7 +70,11 @@
 		UPDATE board SET
 		title		= #{title},
 		content		= #{content},
-		writer		= #{writer},
+		<choose>
+			<when test="tradeType == '필요해요'">tradeType = "buy",</when>
+			<when test="tradeType == '필요없어요'">tradeType = "cell",</when>
+		</choose>
+		category = #{category},
 		updateDate	= now()
 		WHERE bno = #{bno}
 	</update>

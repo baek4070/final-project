@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +14,34 @@
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>BoardModify Page</h2>
 	<form id="modifyForm" action="" method="get">
+		<sec:authentication property="principal" var="pinfo"/>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<input type="hidden" name="writerId" value="${pinfo.username}"/>
 		<table class="table table-hover">
 			<tr>
 				<td>글번호</td>
 				<td><input type="text" class="form-control" name="bno" value="${board.bno}" readonly/></td>
+			</tr>
+			<tr>
+				<td>물품구분</td>
+				<td>
+					<select name="tradeType" class="form-select">
+						<option>필요해요</option>
+						<option>필요없어요</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>카테고리</td>
+				<td>
+					<select name="category" class="form-select">
+						<option>one</option>
+						<option>two</option>
+						<option>three</option>
+						<option>four</option>
+						<option>five</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td>제목</td>
@@ -27,7 +52,7 @@
 			<tr>
 				<td>작성자</td>
 				<td>
-					<input type="text" class="form-control" name="writer" value="${board.writer}"/>
+					<input type="text" class="form-control" name="writer" value="${pinfo.user.u_name}" readonly/>
 				</td>
 			</tr>
 			<tr>

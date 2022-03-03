@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,12 +113,14 @@
 	  	 		<h3>등록된 게시물이 없습니다.</h3>
 	  	 	</c:otherwise>
    		</c:choose>
-   		<form action="register" method="get">
-			<button class="btn btn-primary" style="border-radius: 0.25rem; float: right;">새 물품 등록</button>
-		</form>
+   		<!-- 로그인 된 사용자만 물품 등록 가능 -->
+   		<sec:authorize access="isAuthenticated()">
+   			<form action="register" method="get">
+				<button class="btn btn-primary" style="border-radius: 0.25rem; float: right;">새 물품 등록</button>
+			</form>
+   		</sec:authorize>
 		<div style="margin-bottom: 15px"></div>
    		<!-- 검색 시작 -->
-   		<form action="search" method="post">
    			<div class="input-group mb-3"
    			style="justify-content: center;">
 				<select name="searchType" class="category" style="border-radius: 0.25rem;">
@@ -127,16 +130,15 @@
 					<option value="titcont">제목+내용</option>
 				</select>
 				<div style="margin-left: 10px"></div>
-				<input type="text" class="search_box" name="searchName"
+				<input type="text" class="search_box" id="keyword"
 				style="border-radius: 0.25rem 0 0 0.25rem;"
 				placeholder="검색어를 입력하세요."/>
-				<button class="btn btn-primary" type="submit" style="border-radius: 0 0.25rem 0.25rem 0;">검색</button>
+				<input type="button" id="go_search" class="btn btn-primary" style="border-radius: 0 0.25rem 0.25rem 0;" value="검색"/>
 			</div>
 			
 			<input type="hidden" name="page" value="${pm.cri.page}"/>
 			<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-   		</form>
 		<!-- 검색 끝 -->
 	<form id="listForm">
 		<input type="hidden" name="page" value="${pm.cri.page}"/>
@@ -167,6 +169,15 @@
 				listForm.find("[name='page']").val(targetPage);
 				listForm.attr("action", "list");
 				listForm.submit();
+			});
+			
+			// 검색 요청
+			$("#go_search").click(function(){
+				var searchType = $("select option:selected").val();
+				var keyword = $("#keyword").val();
+				console.log("searchType : " + searchType);
+				console.log("keyword : " + keyword);
+				location.href="list?searchType="+searchType+"&keyword="+keyword;
 			});
 		});
 	</script>

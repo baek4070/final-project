@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 	}
 
 	#img {
-		max-width: 300px;
+		max-width: 150px; max-height: 150px;
 	}
 
 	.img_cover {
@@ -41,13 +42,28 @@
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>BoardRegister Page</h2>
 	<form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
+		<sec:authentication property="principal" var="pinfo"/>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<input type="hidden" name="writerId" value="${pinfo.username}"/>
 		<table class="table table-hover">
 			<tr>
 				<td>물품구분</td>
 				<td>
-					<select name="tradeType">
+					<select name="tradeType" class="form-select">
 						<option>필요해요</option>
 						<option>필요없어요</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>카테고리</td>
+				<td>
+					<select name="category" class="form-select">
+						<option>one</option>
+						<option>two</option>
+						<option>three</option>
+						<option>four</option>
+						<option>five</option>
 					</select>
 				</td>
 			</tr>
@@ -57,7 +73,8 @@
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input class="form-control" type="text" name="writer" required/></td>
+				<td><input class="form-control" type="text" name="writer" readonly
+					value="${pinfo.user.u_name}"/></td>
 			</tr>
 			<tr>
 				<td>상품설명</td>
@@ -76,14 +93,13 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button class="btn btn-primary" type="submit" id="register">물품등록</button>
-					<button class="btn btn-primary" type="button" id="list">목록으로</button>
+					<button class="btn btn-primary" type="submit" id="register" style="border-radius: 0.25rem;">물품등록</button>
+					<button class="btn btn-primary" type="button" id="list" style="border-radius: 0.25rem;">목록으로</button>
 				</td>
 			</tr>
 		</table>
-		<input type="file" id="profileImage" name="profileImage" accept="image/*" style="display: none;"/>
+		<input type="file" id="profileImage" name="uploadFile" accept="image/*" style="display: none;"/>
 		<input type="hidden" name="uimage" id="uimage"/>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form>
 	<button onclick="test()">파일 정보 확인</button>
 </body>
@@ -108,7 +124,8 @@
 			removeImage();
 		}else{
 			var path = window.URL.createObjectURL(files);
-			$("#img").attr("src",path);	
+			$("#img").attr("src",path);
+			$("#img").attr("alt","첨부된 이미지");
 		}
 	});
 	/*
@@ -165,11 +182,12 @@
 		});
 	});
 	
-	function test() {
-		console.log(formData);
-	}
 	*/
-	
+	function test() {
+		var img = $("#img");
+		console.log($("#img"));
+		console.log(img[0]);
+	}
 	/*
 	$(document).ajaxSend(function(e, xhr, options){
 		xhr.setRequestHeader(

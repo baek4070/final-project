@@ -120,23 +120,17 @@ public class PageMaker {
 				+ ", prev=" + prev + ", next=" + next + ", cri=" + cri + "]";
 	}
 	
-	public String query(int page) {
-		// listPage
-		// readPage?page=1&perPageNum=10
-		/*
-		String query = "?";
-		query += "page="+page;
-		query += "&perPageNum="+cri.getPerPageNum();
-		return query;
-		*/
-		UriComponents uriComponents
-			= UriComponentsBuilder.newInstance()
-			  .queryParam("page", page)
-			  .queryParam("perPageNum", cri.getPerPageNum())
-			  .build();
-		String query = uriComponents.toUriString();
-		System.out.println(query);
-		return query;
+	public String search(int page) {
+		UriComponents uri 
+		= UriComponentsBuilder.newInstance()
+		 .queryParam("page",page)
+		 .queryParam("perPageNum", cri.getPerPageNum())
+		 .queryParam("searchType", cri.getSearchType())
+		 .queryParam("keyword", cri.getKeyword())
+		 .build();
+		String queryString = uri.toUriString();
+		System.out.println(queryString);
+		return queryString;
 	}
 	
 }

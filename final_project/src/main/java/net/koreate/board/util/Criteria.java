@@ -6,7 +6,7 @@ public class Criteria {
 	private int perPageNum;
 	
 	private String searchType; // 검색 타입
-	private String searchName; // 검색어
+	private String keyword; // 검색어
 	
 	public Criteria() {
 		this(1,12);
@@ -42,18 +42,18 @@ public class Criteria {
 		this.searchType = searchType;
 	}
 
-	public String getSearchName() {
-		return searchName;
+	public String getKeyword() {
+		return keyword;
 	}
 
-	public void setSearchName(String searchName) {
-		this.searchName = searchName;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType + ", searchName="
-				+ searchName + "]";
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType + ", keyword="
+				+ keyword + "]";
 	}
 	
 	

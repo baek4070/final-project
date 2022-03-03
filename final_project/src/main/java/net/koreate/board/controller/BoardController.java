@@ -1,12 +1,11 @@
 package net.koreate.board.controller;
 
 import java.io.File;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -55,11 +54,10 @@ public class BoardController {
 		String fileName = null;
 		MultipartFile uploadFile = board.getUploadFile();
 		System.out.println(board);
+		UUID uuid = UUID.randomUUID();
 		if (!uploadFile.isEmpty()) {
-			String originalFileName = uploadFile.getOriginalFilename();
-			System.out.println("originalFileName:"+originalFileName);
-			fileName = uploadFile.getOriginalFilename();
-			File saveFile = new File(uploadFolder, originalFileName);
+			fileName = uuid+"_"+uploadFile.getOriginalFilename();
+			File saveFile = new File(uploadFolder, fileName);
 			uploadFile.transferTo(saveFile);
 		}
 		board.setFileName(fileName);
