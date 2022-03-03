@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import net.koreate.board.vo.BoardVO;
 import net.koreate.home.dao.HomeDAO;
+import net.koreate.home.vo.WishVO;
 import net.koreate.qnaboard.vo.QnABoardVO;
 
 @Service
@@ -24,8 +25,8 @@ public class HomeServiceImpl implements HomeService {
 
 	@Override
 	public List<BoardVO> boardListSearch(BoardVO bvo) {
-		/* List<BoardVO> blist = dao.BoardListSearch(bvo); */
-		return null;
+		List<BoardVO> blist = dao.BoardListSearch(bvo);
+		return blist;
 	}
 
 	@Override
@@ -34,6 +35,11 @@ public class HomeServiceImpl implements HomeService {
 		return qlist;
 	}
 
+	@Override
+	public List<BoardVO> wish(WishVO wish) {
+		List<BoardVO> wishGet = dao.wish(wish);
+		return wishGet;
+	}
 
 	/*
 	 * @Override public List<BoardVO> blist() throws Exception { List<BoardVO> blist

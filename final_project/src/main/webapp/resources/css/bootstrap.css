@@ -5301,6 +5301,7 @@ fieldset:disabled .btn {
   color: #1f66b6;
   background-color: #e9ecef;
   border-color: #dee2e6;
+  cursor:pointer;
 }
 
 .page-link:focus {

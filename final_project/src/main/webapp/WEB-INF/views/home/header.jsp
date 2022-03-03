@@ -30,7 +30,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">사이트</a>
+    <a class="navbar-brand col-10" href="/">사이트</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,18 +38,21 @@
     <sec:authorize access="isAuthenticated()">
 	<sec:authentication var="user" property="principal.user"/>
       <c:if test="${!empty user}">
-      <ul class="navbar-nav me-auto offset-10">
+      <ul class="navbar-nav me-auto">
       	<li class="nav-item">
-      		<a class="nav-link" href="${path}/user/info">${user.u_name}님 반갑습니다.</a>
+      		<a class="nav-link" href="${path}/user/signIn"><img style="width:35px;" src="../resources/css/bells.png"/></a>
       	</li>
-       	<li class="nav-item">
-      		<a class="nav-link" href="${path}/user/signOut">로그아웃</a>
+      	<li class="nav-item navbar-text">
+      		<a class="nav-link" style="white-space:nowrap;"href="${path}/user/info">${user.u_name}님 반갑습니다.</a>
+      	</li>
+       	<li class="nav-item navbar-text">
+      		<a class="nav-link" style="white-space:nowrap;" href="${path}/user/signOut">로그아웃</a>
       	</li>
       </ul>
       </c:if>
       </sec:authorize>
       <sec:authorize access="isAnonymous()">
-      <ul class="navbar-nav me-auto offset-10">
+      <ul class="navbar-nav me-auto">
       	<li class="nav-item">
       		<a class="nav-link" href="${path}/user/signIn">로그인</a>
       	</li>
@@ -71,12 +74,12 @@
 		<h1>사이트 아이콘</h1>
 	</div>
 		<div class="col-lg-3 ms-md-auto" style="margin-top:16px;">
+		<form action="total" id="total">
 			<div class="input-group mb-3">
-			<form action="total" id="total">
 	    		<input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="상품 검색" >
 	    		<button class="btn btn-primary totalSearch" type="button" id="button-addon2">검색</button>
-	    	</form>
 	    	</div>
+	    	</form>
     	</div>
     </div>
 </div>
@@ -93,7 +96,11 @@
           <a class="nav-link" href="${path}/board/list">board</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">content more</a>
+        <form action="${path}/home/myList" method="post" id="wishGo">
+          <a class="nav-link" href="#" id="wish">찜목록</a>
+          <input type="hidden" name="uno" value="${user.uno}"/>
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
         </li>
       </ul>
     </div>
@@ -105,36 +112,83 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Accordion Item #1
+        삽니다
       </button>
     </h2>
-    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
       <div class="accordion-body">
-        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=one">상품1</a>
+      	</li>
+      </ul>
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=two">상품2</a>
+      	</li>
+      </ul>
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=three">상품3</a>
+      	</li>
+      </ul>
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=four">상품4</a>
+      	</li>
+      </ul>
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=five">상품5</a>
+      	</li>
+      </ul>
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        Accordion Item #2
+        팝니다
       </button>
     </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
+    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
       <div class="accordion-body">
-        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=one">상품1</a>
+      	</li>
+      </ul>
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=two">상품2</a>
+      	</li>
+      </ul>
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=three">상품3</a>
+      	</li>
+      </ul>
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=four">상품4</a>
+      	</li>
+      </ul>
+      <ul class="navbar-nav me-auto">
+      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=five">상품5</a>
+      	</li>
+      </ul>
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingThree">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Accordion Item #3
+        문의하기
       </button>
     </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+    <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
       </div>
     </div>
   </div>
@@ -167,9 +221,20 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+console.log(${user.uno});
 
-$(".totalSearch").click(function(){
+$(".totalSearch").click(function(event){
+	event.stopPropagation();
+	if($("#searchValue").val() == "" || $("#searchValue").val() == null){
+		alert("검색어를 입력해주세요");
+		return;
+	}
 	total.submit();
+});
+
+$("#wish").click(function(event){
+	event.stopPropagation();
+	$("#wishGo").submit();
 });
 
 /* <!--  $('#toggle').click(function(event){
@@ -189,7 +254,7 @@ $("#remoteTop").click(function(){
 
 $("#remoteBottom").click(function(){
 	window.scrollTo(0,document.body.scrollHeight);
-}); 
+});
 
 
 </script>

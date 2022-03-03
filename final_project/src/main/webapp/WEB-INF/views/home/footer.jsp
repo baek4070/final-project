@@ -13,7 +13,11 @@
 		text-align:center;
 	}
 </style>
-    
+</div>
+</div>
+</div>
+</div>
+</div> 
 <div id="container">
 	<div id="contents">
 		copyright &copy; koreate &nbsp;&nbsp;&nbsp; 팀원 : <br/>
