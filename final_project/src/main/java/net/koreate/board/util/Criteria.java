@@ -8,6 +8,9 @@ public class Criteria {
 	private String searchType; // 검색 타입
 	private String keyword; // 검색어
 	
+	private String tradeType;
+	private String category;
+	
 	public Criteria() {
 		this(1,12);
 	}
@@ -50,13 +53,27 @@ public class Criteria {
 		this.keyword = keyword;
 	}
 
+	public String getTradeType() {
+		return tradeType;
+	}
+
+	public void setTradeType(String tradeType) {
+		this.tradeType = tradeType;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType + ", keyword="
-				+ keyword + "]";
+				+ keyword + ", tradeType=" + tradeType + ", category=" + category + "]";
 	}
-	
-	
 }
 
 

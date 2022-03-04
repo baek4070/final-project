@@ -175,6 +175,8 @@
 			$("#go_search").click(function(){
 				var searchType = $("select option:selected").val();
 				var keyword = $("#keyword").val();
+				/* var tradeType = $("#tradeType").val();
+				var category = $("#category").val(); */
 				console.log("searchType : " + searchType);
 				console.log("keyword : " + keyword);
 				location.href="list?searchType="+searchType+"&keyword="+keyword;

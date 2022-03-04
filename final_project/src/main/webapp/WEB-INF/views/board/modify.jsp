@@ -6,6 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	#img {
+		width: 300px; height: 300px; border-radius: 0.5rem;
+	}
+</style>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -64,13 +69,13 @@
 			<tr>
 				<td>이미지</td>
 				<td>
-					<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+					<img id="img" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button class="btn btn-primary" type="submit" data-oper="modify">수정</button>
-					<button class="btn btn-primary" type="submit" data-oper="list">목록</button>
+					<button class="btn btn-primary" type="submit" data-oper="modify" style="border-radius: 0.25rem;">수정</button>
+					<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem;">목록</button>
 				</td>
 			</tr>
 		</table>

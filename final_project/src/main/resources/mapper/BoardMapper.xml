@@ -23,6 +23,26 @@
 				)
 			</if>	
 		</trim>
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<choose>
+				<when test="tradeType == 'buy' and tradeType != null and tradeType != '' ">
+					AND tradeType = #{tradeType} AND
+					<if test="category == 'one' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'two' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'three' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'four' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'five' and category != null and category != '' ">category = #{category}</if>
+				</when>
+				<when test="tradeType == 'sell' and tradeType != null and tradeType != '' ">
+					AND tradeType = #{tradeType} AND
+					<if test="category == 'one' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'two' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'three' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'four' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'five' and category != null and category != '' ">category = #{category}</if>
+				</when>
+			</choose>
+		</trim>
 	</select>
 	
 	<select id="list" parameterType="criteria" resultType="boardVO">
@@ -45,6 +65,26 @@
 				)
 			</if>	
 		</trim>
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<choose>
+				<when test="tradeType == 'buy' and tradeType != null and tradeType != '' ">
+					AND tradeType = #{tradeType} AND
+					<if test="category == 'one' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'two' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'three' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'four' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'five' and category != null and category != '' ">category = #{category}</if>
+				</when>
+				<when test="tradeType == 'sell' and tradeType != null and tradeType != '' ">
+					AND tradeType = #{tradeType} AND
+					<if test="category == 'one' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'two' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'three' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'four' and category != null and category != '' ">category = #{category}</if>
+					<if test="category == 'five' and category != null and category != '' ">category = #{category}</if>
+				</when>
+			</choose>
+		</trim>
 		ORDER BY bno DESC
 		limit #{startRow}, #{perPageNum}
 	</select>
@@ -55,7 +95,7 @@
 		VALUES (#{title},#{content},#{writer},#{writerId},#{fileName},#{filePath},
 		<choose>
 			<when test="tradeType == '필요해요'">"buy",</when>
-			<when test="tradeType == '필요없어요'">"cell",</when>
+			<when test="tradeType == '필요없어요'">"sell",</when>
 		</choose>
 		#{category})
 	</insert>
@@ -72,7 +112,7 @@
 		content		= #{content},
 		<choose>
 			<when test="tradeType == '필요해요'">tradeType = "buy",</when>
-			<when test="tradeType == '필요없어요'">tradeType = "cell",</when>
+			<when test="tradeType == '필요없어요'">tradeType = "sell",</when>
 		</choose>
 		category = #{category},
 		updateDate	= now()

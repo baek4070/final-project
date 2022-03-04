@@ -11,9 +11,9 @@
 		display: none;
 	}
 
-	#img {
+	/* #img {
 		max-width: 150px; max-height: 150px;
-	}
+	} */
 
 	.img_cover {
 		position: relative;
@@ -87,14 +87,16 @@
 						<img id="img" alt="이미지 등록" src="${path}/resources/img/camera.png">
 					</div>
 					<div style="margin-top: 7.5px;">
-						<button class="btn btn-primary" type="button" id="remove_img" style="width: 150px;">이미지 삭제</button>
+						<button class="btn btn-primary" type="button" id="remove_img"
+						style="width: 150px; border-radius: 0.25rem;">이미지 삭제</button>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
 					<button class="btn btn-primary" type="submit" id="register" style="border-radius: 0.25rem;">물품등록</button>
-					<button class="btn btn-primary" type="button" id="list" style="border-radius: 0.25rem;">목록으로</button>
+					<button class="btn btn-primary" type="button"
+					onclick="location.href='/board/list'" style="border-radius: 0.25rem;">목록으로</button>
 				</td>
 			</tr>
 		</table>
@@ -105,12 +107,6 @@
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	$(function(){
-		$("#list").on("click", function(){
-			location.href="/board/list";
-		});
-		formData = new FormData();
-	});
 	
 	function imgUpload(){
 		$("#profileImage").trigger("click");
@@ -124,9 +120,19 @@
 			removeImage();
 		}else{
 			var path = window.URL.createObjectURL(files);
+			$(".img_cover").css("padding",0);
+			$("#img").css("width","150px").css("height","150px").css("border-radius","0.25rem");
 			$("#img").attr("src",path);
-			$("#img").attr("alt","첨부된 이미지");
+			$("#remove_img").show(); // 이미지 삭제 버튼 보이기
 		}
+	});
+	
+	$("#remove_img").on("click",function(){
+		$(".img_cover").css("padding","10px");
+		$("#img").css("width","128px").css("height","128px");
+		$("#img").attr("src","${path}/resources/img/camera.png");
+		$("#remove_img").hide(); // 이미지 삭제 버튼 감추기
+		$("#profileImage").val(""); // 파일 정보 삭제
 	});
 	/*
 	function profileUpload(files){
@@ -187,6 +193,8 @@
 		var img = $("#img");
 		console.log($("#img"));
 		console.log(img[0]);
+		console.log("------------");
+		console.log($("#profileImage").val());
 	}
 	/*
 	$(document).ajaxSend(function(e, xhr, options){

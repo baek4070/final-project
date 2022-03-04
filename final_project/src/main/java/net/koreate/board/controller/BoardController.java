@@ -37,6 +37,7 @@ public class BoardController {
 	public void list(Criteria cri, Model model) throws Exception {
 		model.addAttribute("list", service.list(cri));
 		model.addAttribute("pm", service.getPageMaker(cri));
+		System.out.println(model);
 	}
 	
 	@GetMapping("/register")
