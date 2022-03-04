@@ -28,7 +28,7 @@
 </style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <a class="navbar-brand col-10" href="/">사이트</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
       <c:if test="${!empty user}">
       <ul class="navbar-nav me-auto">
       	<li class="nav-item">
-      		<a class="nav-link" href="${path}/user/signIn"><img style="width:35px;" src="../resources/css/bells.png"/></a>
+      		<a class="nav-link" href="${path}/user/signIn"><img style="width:35px; height:auto;" src="../resources/css/bells.png"/></a>
       	</li>
       	<li class="nav-item navbar-text">
       		<a class="nav-link" style="white-space:nowrap;"href="${path}/user/info">${user.u_name}님 반갑습니다.</a>
@@ -118,27 +118,27 @@
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
       <div class="accordion-body">
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=one'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=one">상품1</a>
       	</li>
       </ul>
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=two'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=two">상품2</a>
       	</li>
       </ul>
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=three'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=three">상품3</a>
       	</li>
       </ul>
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=four'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=four">상품4</a>
       	</li>
       </ul>
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=five'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=five">상품5</a>
       	</li>
       </ul>
@@ -154,27 +154,27 @@
     <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
       <div class="accordion-body">
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=one'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=one">상품1</a>
       	</li>
       </ul>
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=two'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=two">상품2</a>
       	</li>
       </ul>
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=three'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=three">상품3</a>
       	</li>
       </ul>
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=four'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=four">상품4</a>
       	</li>
       </ul>
       <ul class="navbar-nav me-auto">
-      	<li class="nav-item page-link mb-1" style="text-align:center;">
+      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=five'">
       		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=five">상품5</a>
       	</li>
       </ul>
