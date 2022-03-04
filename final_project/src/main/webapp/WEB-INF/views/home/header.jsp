@@ -41,7 +41,7 @@
       <ul class="navbar-nav me-auto">
       <sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
       	<li class="nav-item navbar-text">
-      		<a class="nav-link" href="${path}/user/signIn">MANAGEMENT</a>
+      		<a class="nav-link" href="${path}/user/master">MANAGEMENT</a>
       	</li>
       	</sec:authorize>
       	<li class="nav-item">

@@ -1,24 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/home/header.jsp"/>
+<jsp:include page="/WEB-INF/views/home/headeronuser.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <style>
 	#emailCodeWrap{
 		display:none;
 	}
+	.table{
+		/* text-align:left; */
+		justify-align:center;
+	}
+	#u_birth{
+		background-color:white;
+	}
+	.input-group-text{
+		display:flex;
+		jusitfy-content:center;
+		align-items:center;
+	}
+	.join{
+		width:150px;
+		
+		/* width:auto; */
+	}
+	#signUpForm{
+		background-color:#ccc;
+	}
 </style>
-<div class="container">
+<div class="div" style="display:flex; justify-content:center; align-items:center; padding-top:150px;">
 	<form id="signUpForm" action="${pageContext.request.contextPath}/user/signUpPost" method="POST">
-		<table border=1>
+		<h1 style="text-align:center;">회원가입</h1>
+		<table class="table">
 			<tr>
-				<th colspan="2">회원가입</th>
+			
 			</tr>
 			<tr>
 				<td>아이디(email)</td>
 				<td>
-					<input type="text" class="form-control" name="u_id" id="u_id" autocomplete="off"/>
-					<button type="button" id="acceptEmail">이메일 인증</button>
+					<input type="text" class="form-control" name="u_id" id="u_id" autocomplete="off" placeholder="E-Mail"/>
+					<button type="button" id="acceptEmail" class="btn btn-primary btn-sm">이메일 인증</button>
 					<div class="result"></div>
 					<div id="emailCodeWrap">
 						<input type="text" id="emailCode"/>
@@ -29,25 +50,25 @@
 			<tr>
 				<td>비밀번호</td>
 				<td>
-					<input type="password" class="form-control" name="u_pw" id="u_pw" autocomplete="off"/>
+					<input type="password" class="form-control" name="u_pw" id="u_pw" autocomplete="off" placeholder="password"/>
 				</td>
 			</tr>
 			<tr>
 				<td>비밀번호 확인</td>
 				<td>
-					<input type="password" class="form-control" name="u_repw" id="u_repw"/>
+					<input type="password" class="form-control" name="u_repw" id="u_repw" placeholder="password check"/>
 				</td>
 			</tr>
 			<tr>
 				<td>이름(2~6자이내)</td>
 				<td>
-					<input type="text" name="u_name" class="form-control" id="u_name"/>
+					<input type="text" name="u_name" class="form-control" id="u_name" placeholder="Name"/>
 				</td>
 			</tr>
 			<tr>
 				<td>생년월일(ex-19820607)</td>
 				<td>
-					<input type="text" name="u_birth" class="form-control" id="u_birth" autocomplete="off"/>
+					<input type="text" name="u_birth" class="form-control" id="u_birth" autocomplete="off" placeholder="생년월일"/>
 				</td>
 			</tr>
 			<tr>
@@ -55,27 +76,27 @@
 				<td>
 					<div class="row">
 						<div class="col-md-8">
-							<input type="text" class="form-control" name="u_addr_post" id="u_addr_post"/>
+							<input type="text" class="form-control" name="u_addr_post" id="u_addr_post" placeholder="우편 번호"/>
 						</div>
 						<div class="col-md-4">
-							<input type="button" class="form-control btn btn-default" onclick="sample6_execDaumPostcode();" value="주소찾기"/>
+							<input type="button" class="form-control btn btn-primary" onclick="sample6_execDaumPostcode();" value="주소찾기"/>
 						</div>
 					</div>
 					<br/>
-					<input type="text" class="form-control" name="u_addr" id="u_addr"/>
+					<input type="text" class="form-control" name="u_addr" id="u_addr" placeholder="주소"/>
 					<br/>
-					<input type="text" class="form-control" name="u_addr_detail" id="u_addr_detail"/>
+					<input type="text" class="form-control" name="u_addr_detail" id="u_addr_detail" placeholder="상세 주소"/>
 				</td>
 			</tr>
 			<tr>
 				<td>전화번호(-제외 숫자만)</td>
 				<td>
-					<input type="text" name="u_phone" class="form-control" id="u_phone"/>
+					<input type="text" name="u_phone" class="form-control" id="u_phone" placeholder="Phone Number"/>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" id="signUpBtn" value="회원가입"/> 
+					<input type="submit" class="btn-primary form-control" id="signUpBtn" value="회원가입"/> 
 				</td>
 			</tr>
 		</table>

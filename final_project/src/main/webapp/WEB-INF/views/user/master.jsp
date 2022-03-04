@@ -25,6 +25,7 @@
 		<th>전화번호</th>
 		<th>마지막 방문 일자</th>
 		<th>탈퇴 여부</th>
+		<th>권한</th>
 	</tr>
 	<c:choose>
 		<c:when test="${!empty userList}">
@@ -43,7 +44,15 @@
 							<option value="y" ${user.u_withdraw eq 'y' ? 'selected' : '' }>비활성화</option>
 							<option value="n" ${user.u_withdraw eq 'n' ? 'selected' : '' }>활성화</option> 
 						</select>
-						<input type="button" value="비활성화 Y/N" class="deleteBtn"/>
+					</td>
+					<td>
+						<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
+							<select id="authChange">
+								<option selected>권한선택</option>
+								<option value="ROLE_USER">일반회원</option>
+								<option value="ROLE_MASTER">관리자</option>
+							</select>
+						</sec:authorize>
 					</td>
 				</tr>
 			</c:forEach>
@@ -56,7 +65,13 @@
 	</c:choose>
 </table>
 <script>
-	
+	$("#authChange").on("change",function(){
+		var selectAuth = $(this);
+		var changedVal = selectAuth.val();
+		console.log(changedVal);
+		
+		
+	});
 </script>
 </body>
 </html>

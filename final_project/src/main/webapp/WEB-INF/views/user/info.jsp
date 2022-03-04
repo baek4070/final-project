@@ -5,16 +5,28 @@
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <sec:authorize access="isAuthenticated()">
 <sec:authentication var="user" property="principal.user"/>
+<style>
+	#signUpdateForm{
+		display:flex;
+		justify-content:center;
+		align-items:center;
+	}
+	.head{
+		text-align:center;
+	}
+	.button{
+		margin:15px;
+		
+	}
+</style>
+<h1 style="text-align:center;">회원정보 수정</h1>
 <form id="signUpdateForm" action="${path}/user/signUpdatePost" method="POST">
 	<input type="hidden" name="uno" id="uno" value="${user.uno}"/>
-	<table border=1>
-		<tr>
-			<th colspan=2><h1>회원정보 수정</h1></th>
-		</tr>
+	<table>
 		<tr>
 			<td>아이디(email)</td>
 			<td>
-				<input type="text" class="form-control" name="u_id" readonly value="${user.u_id}" required/>
+				<input type="text" class="form-control" name="u_id" disabled value="${user.u_id}" required/>
 			</td>
 		</tr>
 		
@@ -61,10 +73,10 @@
 		</tr>
 		<tr>
 			<td colspan=2>
-				<input type="button" value="홈" onclick="location.href='${path}/'"/>
-				<input type="button" value="회원탈퇴" onclick="location.href='/user/withdraw';"/>
-				<input type="button" id="update" value="수정하기" /> 
-				<input type="button" value="관리자" onclick="location.href='/user/master';"/>
+				<input type="button" class="btn-primary" value="홈" onclick="location.href='${path}/'"/>
+				<input type="button" class="btn-primary" value="회원탈퇴" onclick="location.href='/user/withdraw';"/>
+				<input type="button" class="btn-primary" id="update" value="수정하기" /> 
+				<input type="button" class="btn-primary" value="관리자" onclick="location.href='/user/master';"/>
 			</td>
 		</tr>
 	</table>
