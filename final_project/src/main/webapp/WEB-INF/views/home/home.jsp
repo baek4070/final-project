@@ -10,7 +10,7 @@
 		  				<c:if test="${!empty qlist}">
 		  					<c:forEach var="question" items="${qlist}">
 		  				<tr>
-		  					<td style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath}/qnaboard/detail?qno=${question.qno}'">Q. ${question.title}</td>
+		  					<td style="cursor:pointer;" onclick="location.href='${path}/qnaboard/detail?qno=${question.qno}'">Q. ${question.title}</td>
 		  				</tr>
 		  					</c:forEach>
 		  				</c:if>

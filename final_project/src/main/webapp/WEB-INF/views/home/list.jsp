@@ -33,10 +33,7 @@
 	<c:if test="${!empty qBoard}">
 	<c:forEach var="question" items="${qBoard}">
 		<tr>
-    		<th>${question.title}</th>
-    	</tr>
-    	<tr>
-      		<td>${question.content}</td>
+    		<td onclick="location.href='${path}/qnaboard/detail?qno=${question.qno}'"><p style="font-weight:bold;">${question.title}</p>${question.content}</td>
     	</tr>
     </c:forEach>
     </c:if>
@@ -60,10 +57,7 @@
 	<c:if test="${!empty bBoard}">
 	<c:forEach var="board" items="${bBoard}">
 		<tr>
-    		<td>${board.title}</td>
-    	</tr>
-    	<tr>
-      		<td>${board.content}</td>
+    		<td onclick="location.href='${path}/board/detail?bno=${board.bno}'"><p style="font-weight:bold;">${board.title}</p>${board.content}</td>
     	</tr>
     </c:forEach>
     </c:if>

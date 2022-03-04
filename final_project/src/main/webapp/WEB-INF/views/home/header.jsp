@@ -39,6 +39,11 @@
 	<sec:authentication var="user" property="principal.user"/>
       <c:if test="${!empty user}">
       <ul class="navbar-nav me-auto">
+      <sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
+      	<li class="nav-item navbar-text">
+      		<a class="nav-link" href="${path}/user/signIn">MANAGEMENT</a>
+      	</li>
+      	</sec:authorize>
       	<li class="nav-item">
       		<a class="nav-link" href="${path}/user/signIn"><img style="width:35px; height:auto;" src="../resources/css/bells.png"/></a>
       	</li>
