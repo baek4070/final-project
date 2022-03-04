@@ -28,9 +28,9 @@
 </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="position:fixed; top:0%; width:100%; z-index:999; min-height:72px;">
   <div class="container-fluid">
-    <a class="navbar-brand col-10" href="/">사이트</a>
+    <a class="navbar-brand" href="/">사이트</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,7 +38,7 @@
     <sec:authorize access="isAuthenticated()">
 	<sec:authentication var="user" property="principal.user"/>
       <c:if test="${!empty user}">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav ms-auto">
       <sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
       	<li class="nav-item navbar-text">
       		<a class="nav-link" href="${path}/user/master">MANAGEMENT</a>
@@ -48,16 +48,19 @@
       		<a class="nav-link" href="${path}/user/signIn"><img style="width:35px; height:auto;" src="../resources/css/bells.png"/></a>
       	</li>
       	<li class="nav-item navbar-text">
-      		<a class="nav-link" style="white-space:nowrap;"href="${path}/user/info">${user.u_name}님 반갑습니다.</a>
+      		<a class="nav-link wish" href="#">찜목록</a>
+      	</li>
+      	<li class="nav-item navbar-text">
+      		<a class="nav-link" href="${path}/user/info">${user.u_name}님 반갑습니다.</a>
       	</li>
        	<li class="nav-item navbar-text">
-      		<a class="nav-link" style="white-space:nowrap;" href="${path}/user/signOut">로그아웃</a>
+      		<a class="nav-link" href="${path}/user/signOut">로그아웃</a>
       	</li>
       </ul>
       </c:if>
       </sec:authorize>
       <sec:authorize access="isAnonymous()">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav ms-auto">
       	<li class="nav-item">
       		<a class="nav-link" href="${path}/user/signIn">로그인</a>
       	</li>
@@ -102,7 +105,7 @@
         </li>
         <li class="nav-item">
         <form action="${path}/home/myList" method="post" id="wishGo">
-          <a class="nav-link" href="#" id="wish">찜목록</a>
+          <a class="nav-link wish" href="#">찜목록</a>
           <input type="hidden" name="uno" value="${user.uno}"/>
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
@@ -237,7 +240,7 @@ $(".totalSearch").click(function(event){
 	total.submit();
 });
 
-$("#wish").click(function(event){
+$(".wish").click(function(event){
 	event.stopPropagation();
 	$("#wishGo").submit();
 });

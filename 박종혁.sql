@@ -40,6 +40,23 @@ CREATE TABLE IF NOT EXISTS wish(
     CONSTRAINT fk_bno FOREIGN KEY(bno) REFERENCES board(bno)
 );
 
+CREATE TABLE IF NOT EXISTS ring_the_bell(
+	bno INT,
+    uno INT,
+    mno INT,
+    checked char(1) default 'n'
+);
+
+CREATE TABLE IF NOT EXISTS message(
+	mno INT PRIMARY KEY NOT NULL auto_increment,
+    writer VARCHAR(50),
+    receiver VARCHAR(50),
+    content VARCHAR(50),
+    regdate TIMESTAMP NOT NULL DEFAULT now(),
+    checkdate TIMESTAMP,
+    CONSTRAINT fk_receiver FOREIGN KEY(receiver) REFERENCES trade_user(u_name)
+);
+
 insert into wish values(1,1);
 insert into wish values(3,1);
 insert into wish values(1,3);
