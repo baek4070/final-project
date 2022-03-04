@@ -149,7 +149,7 @@
 					<option value="writer">작성자</option>
 					<option value="titcont">제목+내용</option>
 				</select>
-				<div style="margin-left: 10px"></div>
+				&nbsp;
 				<input type="text" class="search_box" id="keyword"
 				style="border-radius: 0.25rem 0 0 0.25rem;"
 				placeholder="검색어를 입력하세요."/>

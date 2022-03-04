@@ -8,7 +8,7 @@
 	<table class="table table-hover">
 		<tr>
 			<th>제목</th>
-			<td colspan="5" class="text-center">${vo.title}<td>
+			<td colspan="6" class="text-center">${vo.title}<td>
 		</tr>
 		<tr>
 			<th>작성자</th>
@@ -16,34 +16,36 @@
 			<th>작성일자</th>
 			<td><f:formatDate pattern="yyyy-MM-dd HH:mm" value="${vo.regdate}"/><td>
 			<th>조회수</th>
-			<td>${vo.viewcnt}<td>
+			<td>${vo.viewcnt}</td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td colspan="5" class="text-center">${vo.content}</td>
+			<td colspan="7" class="text-center"><textarea class="form-control" readonly rows="20" cols="50">${vo.content}</textarea></td>
 		</tr>
 		<tr>
 			<th>첨부파일</th>
 			<c:if test="${!empty vo.filename}">
-				<td>
-					<a id="img" href="${pageContext.request.contextPath}/resources/qna/${vo.filename}"> ${vo.filename} </a>
+				<td colspan="7">
+					<a id="img" href="${pageContext.request.contextPath}/resources/qna/${vo.filename}"> <img src="${path}/resources/img/file.png" style="width:25px; height:25px;" />${vo.filename} </a>
 				</td>
 			</c:if>
 		</tr>
 	</table>
 	<sec:authentication property="principal" var="pinfo"/>
 	<sec:authorize access="isAuthenticated()">
+	<a href="list" class="btn btn-outline-danger" style="border-radius: 0.25rem;">목록으로</a>
 	<c:if test="${pinfo.username eq vo.userId or pinfo.username eq 'qwe@qwe' }">
-	<a href="modify?qno=${vo.qno}" class="btn btn-outline-danger" >수정</a>
-	<a href="#" id="delete" class="btn btn-outline-danger" data-uri="delete?qno=${vo.qno}" >삭제</a>
+	<a href="modify?qno=${vo.qno}" style="border-radius: 0.25rem ; margin-left:3px; float:right;" class="btn btn-outline-danger" >수정</a>
+	
+	<a href="#" id="delete" class="btn btn-outline-danger" style="margin-left:3px; border-radius: 0.25rem; float:right;" data-uri="delete?qno=${vo.qno}" >삭제</a>
+	&nbsp;
 	</c:if>
 	</sec:authorize>
 	
 	<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
-	<a href="reply?qno=${vo.qno}" class="btn btn-outline-danger" >답글</a>
+	<a href="reply?qno=${vo.qno}" class="btn btn-outline-danger" style="margin-left:3px; border-radius: 0.25rem; float:right;">답글</a>&nbsp;
 	</sec:authorize>
 	
-	<a href="list" class="btn btn-outline-danger" >목록으로</a>
 	
 	
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>

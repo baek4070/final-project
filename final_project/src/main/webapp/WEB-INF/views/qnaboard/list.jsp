@@ -2,10 +2,72 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<!DOCTYPE html>
+<html>
+<head>
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+	img {
+		width: 302px; height: 150px;
+		object-fit: contain;
+	}
 
+	.row {
+		align-content: space-around;
+		margin: auto;
+	}
+	
+	.pagination {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.search_box {
+	  display: block;
+	  width: 25%;
+	  padding: 0.375rem 0.75rem;
+	  font-size: 1rem;
+	  font-weight: 400;
+	  line-height: 1.5;
+	  color: #333;
+	  background-color: #fff;
+	  background-clip: padding-box;
+	  border: 1px solid #ced4da;
+	  -webkit-appearance: none;
+	  -moz-appearance: none;
+	  appearance: none;
+	  border-radius: 0.25rem;
+	  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	}
+	
+	.category {
+	  display: block;
+	  width: 15%;
+	  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+	  font-size: 1rem;
+	  font-weight: 400;
+	  line-height: 1.5;
+	  color: #333;
+	  background-color: #fff;
+	  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+	  background-repeat: no-repeat;
+	  background-position: right 0.75rem center;
+	  background-size: 16px 12px;
+	  border: 1px solid #ced4da;
+	  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	  -webkit-appearance: none;
+	  -moz-appearance: none;
+	  appearance: none;
+	}
+</style>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h1 class="text-center" >질문과 답하기</h1>
+	<h2 class="text-center" >질문과 답하기</h2>
 	<table class="table table-hover">
 		<tr>
 			<th scope="row">번호</th>
@@ -48,37 +110,41 @@
 				</tr>
 			</c:otherwise>
 		</c:choose>
+	</table>
+		<sec:authorize access="isAuthenticated()">
+			<a href="write" class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right;">글쓰기</a>
+		</sec:authorize>
 		<!-- 페이징 블럭 -->
-		<tr>
-			<th colspan="6">
+		<ul class="pagination">
 				<c:if test="${pm.prev}">
-					<a href="list?page=${pm.startPage-1}">[이전]</a>
+					<li class="page-item">
+						<a class="page-link" href="list?page=${pm.startPage-1}">이전</a>
+   					</li>
 				</c:if>
 				<c:forEach var="i" begin="${pm.startPage}" 
 								   end="${pm.endPage}">
-				   <a href="list${pm.search(i)}">[${i}]</a>
+   					<li class="page-item">
+					   <a class="page-link" href="list${pm.search(i)}">${i}</a>
+	   				</li>
 				</c:forEach>
 				<c:if test="${pm.next}">
-					<a href="list?page=${pm.endPage+1}">[다음]</a>
+					<li class="page-item">
+						<a class="page-link" href="list?page=${pm.endPage+1}">다음</a>
+	   				</li>
 				</c:if>
-			</th>
-		</tr>
-	</table>
-	
-	<select>
-		<option value="n">미선택</option>
-		<option value="t">제목</option>
-		<option value="c">내용</option>
-		<option value="tc">제목+내용</option>
-	</select>
-	<input type="text" id="keyword"/>
-	<input type="button" value="검색" id="searchBtn"/>
-	<hr/>
-	<sec:authorize access="isAuthenticated()">
-	
-		<a href="write" class="btn btn-outline-danger" >글쓰기</a>
-	
-	</sec:authorize>
+		</ul>
+	<div class="input-group mb-3"
+	style="justify-content: center;">
+		<select class="category" style="border-radius: 0.25rem;">
+			<option value="n">미선택</option>
+			<option value="t">제목</option>
+			<option value="c">내용</option>
+			<option value="tc">제목+내용</option>
+		</select>
+		&nbsp;
+		<input class="search_box" type="text" id="keyword" placeholder="QnA게시판내에서 검색" style="border-radius: 0.25rem 0 0 0.25rem;" />
+		<input class="btn btn-primary" style="border-radius: 0 0.25rem 0.25rem 0;" type="button" value="검색" id="searchBtn"/>
+	</div>
 	
 	
 	
