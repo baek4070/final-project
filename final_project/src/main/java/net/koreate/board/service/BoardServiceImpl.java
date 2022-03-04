@@ -60,4 +60,16 @@ public class BoardServiceImpl implements BoardService {
 		return (result > 0) ? type + " 성공" : type + " 실패";
 	}
 
+	@Override
+	public String addWishlist(BoardVO board) throws Exception {
+		int result = dao.addWishlist(board);
+		return getMessage(result, "찜 추가");
+	}
+
+	@Override
+	public String removeWishlist(BoardVO board) throws Exception {
+		int result = dao.deleteWishlist(board);
+		return getMessage(result, "찜 취소");
+	}
+
 }

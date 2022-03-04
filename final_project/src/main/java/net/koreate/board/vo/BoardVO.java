@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class BoardVO {
 	private int bno;
+	private int uno;
 	private String title;
 	private String content;
 	private String writer;

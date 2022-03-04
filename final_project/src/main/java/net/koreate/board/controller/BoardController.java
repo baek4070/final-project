@@ -6,8 +6,6 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import net.koreate.board.service.BoardService;
 import net.koreate.board.util.Criteria;
 import net.koreate.board.util.FileUtils;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.WishVO;
 
 @Controller
 @RequestMapping("/board")
@@ -37,6 +35,8 @@ public class BoardController {
 	public void list(Criteria cri, Model model) throws Exception {
 		model.addAttribute("list", service.list(cri));
 		model.addAttribute("pm", service.getPageMaker(cri));
+		model.addAttribute("ltt",cri.getTradeType());
+		model.addAttribute("lct",cri.getCategory());
 		System.out.println(model);
 	}
 	
@@ -94,43 +94,18 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	/*
-	@PostMapping("uploadAjax")
-	public ResponseEntity<String> uploadAjax(
-			MultipartFile file) throws Exception{
-		String path = FileUtils.calcPath(uploadPath);
-		//System.out.println(file);
-		
-		ResponseEntity<String> entity = null;
-		String origin = file.getOriginalFilename();
-		String uploadPath = context.getRealPath("/resources/img");
-		String savedName 
-			= FileUtils.uploadFile(
-							origin, 
-							uploadPath,
-							file.getBytes()
-						);
-		HttpHeaders header = new HttpHeaders();
-		header.add("Content-Type", "text/plain;charset=utf-8");
-		entity = new ResponseEntity<>(savedName,header,HttpStatus.OK);
-		return entity;
+	@PostMapping("/addWishlist")
+	public String addWishlist(BoardVO board, int bno, RedirectAttributes rttr) throws Exception {
+		String result = service.addWishlist(board);
+		rttr.addFlashAttribute("result", result);
+		return "redirect:/board/detail?bno="+bno;
 	}
-	*/
 	
-	// 파일 삭제 요청 처리
-	@PostMapping("deleteFile")
-	public ResponseEntity<String> deleteFile(
-				String fileName )throws Exception{
-		System.out.println("fileName delete : " + fileName);
-		ResponseEntity<String> entity = null;
-		String uploadPath = context.getRealPath("/resources/img");
-		boolean isDeleted = FileUtils.deleteFile(uploadPath, fileName);
-		if(isDeleted) {
-			entity = new ResponseEntity<>("DELETED",HttpStatus.OK);
-		}else {
-			entity = new ResponseEntity<>("FAILED",HttpStatus.BAD_REQUEST);
-		}
-		return entity;
+	@PostMapping("/removeWishlist")
+	public String removeWishlist(BoardVO board, int bno, RedirectAttributes rttr) throws Exception {
+		String result = service.removeWishlist(board);
+		rttr.addFlashAttribute("result", result);
+		return "redirect:/board/detail?bno="+bno;
 	}
 	
 }

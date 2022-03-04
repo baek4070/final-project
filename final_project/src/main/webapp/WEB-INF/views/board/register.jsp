@@ -103,7 +103,6 @@
 		<input type="file" id="profileImage" name="uploadFile" accept="image/*" style="display: none;"/>
 		<input type="hidden" name="uimage" id="uimage"/>
 	</form>
-	<button onclick="test()">파일 정보 확인</button>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
@@ -134,75 +133,5 @@
 		$("#remove_img").hide(); // 이미지 삭제 버튼 감추기
 		$("#profileImage").val(""); // 파일 정보 삭제
 	});
-	/*
-	function profileUpload(files){
-		console.log(files[0]);
-
-		formData.append("file",files[0]);
-		console.log(formData);
-		// encType = urlEncoded
-		$.ajax({
-			type : "POST",
-			url : "uploadAjax",
-			data : {
-				formData
-			},
-			// key=value 형태의 Query String으로 변환을 하지않는다.
-			processData : false,
-			contentType : false,
-			dataType : "text",
-			success : function(result){
-				alert(result);
-				$("#img").attr("src","${path}/resources/img/"+result);
-				$("#uimage").val(result);
-				$("#remove_img").fadeIn("fast");
-			},
-			error : function(res){
-				console.log(res);
-			}
-		});
-	}
-	
-	// 파일 정보 삭제
-	$("#remove_img").click(function(){
-		var fileName = $("#uimage").val();
-		$.ajax({
-			url : "deleteFile",
-			type : "POST",
-			data : {fileName : fileName},
-			dataType : "text",
-			success : function(result){
-				if(result == "DELETED") {
-					alert("삭제 성공");
-					formData.delete("file");
-					
-				} else {
-					alert("삭제 실패");
-				}
-				$("#img").attr("src","${path}/resources/img/camera.png");
-				$("#remove_img").fadeOut("fast");
-			},
-			error : function(res){
-				alert(res.responseText);
-			}
-		});
-	});
-	
-	*/
-	function test() {
-		var img = $("#img");
-		console.log($("#img"));
-		console.log(img[0]);
-		console.log("------------");
-		console.log($("#profileImage").val());
-	}
-	/*
-	$(document).ajaxSend(function(e, xhr, options){
-		xhr.setRequestHeader(
-				// "${_csrf.parameterName}",
-				"${_csrf.headerName}",
-				"${_csrf.token}");
-	});
-	*/
 </script>
 </html>

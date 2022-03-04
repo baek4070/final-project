@@ -21,9 +21,7 @@
 				OR
 				content like CONCAT('%', #{keyword}, '%')
 				)
-			</if>	
-		</trim>
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			</if>
 			<choose>
 				<when test="tradeType == 'buy' and tradeType != null and tradeType != '' ">
 					AND tradeType = #{tradeType} AND
@@ -41,7 +39,7 @@
 					<if test="category == 'four' and category != null and category != '' ">category = #{category}</if>
 					<if test="category == 'five' and category != null and category != '' ">category = #{category}</if>
 				</when>
-			</choose>
+			</choose>	
 		</trim>
 	</select>
 	
@@ -63,9 +61,7 @@
 				OR
 				content like CONCAT('%', #{keyword}, '%')
 				)
-			</if>	
-		</trim>
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			</if>
 			<choose>
 				<when test="tradeType == 'buy' and tradeType != null and tradeType != '' ">
 					AND tradeType = #{tradeType} AND
@@ -123,4 +119,14 @@
 	<delete id="delete" parameterType="int">
 		DELETE FROM board WHERE bno = #{bno}
 	</delete>
+	
+	<!-- 찜목록 추가 -->
+	<insert id="addWishlist" parameterType="boardVO">
+		INSERT INTO wish(bno,uno) VALUES (#{bno},#{uno})
+	</insert>
+	
+	<!-- 찜목록 삭제 -->
+	<insert id="deleteWishlist" parameterType="boardVO">
+		DELETE FROM wish WHERE bno = #{bno} AND uno = #{uno}
+	</insert>
 </mapper>

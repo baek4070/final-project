@@ -19,4 +19,9 @@ public interface BoardService {
 	
 	public String delete(int bno) throws Exception;
 	
+	// 찜목록 추가
+	public String addWishlist(BoardVO board) throws Exception;
+	
+	// 찜목록 삭제
+	public String removeWishlist(BoardVO board) throws Exception;
 }

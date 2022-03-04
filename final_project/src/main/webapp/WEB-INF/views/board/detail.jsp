@@ -20,6 +20,9 @@
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h2>물품 상세정보</h2>
 	<form id="detailForm" action="" method="get">
+		<sec:authentication var="user" property="principal.user"/>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<input type="hidden" name="uno" value="${user.uno}"/>
 		<table class="table table-hover">
 			<tr>
 				<td>글번호</td>
@@ -69,12 +72,19 @@
 				</c:if>
 			</tr>
 			<tr>
-				<td class="title" colspan="3">
+				<td class="title" colspan="4">
 					<sec:authentication property="principal" var="pinfo"/>
 					<sec:authorize access="isAuthenticated()">
 						<c:if test="${pinfo.user.u_id eq board.writerId or pinfo.user.u_id eq 'admin@admin' }">
 							<button class="btn btn-primary" type="submit" data-oper="modify" style="border-radius: 0.25rem;">수정</button>
 							<button class="btn btn-primary" type="submit" data-oper="remove" style="border-radius: 0.25rem;">삭제</button>
+						</c:if>
+						<c:if test="${pinfo.user.u_id ne board.writerId}">
+							
+							<button class="btn btn-primary" type="submit" data-oper="addWishlist"
+							style="border-radius: 0.25rem; float: right;">찜하기</button>
+							<button class="btn btn-primary" type="submit" data-oper="removeWishlist"
+							style="border-radius: 0.25rem; float: right;">찜취소</button>
 						</c:if>
 					</sec:authorize>
 					<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem;">목록</button>
@@ -84,11 +94,15 @@
 		<input type="hidden" name="bno" value="${board.bno}"/>
 		<input type="hidden" name="page" value="${cri.page}"/> 
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
+		
 	</form>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			
+			var result = '<c:out value="${result}"/>';
+			if(result != null && result != ''){
+				alert(result);
+			}
 			var detailForm = $("#detailForm");
 			
 			$("button").on("click", function(e){
@@ -104,6 +118,12 @@
 						break;
 					case "list":
 						detailForm.attr("action", "/board/list").attr("method", "get");
+						break;
+					case "addWishlist":
+						detailForm.attr("action", "/board/addWishlist").attr("method", "post");
+						break;
+					case "removeWishlist":
+						detailForm.attr("action", "/board/removeWishlist").attr("method", "post");
 						break;
 				}
 				detailForm.submit();

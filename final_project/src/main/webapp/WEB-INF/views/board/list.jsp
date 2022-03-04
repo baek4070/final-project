@@ -66,8 +66,27 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<!-- 
+		BoardController의 @GetMapping("/list")
+		=>	${ltt} : tradeType
+			${lct} : category
+	 -->
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
-		<h2>전체 물품 리스트</h2>
+		<c:if test="${ltt eq 'buy'}">
+			<h1>삽니다</h1>
+		</c:if>
+		<c:if test="${ltt eq 'sell'}">
+			<h1>팝니다</h1>
+		</c:if>
+		<c:if test="${ltt ne 'buy' and ltt ne 'sell'}">
+			<h1>전체 물품</h1>
+		</c:if>
+		<c:if test="${lct eq 'one'}"><h2>상품1</h2></c:if>
+		<c:if test="${lct eq 'two'}"><h2>상품2</h2></c:if>
+		<c:if test="${lct eq 'three'}"><h2>상품3</h2></c:if>
+		<c:if test="${lct eq 'four'}"><h2>상품4</h2></c:if>
+		<c:if test="${lct eq 'five'}"><h2>상품5</h2></c:if>
+		<div style="margin-bottom: 15px"></div>
 		<div class="row">
 		<c:choose>
 	  	 	<c:when test="${!empty list}">
@@ -89,6 +108,13 @@
 		  				</div>
 					</div>
 	  	 		</c:forEach>
+	  	 		<!-- 로그인 된 사용자만 물품 등록 가능 -->
+		   		<sec:authorize access="isAuthenticated()">
+		   			<form action="register" method="get">
+						<button class="btn btn-outline-danger" style="border-radius: 0.25rem; float: right;">새 물품 등록</button>
+					</form>
+		   		</sec:authorize>
+		   		
 	  	 	<!-- 페이징 블럭 시작 -->
 	  	 	<ul class="pagination">
 				<c:if test="${pm.prev}">
@@ -108,18 +134,12 @@
 				</c:if>
 			</ul>
 	  	 	<!-- 페이징 블럭 끝 -->
+	  	 	
 	  	 	</c:when>
 	  	 	<c:otherwise>
 	  	 		<h3>등록된 게시물이 없습니다.</h3>
 	  	 	</c:otherwise>
    		</c:choose>
-   		<!-- 로그인 된 사용자만 물품 등록 가능 -->
-   		<sec:authorize access="isAuthenticated()">
-   			<form action="register" method="get">
-				<button class="btn btn-primary" style="border-radius: 0.25rem; float: right;">새 물품 등록</button>
-			</form>
-   		</sec:authorize>
-		<div style="margin-bottom: 15px"></div>
    		<!-- 검색 시작 -->
    			<div class="input-group mb-3"
    			style="justify-content: center;">
@@ -139,6 +159,8 @@
 			<input type="hidden" name="page" value="${pm.cri.page}"/>
 			<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" id="tradeType" value="${ltt}"/>
+			<input type="hidden" id="category" value="${lct}"/>
 		<!-- 검색 끝 -->
 	<form id="listForm">
 		<input type="hidden" name="page" value="${pm.cri.page}"/>
@@ -175,11 +197,11 @@
 			$("#go_search").click(function(){
 				var searchType = $("select option:selected").val();
 				var keyword = $("#keyword").val();
-				/* var tradeType = $("#tradeType").val();
-				var category = $("#category").val(); */
+				var tradeType = $("#tradeType").val();
+				var category = $("#category").val();
 				console.log("searchType : " + searchType);
 				console.log("keyword : " + keyword);
-				location.href="list?searchType="+searchType+"&keyword="+keyword;
+				location.href="list?searchType="+searchType+"&keyword="+keyword+"&tradeType="+tradeType+"&category="+category;
 			});
 		});
 	</script>
