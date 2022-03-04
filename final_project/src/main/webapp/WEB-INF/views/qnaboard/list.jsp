@@ -6,13 +6,13 @@
 
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<h1 class="text-center" >질문과 답하기</h1>
-	<table class="table table-hover" border=1>
+	<table class="table table-hover">
 		<tr>
 			<th scope="row">번호</th>
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
-			<th>마지막수정<th>
+			<th>마지막수정</th>
 			<th>첨부파일</th>
 		</tr>
 		<c:choose>
@@ -25,13 +25,20 @@
 						<td><f:formatDate pattern="yyyy-MM-dd HH:mm" value="${qnaboard.regdate}"/></td>
 						<c:choose>
 							<c:when test="${qnaboard.regdate eq qnaboard.updatedate}">
-								<td></td>
+								<td> </td>
 							</c:when>
 							<c:otherwise>
 								<td><f:formatDate pattern="MM월dd일 HH시" value="${qnaboard.updatedate}"/></td>
 							</c:otherwise>
 						</c:choose>
-						<td>${qnaboard.filename}</td>
+						<c:choose>
+							<c:when test="${!empty qnaboard.filename}">
+								<th><img src="${path}/resources/img/file.png" style="width:25px; height:25px;" /></th>
+							</c:when>
+							<c:otherwise>
+								<td> </td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</c:forEach>
 			</c:when>
@@ -43,7 +50,7 @@
 		</c:choose>
 		<!-- 페이징 블럭 -->
 		<tr>
-			<th colspan="5">
+			<th colspan="6">
 				<c:if test="${pm.prev}">
 					<a href="list?page=${pm.startPage-1}">[이전]</a>
 				</c:if>

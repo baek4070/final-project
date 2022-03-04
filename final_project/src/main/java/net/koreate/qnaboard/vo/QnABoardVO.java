@@ -1,6 +1,9 @@
 package net.koreate.qnaboard.vo;
 
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -21,4 +24,6 @@ public class QnABoardVO {
 	private int root;
 	private int depth;
 	private int seq;
+	
+	private MultipartFile uploadFile;
 }

@@ -13,8 +13,8 @@ import net.koreate.qnaboard.vo.QnABoardVO;
 
 public interface QnABoardDAO {
 
-	@Insert("INSERT INTO qna_tbl(userId, title, content, userNickname ) "
-			+ " VALUES(#{userId},#{title},#{content},#{userNickname})")
+	@Insert("INSERT INTO qna_tbl(userId, title, content, userNickname,filename,filepath  ) "
+			+ " VALUES(#{userId},#{title},#{content},#{userNickname},#{filename},#{filepath})")
 	void regist(QnABoardVO vo) throws Exception;
 	
 	//@Select("SELECT * FROM qna_tbl")

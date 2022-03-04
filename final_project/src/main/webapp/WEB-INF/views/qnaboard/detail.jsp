@@ -24,7 +24,11 @@
 		</tr>
 		<tr>
 			<th>첨부파일</th>
-			<td colspan="5" class="text-center">${vo.filename}</td>
+			<c:if test="${!empty vo.filename}">
+				<td>
+					<a id="img" href="${pageContext.request.contextPath}/resources/qna/${vo.filename}"> ${vo.filename} </a>
+				</td>
+			</c:if>
 		</tr>
 	</table>
 	<sec:authentication property="principal" var="pinfo"/>

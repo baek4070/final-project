@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<form action="resister" method="POST">
+	<form action="resister" method="POST" enctype="multipart/form-data" >
 				<sec:authentication property="principal" var="pinfo"/>
 			<input type="hidden" name="userId" value="${pinfo.username}"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -22,7 +22,13 @@
 			</tr>
 			<tr>
 				<td>첨부파일</td>
-				<td></td>
+				<td><input type="file" name="uploadFile" multiple/ ></td>
+			</tr>
+			<tr>
+				<td class='uploadResult'> 
+					<ul>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -31,5 +37,6 @@
 			</tr>
 		</table>
 	</form>
+	
 </body>
 </html>
