@@ -50,6 +50,8 @@ public interface QnABoardDAO {
 			+ " VALUES(#{userId},#{title},#{content},#{userNickname},#{root},#{seq},#{depth})")
 	void registerReply(QnABoardVO vo) throws Exception;
 	
-	
+	@Update("UPDATE qna_tbl set viewcnt = viewcnt + 1 "
+			+ " WHERE qno = #{qno}")
+	void updateViewCnt(int qno) throws Exception;
 	
 }

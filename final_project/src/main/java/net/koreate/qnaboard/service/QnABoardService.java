@@ -24,4 +24,6 @@ public interface QnABoardService {
 	void setRoot() throws Exception;
 	
 	void registerReply(QnABoardVO vo) throws Exception;
+	
+	void updateViewCnt(int qno) throws Exception;
 }

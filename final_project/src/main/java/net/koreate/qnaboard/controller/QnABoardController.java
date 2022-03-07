@@ -102,6 +102,7 @@ public class QnABoardController {
 			int qno,
 			Model model
 			) throws Exception{
+		qs.updateViewCnt(qno);
 		QnABoardVO vo = qs.detail(qno);
 		model.addAttribute("vo",vo);
 		return "qnaboard/detail";

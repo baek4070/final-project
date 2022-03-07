@@ -95,7 +95,7 @@
 								<div class="dropdown" style="position:relative; ">
 									  <a class="dropbtn" style="cursor:pointer; text-decoration:none;">${qnaboard.userNickname}</a>
 								  <div class="dropdown-content" style="z-index:2; left:20px; width:120px; height:50px; background-color:rgba(123,123,123,1); position:absolute; display:none">
-								    <a href="${path}/message/msgWrite?userId=${qnaboard.userId}" onclick="window.open(this.href, '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600'); return false;" style="color:white;">쪽지 보내기</a><br/>
+								    <a href="${path}/message/msgWrite" onclick="window.open(this.href, '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600'); return false;" style="color:white;">쪽지 보내기</a><br/>
 								    <a href="writed?qno=${qnaboard.qno}" style="color:white;">작성 게시물 확인</a>
 								  </div>
 								</div>

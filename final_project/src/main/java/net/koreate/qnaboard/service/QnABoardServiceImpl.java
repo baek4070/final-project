@@ -69,6 +69,11 @@ public class QnABoardServiceImpl implements QnABoardService {
 		vo.setSeq(vo.getSeq()+1);
 		dao.registerReply(vo);
 	}
+
+	@Override
+	public void updateViewCnt(int qno) throws Exception {
+		dao.updateViewCnt(qno);
+	}
 	
 	
 
