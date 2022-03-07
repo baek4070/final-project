@@ -19,7 +19,7 @@ public class UserVO {
 	private String u_phone;
 	private Date u_visit_date;
 	private String u_withdraw;
+	private String u_info;
 	
 	private List<AuthVO> authList;
-	
 }

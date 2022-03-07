@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.koreate.user.dao.UserDAO;
+import net.koreate.user.vo.AuthVO;
 import net.koreate.user.vo.UserVO;
 
 @Service
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
 	public boolean getUsersById(String u_id) throws Exception {
 		
 		UserVO vo = ud.getUserById(u_id);
-		
+		System.out.println("sv 아이디 체크"+u_id);
 		return vo == null ? true : false;
 	}
 
@@ -84,6 +85,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO select(String u_id) throws Exception{
+		System.out.println("service u_id"+u_id);
 		return ud.select(u_id);
 	}
 
@@ -92,4 +94,43 @@ public class UserServiceImpl implements UserService {
 		return ud.getAll();
 	}
 
+	@Override
+	public List<AuthVO> getAuthById(AuthVO vo) throws Exception {
+		System.out.println(vo);
+		List<AuthVO> list = ud.getAuthById(vo.getU_id());
+		boolean authYN = true;
+		for(AuthVO auth : list) {
+			if(auth.getU_auth().equals(vo.getU_auth())) {
+			 	ud.getDeleteAuth(vo);
+				System.out.println("service "+vo);
+				authYN = false;
+				break;
+			}
+		}
+		if(authYN) {
+			ud.getAddAuth(vo);
+			System.out.println("service add "+vo);
+		}
+		
+		return ud.getAuthById(vo.getU_id());
+	}
+
+	@Override
+	public void deleteF(UserVO vo) throws Exception {
+		ud.deleteF(vo);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

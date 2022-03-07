@@ -29,6 +29,7 @@ public class signInSuccessHandler implements AuthenticationSuccessHandler {
 		
 		try {
 			 us.updateVisitDate(vo.getU_id()); 
+			 System.out.println(vo.getU_id());
 		} catch (Exception e) {
 			 e.printStackTrace(); 
 		}

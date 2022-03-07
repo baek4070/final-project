@@ -2,6 +2,7 @@ package net.koreate.user.dao;
 
 import java.util.List;
 
+import net.koreate.user.vo.AuthVO;
 import net.koreate.user.vo.UserVO;
 
 public interface UserDAO {
@@ -16,7 +17,7 @@ public interface UserDAO {
 	// 사용자 정보 수정
 	int updateUser(UserVO vo) throws Exception;
 
-	// 마지막 방문일
+	// 마지막 방문시간 최신화
 	void getUpdateVisitDate(String u_id) throws Exception;
 	
 	// 권한 넣기
@@ -32,5 +33,17 @@ public interface UserDAO {
 	UserVO select(String u_id) throws Exception;
 
 	List<UserVO> getAll() throws Exception;
+	
+	// 계정 권한 불러오는 용도
+	List<AuthVO> getAuthById(String u_id) throws Exception;
+	
+	// 권한 삭제
+	void getDeleteAuth(AuthVO vo) throws Exception;
+
+	// 권한 더하기
+	void getAddAuth(AuthVO vo) throws Exception;
+
+	// 삭제 활성 비활성 
+	void deleteF(UserVO vo) throws Exception;
 
 }

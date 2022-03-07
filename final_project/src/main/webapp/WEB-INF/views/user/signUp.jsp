@@ -1,15 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/home/headeronuser.jsp"/>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" />
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+ 
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <style>
-	#emailCodeWrap{
+ 	#emailAcceptBtn{
 		display:none;
-	}
+	}  
 	.table{
-		/* text-align:left; */
 		justify-align:center;
+		border:1px solid skyblue;
 	}
 	#u_birth{
 		background-color:white;
@@ -25,8 +33,35 @@
 		/* width:auto; */
 	}
 	#signUpForm{
-		background-color:#ccc;
+		background-color:white;
 	}
+	.modal { 
+		position: absolute;
+		top: 0;
+		 left: 0;
+		 width: 100%;
+		 height: 100%;
+		 display: none;
+		 background-color: rgba(0, 0, 0, 0.4); 
+	}
+
+	.modal.show {
+		display: block;
+	} 
+	.modal_body {
+		position: absolute;
+		top: 50%; 
+		left: 50%; 
+		width: 400px; 
+		height: 600px; 
+		padding: 40px; 
+		text-align: center; 
+		background-color: rgb(255, 255, 255); 
+		border-radius: 10px; 
+		box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15); 
+		transform: translateX(-50%) translateY(-50%); 
+	}
+
 </style>
 <div class="div" style="display:flex; justify-content:center; align-items:center; padding-top:150px;">
 	<form id="signUpForm" action="${pageContext.request.contextPath}/user/signUpPost" method="POST">
@@ -39,11 +74,11 @@
 				<td>아이디(email)</td>
 				<td>
 					<input type="text" class="form-control" name="u_id" id="u_id" autocomplete="off" placeholder="E-Mail"/>
-					<button type="button" id="acceptEmail" class="btn btn-primary btn-sm">이메일 인증</button>
+					<button type="button" id="acceptEmail" name="acceptEmail" class="btn btn-primary btn-sm">이메일 인증</button>
 					<div class="result"></div>
 					<div id="emailCodeWrap">
-						<input type="text" id="emailCode"/>
-						<button type="button" id="emailAcceptBtn">인증 완료</button>
+						<input type="text" id="emailCode" class="form-control" name="emailCode" placeholder="이메일 인증" autocomplete="off"/>
+						<button type="button" id="emailAcceptBtn" class="btn btn-primary btn-sm">인증 완료</button>
 					</div>
 				</td>
 			</tr>
@@ -95,6 +130,17 @@
 				</td>
 			</tr>
 			<tr>
+				<td>
+					<label>
+						개인정보 이용동의
+						<input type="checkbox" checked name="u_info" id="u_info" value="y"/>(필수)
+					</label>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#thisModal">자세히보기</button>
+					<%-- <a href="${path}/user/text">자세히 보기</a> --%>
+					<%-- <input type="button" value="자세히 보기" class="detail btn btn-primary btn-sm" onclick="location.href='${path}/user/text';"/> --%>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2">
 					<input type="submit" class="btn-primary form-control" id="signUpBtn" value="회원가입"/> 
 				</td>
@@ -102,9 +148,98 @@
 		</table>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form>
+	
+	
+	
+	
+	
+	<div id="thisModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h3 class="modal-title" id="myModalLabel">개인 정보 처리 방침</h3> 
+				</div> 
+				<div class="modal-body">
+					<table>
+						<tr>
+							<td>
+								<h5>
+									■ 개인정보의 수집 및 이용목적 회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.
+								</h5>
+								<h6>
+									- 고객 관리: 고객 서비스 이용에 따른 본인확인 , 개인 식별 , 불량회원의 부정 이용 방지와 비인가 사용 방지 , 가입 의사 확인 , 연령확인 , 불만처리 등 민원처리 , 고지사항 전달
+									- 마케팅 및 광고에 활용 : 신규 서비스 개발 및 특화, 정보 전달, 접속 빈도 파악 또는 회원의 서비스 이용에 대한 통계
+								</h6>
+							</td>
+						</tr>
+						<tr>
+							<td>	
+								<h5>
+									■ 수집하는 개인정보 항목
+									회사는 정보주체가 고객서비스(상담신청, 상담, 서비스 신청 등)를 이용하기 위하여 
+									고객의 개인 정보를 제공할 때의 서비스 제공을 위한 필수 정보와
+									보다 향상된 서비스 제공을 위한 선택정보를 온라인상 입력방법을 통하여 수집하고 있습니다. 
+									수집하는 개인정보의 범위는 아래와 같습니다.
+								</h5>
+								<h6>	
+									개인정보 수집항목
+									- 필수항목: 이름, 생년월일, 전화번호 , 이메일, 주소
+									
+									개인정보 수집방법
+									정보주체는 웹사이트 또는 서면 절차를 통하여 개인정보처리방침과 이용약관 각각의 내용을 확인하고 선택 할 수 있습니다. 선택한 경우에는 개인정보 수집에 동의한 것으로 봅니다.
+								</h6>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h5>
+									■ 개인정보의 보유 및 이용기간
+								</h5>
+								<h6>	
+									회사는 법령에 따른 개인정보 보유 이용기간 또는 정보주체로부터 개인정보를 수집 시에 동의 받은 개인정보 보유, 이용 기간 내에 한하여 개인정보를 보유 및 처리합니다.
+									제공된 개인 정보 폐기를 요청하거나 개인정보의 수집 및 이용에 대한 동의를 철회하는 경우, 수집 및 이용목적이 달성되거나 보유 및 이용기간이 종료한 경우 해당 개인정보를 지체 없이 파기합니다.
+									
+									단, 다음의 정보에 대해서는 아래의 이유로 명시한 기간 동안 보존합니다.
+									
+									회사 내부 방침에 의한 정보보유 사유
+									- 내 용 : 상담 관련 정보
+									- 보존이유 : 고객에게 원활한 상담 서비스 제공
+									- 보존기간 : 폐기 요청 시 까지
+								</h6>
+							</td>
+						</tr>
+					</table>
+				</div> 
+				<div class="modal-footer"> 
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				</div>
+			</div>  
+	</div> 
 </div>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
+
+	/* 개인정보 사용동의 dialog */
+ 	/* const modal = document.querySelector('.modal'); 
+	const btnOpenPopup = document.querySelector('.btn-open-popup'); 
+	
+	btnOpenPopup.addEventListener('click', () => { 
+		modal.style.display = 'block';
+		modal.classList.toggle('show');
+	});
+	 */
+	/* $(document).ready(function(){
+		
+		$("#btn-open-popup").click(function(){
+			$(".modal").modal("show");
+		});
+		
+        $("#close_modal").click(function() {
+             $(".modal").modal("hide");
+        });
+	});
+	 */
+	
 	function sample6_execDaumPostcode(){
 		new daum.Postcode({
 			oncomplete : function(data){
@@ -162,8 +297,8 @@
 	});
 	
 	var regexPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
-	var regexMobile = /^[0-9]{2,3}?[0-9]{3,4}?[0-9]{4}$/;			
-	
+	var regexMobile = /^[0-9]{2,3}?[0-9]{3,4}?[0-9]{4}$/;		
+	var regexKey = /^[0-9]{5,6}$/;
 	
 	$("#signUpForm").validate({
 		rules : {
@@ -174,6 +309,10 @@
 					type : "POST",
 					url : "${pageContext.request.contextPath}/user/uidCheck",
 				}
+			},
+			emailCode : {
+				required : true,
+				regex : regexKey
 			},
 			u_pw : {
 				required : true, 
@@ -206,6 +345,9 @@
 			u_phone : {
 				required : true,
 				regex : regexMobile
+			},
+			u_info : {
+				required : true
 			}
 		},
 		messages : {
@@ -213,6 +355,10 @@
 				required : "이메일(아이디)를 작성해주세요.",
 				email : "올바른 이메일 형식이 아닙니다.",
 				remote : "이미 존재하는 ID입니다."
+			},
+			emailCode : {
+				required : "인증해주세요.",
+				regex : "인증번호를 입력해주세요."
 			},
 			u_pw : {
 				required : "비밀번호를 작성해주세요.",
@@ -247,40 +393,51 @@
 			u_phone : {
 				required : "전화번호를 입력해주세요.",
 				regex : "올바른 전화번호 형식이 아닙니다."
-			}
+			},
+			u_info : {
+				required : "개인정보 이용에 동의해주세요."
+			}			
 		},
-//		debug : true,	// 확인 후 submit 실행하지 않음
 		errorElement : "span",
 		errorClass : "text-danger"
 	});
 	
-	$.validator.setDefaults({
-		submitHandler : function(){
-			$("#signUpForm").submit();
-		}
+	/* 
+	// 개인정보 동의
+	$("#detail").on("click",function(){
+		$.ajax({
+			type : "GET",
+			url : ""
+		});
 	});
 	
+ */
 	// 인증 코드 저장소
 	var emailCode = "";
 	
 	$("#acceptEmail").click(function(){
+		console.log('sdsdsd');
+		u_id = $("#u_id").val();
+		console.log(u_id);
 		$.ajax({
 			type : "GET",
 			dataType : "text",
-			url : "${pageContext.request.contextPath}/user/checkEmail",
+			url : "/user/checkEmail",
 			data : {
 				u_id : $("#u_id").val()
 			},
 			success : function(code){
-				// 확인용 삭제요망
 				console.log(code);
 				if(code){
 					emailCode = code;
 					alert("메일 발송완료");
-					$("#emailCodeWrap").show();
+					$("#emailAcceptBtn").show();
 				}else{
-					alert("발송 오류");
+					alert("메일 전송 실패 관리자에게 문의해 주세요");
 				}
+			},
+			error : function(res){
+				console.log(res);
 			}
 		});
 	});
@@ -293,12 +450,21 @@
 			console.log("일치");
 			boolEmailCode = true;
 			alert("이메일 인증 완료");
+			$("#acceptEmail").hide();
+			$("#emailCodeWrap").hide();
 		}else{
 			console.log("불일치");
 			boolEmailCode = false;
 			alert("다시 인증해주십시오.");
 		}
 	});
+	
+	$.validator.setDefaults({
+		submitHandler : function(){
+			$("#signUpForm").submit();
+		}
+	});
+	
 	
 	$(document).ajaxSend(function(e, xhr, options){
 		xhr.setRequestHeader(

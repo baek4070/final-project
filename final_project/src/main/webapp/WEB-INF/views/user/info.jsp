@@ -19,14 +19,14 @@
 		
 	}
 </style>
-<h1 style="text-align:center;">회원정보 수정</h1>
+<h1 style="text-align:center;">내 정보 관리</h1>
 <form id="signUpdateForm" action="${path}/user/signUpdatePost" method="POST">
 	<input type="hidden" name="uno" id="uno" value="${user.uno}"/>
 	<table>
 		<tr>
 			<td>아이디(email)</td>
 			<td>
-				<input type="text" class="form-control" name="u_id" disabled value="${user.u_id}" required/>
+				<input type="hidden" name="u_id" value="${user.u_id}"/>${user.u_id}
 			</td>
 		</tr>
 		
@@ -68,7 +68,7 @@
 		<tr>
 			<td>비밀 번호 입력</td>
 			<td>
-				<input type="text" class="form-control" name="u_pw" id="u_pw" autocomplete="off" required/>
+				<input type="password" class="form-control" name="u_pw" id="u_pw" autocomplete="off" required/>
 			</td>
 		</tr>
 		<tr>
@@ -86,21 +86,18 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 
-	$("#update").on("click",function(){
-		$("#signUpdateForm").submit();
+	
+	var result = '${result}';
+	
+	if(result == '수정 실패'){
+		alert(result);
+	}
 		
-		var result = '${result}';
-		
-		if(result == "수정 성공"){
-			alert(result);
-		}else if(result == "수정 실패"){
-			alert(result);
-			function back(){
-				window.history.back();				
-			}
-		}
-		
-	});
+$("#update").on("click",function(){
+	$("#signUpdateForm").submit();
+	
+});
+
 
 	function sample6_execDaumPostcode(){
 		new daum.Postcode({

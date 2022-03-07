@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.koreate.user.service.UserService;
+import net.koreate.user.vo.AuthVO;
 import net.koreate.user.vo.UserVO;
 
 @Controller
@@ -42,6 +43,12 @@ public class UserController {
 		return "user/signIn";	
 	}
 
+	@GetMapping("/signUpText")
+	public String signUpText(RedirectAttributes rttr,UserVO vo) {
+		rttr.addAttribute(vo);
+		return "redirect:/user/signUp";
+	}
+	
 	// 회원가입 페이지
 	@GetMapping("/signUp")
 	public String signUp() {
@@ -58,6 +65,11 @@ public class UserController {
 	@GetMapping("/info")
 	public String info(UserVO vo) {
 		return "/user/info";
+	}
+	
+	@GetMapping("/text")
+	public String text() {
+		return "/user/text";
 	}
 	
 	// ???
@@ -84,7 +96,7 @@ public class UserController {
 		
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper messageHelper = new MimeMessageHelper(message,"UTF-8");
-		messageHelper.setFrom("rlaghlwlsx@daum.net");
+		messageHelper.setFrom("rlaghlwlsx@gmail.com");
 		messageHelper.setTo(email);
 		messageHelper.setSubject("이메일 인증코드 확인");
 		for(int i=0; i<5; i++) {
@@ -111,15 +123,14 @@ public class UserController {
 	@PostMapping("signUpdatePost")
 	public String signUpdatePost(UserVO vo,RedirectAttributes rttr) throws Exception {
 		UserVO uid = us.select(vo.getU_id());
-		boolean result = false;
+		System.out.println(uid);
 		if(uid != null) {
 			if(encoder.matches(vo.getU_pw(), uid.getU_pw())) {
 				
 				String msg = us.updateSign(vo);
 				System.out.println(msg);
 				rttr.addFlashAttribute("result",msg);
-				result = true;
-				System.out.println(result);
+				return "redirect:/user/signOut";
 				/*
 				if(msg == "수정 성공") {
 					rttr.addFlashAttribute("result",msg);	
@@ -134,13 +145,11 @@ public class UserController {
 					return "redirect:/user/signIn";
 				}
 				*/
-			}else {
-				String msg = "수정 실패";
-				result = false;
-				rttr.addFlashAttribute("result",msg);
 			}
 		}
-		return "redirect:/user/signOut";
+		String msg = "수정 실패";
+		rttr.addFlashAttribute("result",msg);
+		return "redirect:/user/info";
 	}
 	
 	// 회원 탈퇴
@@ -152,7 +161,7 @@ public class UserController {
 	// 삭제
 	@PostMapping("/withdrawPost")
 	public String withdraw(UserVO vo,RedirectAttributes rttr) throws Exception{
-		System.out.println(vo);
+		System.out.println("controller withdraw"+vo);
 		UserVO id = us.select(vo.getU_id());
 		boolean result = false;
 		if(id != null) {
@@ -160,12 +169,12 @@ public class UserController {
 				String message = us.withdraw(vo);
 				rttr.addFlashAttribute("message",message);
 				result = true;
-				System.out.println(result);
 			}else {
 				String message = "탈퇴 실패";
 				result = false;
 				System.out.println(result);
 				rttr.addFlashAttribute("message",message);
+				return "redirect:/user/withdraw";
 			}
 		}
 		return "redirect:/user/signOut";
@@ -184,4 +193,22 @@ public class UserController {
 		model.addAttribute("userList",userList);
 		return "user/master";
 	}
+	
+	@PostMapping("changeAuth")
+	@ResponseBody
+	public List<AuthVO> changeAuth(AuthVO vo) throws Exception{
+		System.out.println(vo);
+		List<AuthVO> list = us.getAuthById(vo);
+		System.out.println("여기서 이러니"+vo);
+		System.out.println("리스트"+list);
+		return list;
+	}
+	
+	@PostMapping("delete")
+	@ResponseBody
+	public String delete(UserVO vo) throws Exception{
+		us.deleteF(vo);
+		return vo.getU_withdraw();
+	}
+	
 }

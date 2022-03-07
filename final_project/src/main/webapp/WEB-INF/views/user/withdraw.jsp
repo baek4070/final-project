@@ -25,20 +25,19 @@
 </form>
 <script>
 
+var message = '${message}';
+
+if(message == "탈퇴 성공"){
+	alert(message);
+} else if(message == "탈퇴 실패"){
+	alert(message);
+	history.go(-1);
+};
+
 	$("#out").on("click",function(){
 		
 		$("#withdraw").submit();
-		
-		var message = '${message}';
-		
-		if(message == "탈퇴 성공"){
-			alert(message);
-		} else if(message == "탈퇴 실패"){
-			alert(message);
-			function back(){
-				window.history.back();
-			}
-		};
+
 	});
 	 
 </script>

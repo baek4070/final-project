@@ -15,6 +15,7 @@
 		<result property="u_phone" column="u_phone"/>
 		<result property="u_visit_date" column="u_visit_date"/>
 		<result property="u_withdraw" column="u_withdraw"/>
+		<result property="u_info" column="u_info"/>
 		
 		<collection property="authList" resultMap="authMap"/>
 		
@@ -26,24 +27,8 @@
 	</resultMap>
 	
 	<insert id="signUp" parameterType="net.koreate.user.vo.UserVO">
-		INSERT INTO trade_user(
-			u_id,
-			u_pw,
-			u_name,
-			u_birth,
-			u_addr_post,
-			u_addr,
-			u_addr_detail,
-			u_phone) 
-		VALUES(
-			#{u_id},
-			#{u_pw},
-			#{u_name},
-			#{u_birth},
-			#{u_addr_post},
-			#{u_addr},
-			#{u_addr_detail},
-			#{u_phone})		
+			INSERT INTO trade_user(u_id,u_pw,u_name,u_birth,u_addr_post,u_addr,u_addr_detail,u_phone,u_info) 
+			VALUES(#{u_id},#{u_pw},#{u_name},#{u_birth},#{u_addr_post},#{u_addr},#{u_addr_detail},#{u_phone},#{u_info})	
 	</insert>
 	
 	<!-- void insertAuth(String u_id) throws Exception; -->
@@ -89,13 +74,38 @@
 		SELECT * FROM trade_user WHERE uno = #{uno}
 	</select>
 	
-	<select id="select" parameterType="java.lang.String" resultType="net.koreate.user.vo.UserVO">
-		SELECT * FROM trade_user WHERE u_id = #{u_id}	 
+	<select id="select" parameterType="String" resultMap="userMap">
+		SELECT * FROM trade_user WHERE u_id = #{u_id}	
 	</select>
 	
 	<!-- List<UserVO> getAll() throws Exception; -->
 	<select id="getAll" resultMap="userMap">
-		SELECT * FROM trade_user
+		SELECT user.*,u_auth FROM
+		trade_user AS user
+		LEFT OUTER JOIN
+		user_auth AS auth
+		on user.u_id = auth.u_id
+		ORDER BY uno DESC
  	</select>
+	
+	<!-- List<AuthVO> getAuthById(String u_id) throws Exception; -->
+	<select id="getAuthById" parameterType="String" resultType="net.koreate.user.vo.AuthVO">
+		SELECT * FROM user_auth WHERE u_id = #{u_id}
+	</select>
+	
+	<!-- void getDeleteAuth(AuthVO vo) throws Exception; -->
+	<delete id="getDeleteAuth" parameterType="net.koreate.user.vo.AuthVO">
+		DELETE FROM user_auth WHERE u_id = #{u_id} AND u_auth = #{u_auth}
+	</delete>
+	
+	<!-- void getAddAuth(AuthVO vo) throws Exception; -->
+	<insert id="getAddAuth" parameterType="net.koreate.user.vo.AuthVO">
+		INSERT INTO user_auth VALUES(#{u_id},#{u_auth})
+	</insert>
+	
+	<!-- void deleteF(UserVO vo) throws Exception; -->
+	<update id="deleteF" parameterType="net.koreate.user.vo.UserVO">
+		UPDATE trade_user SET u_withdraw = #{u_withdraw} WHERE u_id = #{u_id}
+	</update>
 	
 </mapper>
