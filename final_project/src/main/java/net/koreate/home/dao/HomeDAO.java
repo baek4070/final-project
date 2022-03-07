@@ -42,7 +42,7 @@ public interface HomeDAO {
 	void updateCheckBoard(BellVO bell);
 
 	@Update("UPDATE ring_the_bell SET checked='y' WHERE uno = #{uno} AND mno = #{mno}")
-	BellVO updateCheckMessage(BellVO bell);
+	void updateCheckMessage(BellVO bell);
 
 	@Select("SELECT * FROM message WHERE uno = #{uno} AND mno = #{mno}")
 	MessageVO getMessage(MessageVO message);

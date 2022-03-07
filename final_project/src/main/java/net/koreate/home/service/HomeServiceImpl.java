@@ -56,9 +56,8 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public boolean updateCheckMessage(BellVO bell) {
-		BellVO belled = dao.updateCheckMessage(bell);
-		return belled == null ? false : true;
+	public void updateCheckMessage(BellVO bell) {
+		dao.updateCheckMessage(bell);
 	}
 
 	@Override

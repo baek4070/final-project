@@ -4,6 +4,7 @@ package net.koreate.home.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -96,24 +96,20 @@ public class HomeController {
 	
 	@Transactional
 	@GetMapping("called")
-	@ResponseBody
-	public ResponseEntity<MessageVO> callBell(@RequestParam("uno") int uno, @RequestParam("mno") int mno) {
-		ResponseEntity<MessageVO> entity = null;
+	public String callBell(@RequestParam("uno") int uno, @RequestParam("mno") int mno, HttpServletRequest request, RedirectAttributes rttr) {
 		BellVO bell = new BellVO();
 		bell.setUno(uno);
 		bell.setMno(mno);
 		MessageVO message = new MessageVO();
 		message.setUno(uno);
 		message.setMno(mno);
-		MessageVO msg = hs.getMessage(message);
-		try {
-			if(hs.updateCheckMessage(bell) == true && msg != null) {
-				entity = new ResponseEntity<>(msg, HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
+		hs.updateCheckMessage(bell);
+		String referer = request.getHeader("REFERER");
+		rttr.addFlashAttribute("list",hs.getMessage(message));
+		/*
+		 * System.out.println(msg); rttr.addAttribute("list",msg);
+		 */
+		return "redirect:"+referer;
 	}
 	
 	

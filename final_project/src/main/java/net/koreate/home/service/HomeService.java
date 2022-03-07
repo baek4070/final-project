@@ -23,7 +23,7 @@ public interface HomeService {
 
 	void updateCheckBoard(BellVO bell);
 
-	boolean updateCheckMessage(BellVO bell);
+	void updateCheckMessage(BellVO bell);
 
 	MessageVO getMessage(MessageVO message);
 	

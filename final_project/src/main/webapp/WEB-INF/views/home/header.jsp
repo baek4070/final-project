@@ -258,6 +258,14 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+var exist = '${list}'
+console.log(exist);
+
+if(exist != ''){
+	$(document).on('ready',function(){
+		window.open('${path}/message/msgWrite?mno=${list.mno}', '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600');
+	});
+}
 
 
 $(document).on('ready',function(){
@@ -274,6 +282,7 @@ $(document).on('ready',function(){
 
 function printList(list){
 	var str = "";
+	var sstr = "";
 	
 	$(list).each(function(){
 		if($(list).length == 0){
@@ -290,17 +299,15 @@ function printList(list){
 	        	str += "<a class='dropdown-item new' href='${path}/selected?bno="+bno+"&uno="+uno+"'>"+bno+"번 글에 댓글이 추가되었습니다.</a>"
 			}else if(mno >= 1){
 				str += "<div class='dropdown-divider'></div>"
-				str += "<a class='dropdown-item message new' href='${path}/called?uno="+uno+"&mno="+mno+"'>"+sender+"님에게 쪽지가 도착했습니다.</a>"
+				str += "<a class='dropdown-item message new' href='${path}/called?uno="+uno+"&mno="+mno+"' >"+sender+"님에게서 쪽지가 도착했습니다.</a>"
 			}
 		}
-	$("#bell").append(str);
-		
 	});
-
+	$("#bell").append(str);
 }
 
- $(".message").on("click",function(event){
-	event.preventDefault();
+/*  $(".message").on("click",function(event){
+	 event.preventDefault();
 	$.ajax({
 		type : "get",
 		url : "${path}/called",
@@ -313,19 +320,22 @@ function printList(list){
 			mno : this.mno
 		}),
 		success : function(data){
-			$('#dialog-message').dialog({
-				modal: true,
-				buttons: {
-					"답장하기": function() { $(this).dialog('close'); },
-					"삭제하기": function() { $(this).dialog('close'); },
-					"닫기": function() { $(this).dialog('close'); }
-				}
-			});
+			 $('#dialog-message').dialog({
+					modal: true, 
+					buttons: {
+						"PHP": function() { $(this).dialog('close'); },
+						"ASP": function() { $(this).dialog('close'); },
+						"JSP": function() { $(this).dialog('close'); }
+					}
+				});
 		}
-	});
-		
-});
+	}); 
+}); */
 
+ $(".message").click(function(event){
+	event.preventDefault();
+	window.open(this.href, '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600'); 
+}); 
 
 $(".totalSearch").click(function(event){
 	event.stopPropagation();
@@ -357,7 +367,8 @@ $("#remoteTop").click(function(){
 });
 
 $("#remoteBottom").click(function(){
-	window.scrollTo(0,document.body.scrollHeight);
+	 window.scrollTo(0,document.body.scrollHeight);
+	
 });
 
 
