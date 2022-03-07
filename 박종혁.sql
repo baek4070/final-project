@@ -44,17 +44,24 @@ CREATE TABLE IF NOT EXISTS ring_the_bell(
 	bno INT,
     uno INT,
     mno INT,
-    checked char(1) default 'n'
+    sender varchar(50),
+    checked char(1) default 'n',
+    FOREIGN KEY (uno) REFERENCES trade_user(uno)
 );
+
+drop table ring_the_bell;
+
+insert into ring_the_bell values(1,1);
 
 CREATE TABLE IF NOT EXISTS message(
 	mno INT PRIMARY KEY NOT NULL auto_increment,
-    writer VARCHAR(50),
+    uno INT,
+    title VARCHAR(50),
+    sender VARCHAR(50),
     receiver VARCHAR(50),
     content VARCHAR(50),
-    regdate TIMESTAMP NOT NULL DEFAULT now(),
-    checkdate TIMESTAMP,
-    CONSTRAINT fk_receiver FOREIGN KEY(receiver) REFERENCES trade_user(u_name)
+    sendDate TIMESTAMP NOT NULL DEFAULT now(),
+	FOREIGN KEY (uno) REFERENCES trade_user(uno)
 );
 
 insert into wish values(1,1);

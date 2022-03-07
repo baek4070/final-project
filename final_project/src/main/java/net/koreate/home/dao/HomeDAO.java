@@ -3,8 +3,11 @@ package net.koreate.home.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.BellVO;
+import net.koreate.home.vo.MessageVO;
 import net.koreate.home.vo.WishVO;
 import net.koreate.qnaboard.vo.QnABoardVO;
 
@@ -31,4 +34,16 @@ public interface HomeDAO {
 	 */
 	@Select("SELECT B.* FROM board AS B NATURAL JOIN wish AS W WHERE uno = #{uno}")
 	List<BoardVO> wish(WishVO wish);
+
+	@Select("SELECT * FROM ring_the_bell WHERE uno = #{uno} AND checked = 'n'")
+	List<BellVO> bellList(int uno);
+
+	@Update("UPDATE ring_the_bell SET checked='y' WHERE bno = #{bno} AND uno = #{uno}")
+	void updateCheckBoard(BellVO bell);
+
+	@Update("UPDATE ring_the_bell SET checked='y' WHERE uno = #{uno} AND mno = #{mno}")
+	BellVO updateCheckMessage(BellVO bell);
+
+	@Select("SELECT * FROM message WHERE uno = #{uno} AND mno = #{mno}")
+	MessageVO getMessage(MessageVO message);
 }

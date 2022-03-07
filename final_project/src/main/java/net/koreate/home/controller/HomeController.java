@@ -1,17 +1,28 @@
 package net.koreate.home.controller;
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.koreate.board.vo.BoardVO;
 import net.koreate.home.service.HomeService;
+import net.koreate.home.vo.BellVO;
+import net.koreate.home.vo.MessageVO;
 import net.koreate.home.vo.WishVO;
 import net.koreate.qnaboard.vo.QnABoardVO;
 import net.koreate.user.vo.UserVO;
@@ -23,9 +34,13 @@ public class HomeController {
 	HomeService hs;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) throws Exception{
+	public String home(Model model, UserVO uno) throws Exception{
 		model.addAttribute("qlist",hs.qlist());
 		/* model.addAttribute("blist",hs.blist()); */
+		/*
+		 * if(hs.bellList(uno) != null) { System.out.println(uno);
+		 * model.addAttribute("bellList",hs.bellList(uno)); }
+		 */
 		return "home/home";
 	}
 	
@@ -56,6 +71,51 @@ public class HomeController {
 		System.out.println(model);
 		return "home/myList";
 	}
+	
+	@GetMapping("bell/{uno}")
+	@ResponseBody
+	public ResponseEntity<List<BellVO>> ring(@PathVariable("uno") int uno){
+		ResponseEntity<List<BellVO>> entity = null;
+		try {
+			List<BellVO> result = hs.bellList(uno);
+			entity = new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@GetMapping("/selected")
+	public String selectBell(@RequestParam("uno") int uno, @RequestParam("bno") int bno, RedirectAttributes rttr) {
+		BellVO bell = new BellVO();
+		bell.setBno(bno);
+		bell.setUno(uno);
+		hs.updateCheckBoard(bell);
+		return "redirect:/board/detail?bno="+bno;
+	}
+	
+	@Transactional
+	@GetMapping("called")
+	@ResponseBody
+	public ResponseEntity<MessageVO> callBell(@RequestParam("uno") int uno, @RequestParam("mno") int mno) {
+		ResponseEntity<MessageVO> entity = null;
+		BellVO bell = new BellVO();
+		bell.setUno(uno);
+		bell.setMno(mno);
+		MessageVO message = new MessageVO();
+		message.setUno(uno);
+		message.setMno(mno);
+		MessageVO msg = hs.getMessage(message);
+		try {
+			if(hs.updateCheckMessage(bell) == true && msg != null) {
+				entity = new ResponseEntity<>(msg, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 	
 	
 	

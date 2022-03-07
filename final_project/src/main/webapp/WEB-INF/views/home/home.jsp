@@ -71,4 +71,10 @@
 			</form>
 		</div>
 	</div>
+	<form action="/">
+	<input type="hidden" name="uno" value="${user.uno}"/>
+	</form>
 <jsp:include page="/WEB-INF/views/home/footer.jsp"/>
+<script>
+	
+</script>

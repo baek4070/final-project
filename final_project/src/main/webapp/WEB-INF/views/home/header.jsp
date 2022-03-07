@@ -28,6 +28,22 @@
 </style>
 </head>
 <body>
+<div id="dialog-message" title="쪽지" style='display:none'>
+	<table>
+		<tr>
+			<td>보낸이</td>
+			<td><p id="sender"></p></td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td><p id="title"></p></td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td><textarea id="content" readonly></textarea></td>
+		</tr>
+	</table>
+</div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="position:fixed; top:0%; width:100%; z-index:999; min-height:72px;">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">사이트</a>
@@ -44,9 +60,22 @@
       		<a class="nav-link" href="${path}/user/master">MANAGEMENT</a>
       	</li>
       	</sec:authorize>
-      	<li class="nav-item">
+      	<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          	<img style="width:35px; height:auto;" src="../resources/css/bells.png"/>
+          </a>
+          <div class="dropdown-menu" id="bell">
+          	<div>알림<div class="ms-auto"><a href="${path}/home/bell.jsp">더보기</a></div></div>
+        <!--
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a> -->
+          </div>
+        </li>
+<%--       	<li class="nav-item">
       		<a class="nav-link" href="${path}/user/signIn"><img style="width:35px; height:auto;" src="../resources/css/bells.png"/></a>
-      	</li>
+      	</li> --%>
       	<li class="nav-item navbar-text">
       		<a class="nav-link wish" href="#">찜목록</a>
       	</li>
@@ -229,7 +258,74 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-console.log(${user.uno});
+
+
+$(document).on('ready',function(){
+	var uno = '${user.uno}'
+	console.log(uno);
+	if(uno != null || uno != ''){
+		var url = "${path}/bell/"+uno
+		$.getJSON(url,function(data){
+			console.log(data);
+			printList(data);
+		});
+	}
+});
+
+function printList(list){
+	var str = "";
+	
+	$(list).each(function(){
+		if($(list).length == 0){
+			str += "<a class='dropdown-item' href='#'>등록된 알림이 없습니다.</a>"
+			return;
+		}
+		let bno = this.bno;
+		let uno = this.uno;
+		let mno = this.mno;
+		let sender = this.sender;
+		if(this.checked == 'n'){
+			if(bno >= 1){
+				str += "<div class='dropdown-divider'></div>"
+	        	str += "<a class='dropdown-item new' href='${path}/selected?bno="+bno+"&uno="+uno+"'>"+bno+"번 글에 댓글이 추가되었습니다.</a>"
+			}else if(mno >= 1){
+				str += "<div class='dropdown-divider'></div>"
+				str += "<a class='dropdown-item message new' href='${path}/called?uno="+uno+"&mno="+mno+"'>"+sender+"님에게 쪽지가 도착했습니다.</a>"
+			}
+		}
+	$("#bell").append(str);
+		
+	});
+
+}
+
+ $(".message").on("click",function(event){
+	event.preventDefault();
+	$.ajax({
+		type : "get",
+		url : "${path}/called",
+		headers : {
+			"Content-Type" : "application/json"
+		},
+		dataType : "text",
+		data : JSON.stringify({
+			uno : this.uno,
+			mno : this.mno
+		}),
+		success : function(data){
+			$('#dialog-message').dialog({
+				modal: true,
+				buttons: {
+					"답장하기": function() { $(this).dialog('close'); },
+					"삭제하기": function() { $(this).dialog('close'); },
+					"닫기": function() { $(this).dialog('close'); }
+				}
+			});
+		}
+	});
+		
+});
+
 
 $(".totalSearch").click(function(event){
 	event.stopPropagation();
@@ -263,6 +359,7 @@ $("#remoteTop").click(function(){
 $("#remoteBottom").click(function(){
 	window.scrollTo(0,document.body.scrollHeight);
 });
+
 
 
 </script>
