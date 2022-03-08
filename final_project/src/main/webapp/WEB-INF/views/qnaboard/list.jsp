@@ -6,7 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon-16x16.png">
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 <style>
 
 	img {
@@ -64,13 +68,13 @@
 	}
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>투레이do!</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2 class="text-center" >질문과 답하기</h2>
-	<table class="table table-hover">
-		<tr>
+	<h2 class="text-center" style="font-family: 'Gugi', cursive;"><span style="color:rgb(255,174,66)">투</span><span style="color:#2ea65a;">레</span><span style="color:#187bcd;">이</span><span style="color:rgb(220,20,60);">DO</span></h2>
+	<table class="table table-hover"  >
+		<tr style="font-family: 'Gugi', cursive;">
 			<th scope="row">번호</th>
 			<th>제목</th>
 			<th>작성자</th>
@@ -129,10 +133,10 @@
 		</c:choose>
 	</table>
 		<sec:authorize access="isAuthenticated()">
-			<a href="write" class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right;">글쓰기</a>
+			<a href="write" class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right; font-family: 'Gugi', cursive;">글쓰기</a>
 		</sec:authorize>
 		<!-- 페이징 블럭 -->
-		<ul class="pagination">
+		<ul class="pagination" style="font-family: 'Gugi', cursive;">
 				<c:if test="${pm.prev}">
 					<li class="page-item">
 						<a class="page-link" href="list?page=${pm.startPage-1}">이전</a>
@@ -140,9 +144,18 @@
 				</c:if>
 				<c:forEach var="i" begin="${pm.startPage}" 
 								   end="${pm.endPage}">
-   					<li class="page-item">
-					   <a class="page-link" href="list${pm.search(i)}">${i}</a>
-	   				</li>
+		   				<c:choose>
+							<c:when test="${pm.cri.page eq i}">
+								 <li class="active page-item">
+		  						 <a class="page-link" href="list${pm.search(i)}">${i}</a>
+			   					</li>
+							</c:when>
+							<c:otherwise>
+								<li class=page-item>
+		  						 <a class="page-link" href="list${pm.search(i)}">${i}</a>
+		   						</li>
+							</c:otherwise>
+						</c:choose>
 				</c:forEach>
 				<c:if test="${pm.next}">
 					<li class="page-item">
@@ -166,7 +179,6 @@
 	
 	
 	
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		// 검색 요청
 		$("#searchBtn").click(function(){

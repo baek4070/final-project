@@ -73,10 +73,7 @@
 		<tr>
 			<th scope="row">번호</th>
 			<th>제목</th>
-			<th>작성자</th>
 			<th>작성일</th>
-			<th>마지막수정</th>
-			<th>첨부파일</th>
 		</tr>
 		<c:choose>
 			<c:when test="${!empty list}">
