@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/home/headeronuser.jsp"/>
+<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 <style>
 	#text{
 		text-align:center;
