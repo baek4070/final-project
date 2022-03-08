@@ -130,7 +130,10 @@
           <a class="nav-link" href="${path}/qnaboard/list">Q&A</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${path}/board/list">board</a>
+          <a class="nav-link" href="${path}/board/list?tradeType=buy">삽니다(전체)</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${path}/board/list?tradeType=sell">팝니다(전체)</a>
         </li>
         <li class="nav-item">
         <form action="${path}/home/myList" method="post" id="wishGo">
@@ -258,12 +261,12 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-var exist = '${list}'
+var exist = '${mslist}'
 console.log(exist);
 
 if(exist != ''){
 	$(document).on('ready',function(){
-		window.open('${path}/message/msgWrite?mno=${list.mno}', '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600');
+		window.open('${path}/message/msgWrite?mno=${mslist.mno}', '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600');
 	});
 }
 
@@ -271,7 +274,7 @@ if(exist != ''){
 $(document).on('ready',function(){
 	var uno = '${user.uno}'
 	console.log(uno);
-	if(uno != null || uno != ''){
+	if(uno !== ''){
 		var url = "${path}/bell/"+uno
 		$.getJSON(url,function(data){
 			console.log(data);
@@ -281,28 +284,26 @@ $(document).on('ready',function(){
 });
 
 function printList(list){
-	var str = "";
-	var sstr = "";
-	
-	$(list).each(function(){
-		if($(list).length == 0){
-			str += "<a class='dropdown-item' href='#'>등록된 알림이 없습니다.</a>"
-			return;
-		}
-		let bno = this.bno;
-		let uno = this.uno;
-		let mno = this.mno;
-		let sender = this.sender;
-		if(this.checked == 'n'){
-			if(bno >= 1){
-				str += "<div class='dropdown-divider'></div>"
-	        	str += "<a class='dropdown-item new' href='${path}/selected?bno="+bno+"&uno="+uno+"'>"+bno+"번 글에 댓글이 추가되었습니다.</a>"
-			}else if(mno >= 1){
-				str += "<div class='dropdown-divider'></div>"
-				str += "<a class='dropdown-item message new' href='${path}/called?uno="+uno+"&mno="+mno+"' >"+sender+"님에게서 쪽지가 도착했습니다.</a>"
+	var str = "<div class='dropdown-divider'></div><a class='dropdown-item href='#' >등록된 알림이 없습니다.</a>";
+	if($(list).length !== 0){
+		str = "";
+		$(list).each(function(){
+			let bno = this.bno;
+			let uno = this.uno;
+			let mno = this.mno;
+			let sender = this.sender;
+			if(this.checked == 'n'){
+				if(bno >= 1){
+					str += "<div class='dropdown-divider'></div>"
+		        	str += "<a class='dropdown-item new' href='${path}/selected?bno="+bno+"&uno="+uno+"'>"+bno+"번 글에 댓글이 추가되었습니다.</a>"
+				}else if(mno >= 1){
+					str += "<div class='dropdown-divider'></div>"
+					str += "<a class='dropdown-item message new' href='${path}/called?uno="+uno+"&mno="+mno+"' >"+sender+"님에게서 쪽지가 도착했습니다.</a>"
+				}
 			}
-		}
-	});
+		});
+	}
+	console.log(str);
 	$("#bell").append(str);
 }
 

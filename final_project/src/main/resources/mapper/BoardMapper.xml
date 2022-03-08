@@ -24,20 +24,20 @@
 			</if>
 			<choose>
 				<when test="tradeType == 'buy' and tradeType != null and tradeType != '' ">
-					AND tradeType = #{tradeType} AND
-					<if test="category == 'one' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'two' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'three' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'four' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'five' and category != null and category != '' ">category = #{category}</if>
+					AND tradeType = #{tradeType}
+					<if test="category == 'one' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'two' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'three' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'four' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'five' and category != null and category != '' ">  AND category = #{category}</if>
 				</when>
 				<when test="tradeType == 'sell' and tradeType != null and tradeType != '' ">
-					AND tradeType = #{tradeType} AND
-					<if test="category == 'one' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'two' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'three' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'four' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'five' and category != null and category != '' ">category = #{category}</if>
+					AND tradeType = #{tradeType}
+					<if test="category == 'one' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'two' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'three' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'four' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'five' and category != null and category != '' "> AND category = #{category}</if>
 				</when>
 			</choose>	
 		</trim>
@@ -64,20 +64,20 @@
 			</if>
 			<choose>
 				<when test="tradeType == 'buy' and tradeType != null and tradeType != '' ">
-					AND tradeType = #{tradeType} AND
-					<if test="category == 'one' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'two' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'three' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'four' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'five' and category != null and category != '' ">category = #{category}</if>
+					AND tradeType = #{tradeType}
+					<if test="category == 'one' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'two' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'three' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'four' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'five' and category != null and category != '' "> AND category = #{category}</if>
 				</when>
 				<when test="tradeType == 'sell' and tradeType != null and tradeType != '' ">
-					AND tradeType = #{tradeType} AND
-					<if test="category == 'one' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'two' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'three' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'four' and category != null and category != '' ">category = #{category}</if>
-					<if test="category == 'five' and category != null and category != '' ">category = #{category}</if>
+					AND tradeType = #{tradeType}
+					<if test="category == 'one' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'two' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'three' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'four' and category != null and category != '' "> AND category = #{category}</if>
+					<if test="category == 'five' and category != null and category != '' "> AND category = #{category}</if>
 				</when>
 			</choose>
 		</trim>

@@ -105,7 +105,7 @@ public class HomeController {
 		message.setMno(mno);
 		hs.updateCheckMessage(bell);
 		String referer = request.getHeader("REFERER");
-		rttr.addFlashAttribute("list",hs.getMessage(message));
+		rttr.addFlashAttribute("mslist",hs.getMessage(message));
 		/*
 		 * System.out.println(msg); rttr.addAttribute("list",msg);
 		 */
