@@ -26,5 +26,7 @@ public interface HomeService {
 	void updateCheckMessage(BellVO bell);
 
 	MessageVO getMessage(MessageVO message);
+
+	List<MessageVO> messageList(int uno);
 	
 }

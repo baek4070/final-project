@@ -106,12 +106,13 @@ public class HomeController {
 		hs.updateCheckMessage(bell);
 		String referer = request.getHeader("REFERER");
 		rttr.addFlashAttribute("mslist",hs.getMessage(message));
-		/*
-		 * System.out.println(msg); rttr.addAttribute("list",msg);
-		 */
 		return "redirect:"+referer;
 	}
 	
+	@GetMapping("message/msgList")
+	public void msgList(@RequestParam("uno") int uno, Model model) {
+		model.addAttribute("mList",hs.messageList(uno));
+	}
 	
 	
 	

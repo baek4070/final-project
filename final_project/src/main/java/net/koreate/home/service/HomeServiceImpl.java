@@ -66,6 +66,12 @@ public class HomeServiceImpl implements HomeService {
 		return mg;
 	}
 
+	@Override
+	public List<MessageVO> messageList(int uno) {
+		List<MessageVO> msgList = dao.messageList(uno);
+		return msgList;
+	}
+
 
 	/*
 	 * @Override public List<BoardVO> blist() throws Exception { List<BoardVO> blist

@@ -66,18 +66,16 @@
           </a>
           <div class="dropdown-menu" id="bell">
           	<div>알림<div class="ms-auto"><a href="${path}/home/bell.jsp">더보기</a></div></div>
-        <!--
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a> -->
           </div>
         </li>
-<%--       	<li class="nav-item">
-      		<a class="nav-link" href="${path}/user/signIn"><img style="width:35px; height:auto;" src="../resources/css/bells.png"/></a>
-      	</li> --%>
       	<li class="nav-item navbar-text">
       		<a class="nav-link wish" href="#">찜목록</a>
+      	</li>
+      	<li class="nav-item navbar-text">
+      		<a class="nav-link" href="#">공지사항</a>
+      	</li>
+      	<li class="nav-item navbar-text">
+      		<a class="nav-link" href="${path}/message/msgList?uno=${user.uno}">쪽지함</a>
       	</li>
       	<li class="nav-item navbar-text">
       		<a class="nav-link" href="${path}/user/info">${user.u_name}님 반갑습니다.</a>
@@ -141,6 +139,9 @@
           <input type="hidden" name="uno" value="${user.uno}"/>
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">공지사항</a>
         </li>
       </ul>
     </div>

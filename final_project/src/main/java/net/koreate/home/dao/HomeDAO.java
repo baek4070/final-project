@@ -35,7 +35,7 @@ public interface HomeDAO {
 	@Select("SELECT B.* FROM board AS B NATURAL JOIN wish AS W WHERE uno = #{uno}")
 	List<BoardVO> wish(WishVO wish);
 
-	@Select("SELECT * FROM ring_the_bell WHERE uno = #{uno} AND checked = 'n'")
+	@Select("SELECT * FROM ring_the_bell WHERE uno = #{uno} AND checked = 'n' GROUP BY bno, mno")
 	List<BellVO> bellList(int uno);
 
 	@Update("UPDATE ring_the_bell SET checked='y' WHERE bno = #{bno} AND uno = #{uno}")
@@ -46,4 +46,7 @@ public interface HomeDAO {
 
 	@Select("SELECT * FROM message WHERE uno = #{uno} AND mno = #{mno}")
 	MessageVO getMessage(MessageVO message);
+
+	@Select("SELECT * FROM message WHERE uno = #{uno}")
+	List<MessageVO> messageList(int uno);
 }
