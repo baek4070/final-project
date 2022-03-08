@@ -2,6 +2,7 @@
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" />
 <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <sec:authorize access="isAuthenticated()">
 <sec:authentication var="user" property="principal.user"/>
@@ -18,65 +19,69 @@
 		margin:15px;
 		
 	}
+	#table {
+		border-collapse: separate;
+		border-spacing: 0 20px;
+	}
 </style>
-<h1 style="text-align:center;">내 정보 관리</h1>
+<h1 style="text-align:center;display:flex; justify-content:center; align-items:center;font-size:5.5em;font-weight:800;">내 정보 관리</h1>
 <form id="signUpdateForm" action="${path}/user/signUpdatePost" method="POST">
 	<input type="hidden" name="uno" id="uno" value="${user.uno}"/>
-	<table>
+	<table id="table">
 		<tr>
-			<td>아이디(email)</td>
-			<td>
-				<input type="hidden" name="u_id" value="${user.u_id}"/>${user.u_id}
+			<td style="font-weight:700;font-size:1.2em;">아이디(email)</td>
+			<td style="font-size:1.5em;font-weight:600;">
+				<input type="hidden" name="u_id" value="${user.u_id}" style="font-size:1.5em;font-weight:600;"/>${user.u_id}
 			</td>
 		</tr>
 		
 		<tr>
-			<td>이름(2~6자이내)</td>
+			<td style="font-weight:700;font-size:1.2em;">이름(2~6자이내)</td>
 			<td>
-				<input type="text" name="u_name" class="form-control" id="u_name" value="${user.u_name}" required/>
+				<input type="text" name="u_name" class="form-control" id="u_name" value="${user.u_name}" required style="font-size:1.5em;font-weight:600;"/>
 			</td>
 		</tr>
 		<tr>
-			<td>생년월일(ex-19820607)</td>
+			<td style="font-weight:700;font-size:1.2em;">생년월일(ex-19820607)</td>
 			<td>
-				<input type="text" name="u_birth" class="form-control" id="u_birth" value="${user.u_birth}" autocomplete="off" required/>
+				<input type="text" name="u_birth" class="form-control" id="u_birth" value="${user.u_birth}" autocomplete="off" required style="font-size:1.5em;font-weight:600;"/>
 			</td>
 		</tr>
 		<tr>
-			<td>주소</td>
+			<td style="font-weight:700;font-size:1.2em;">주소</td>
 			<td>
 				<div class="row">
 					<div class="col-md-8">
-						<input type="text" class="form-control" name="u_addr_post" id="u_addr_post" value="${user.u_addr_post}" required/>
+						<input type="text" class="form-control" name="u_addr_post" id="u_addr_post" value="${user.u_addr_post}" required style="font-size:1.5em;font-weight:600;"/>
 					</div>
 					<div class="col-md-4">
-						<input type="button" class="form-control btn btn-default" onclick="sample6_execDaumPostcode();" value="주소찾기"/>
+						<input type="button" class="form-control btn btn-primary" onclick="sample6_execDaumPostcode();" value="주소찾기" style="border-radius:20px;"/>
 					</div>
 				</div>
 				<br/>
-				<input type="text" class="form-control" name="u_addr" id="u_addr" value="${user.u_addr}" required/>
+				<input type="text" class="form-control" name="u_addr" id="u_addr" value="${user.u_addr}" required style="font-size:1.5em;font-weight:600;"/>
 				<br/>
-				<input type="text" class="form-control" name="u_addr_detail" id="u_addr_detail" value="${user.u_addr_detail}" required/>
+				<input type="text" class="form-control" name="u_addr_detail" id="u_addr_detail" value="${user.u_addr_detail}" required style="font-size:1.5em;font-weight:600;"/>
 			</td>
 		</tr>
 		<tr>
-			<td>전화번호(-제외 숫자만)</td>
+			<td style="font-weight:700;font-size:1.2em;">전화번호(-제외 숫자만)</td>
 			<td>
-				<input type="text" name="u_phone" class="form-control" id="u_phone" value="${user.u_phone}" required/>
+				<input type="text" name="u_phone" class="form-control" id="u_phone" value="${user.u_phone}" required style="font-size:1.5em;font-weight:600;"/>
 			</td>
 		</tr>
 		<tr>
-			<td>비밀 번호 입력</td>
+			<td style="font-weight:700;font-size:1.2em;">비밀 번호 입력</td>
 			<td>
-				<input type="password" class="form-control" name="u_pw" id="u_pw" autocomplete="off" required/>
+				<input type="password" class="form-control" name="u_pw" id="u_pw" autocomplete="off" required style="font-size:1.5em;font-weight:600;" />
 			</td>
 		</tr>
 		<tr>
-			<td colspan=2>
-				<input type="button" class="btn-primary" value="홈" onclick="location.href='${path}/'"/>
-				<input type="button" class="btn-primary" value="회원탈퇴" onclick="location.href='/user/withdraw';"/>
-				<input type="button" class="btn-primary" id="update" value="수정하기" /> 
-				<input type="button" class="btn-primary" value="관리자" onclick="location.href='/user/master';"/>
+			<td colspan=2 >
+				<input type="button" class="btn-primary" value="홈" onclick="location.href='${path}/'" style="border-radius:35px; width:138px;height:60px;"/>
+				<input type="button" class="btn-primary" value="회원탈퇴" onclick="location.href='/user/withdraw';" style="border-radius:35px; width:138px;height:60px;"/>
+				<input type="button" class="btn-primary" id="update" value="수정하기" style="border-radius:35px; width:138px;height:60px;"/> 
+				<input type="button" class="btn-primary" value="관리자" onclick="location.href='/user/master';" style="border-radius:35px; width:138px;height:60px;"/>
 			</td>
 		</tr>
 	</table>

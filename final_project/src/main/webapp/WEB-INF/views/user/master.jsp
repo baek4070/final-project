@@ -14,11 +14,42 @@
 	.deleteBtn{
 		wi
 	}
+	h1{
+		text-align:center;
+	}
+	.deleteBtn{
+		border-radius:25px;
+		height:30px;
+	}
+	.select{
+		appearance:none;
+		background-color:skyblue;
+		padding:3px 0;
+		width:100px;
+		text-align:center;
+		font-weight:500;
+		boder-left:1px solid skyblue;
+		border-radius:15px;
+	}
+	.select option{
+		width:100px;
+		text-align:center;
+		font-weight:500;
+		boder-left:1px solid skyblue;
+		border-radius:15px;
+	}
+	th{
+		font-weight:600;
+		font-size:1.5em;
+	}
+	td{
+		font-weight:600;
+		font-size:1.2em;
+	}
 </style>
-
 <h1>관리자 페이지</h1>
 <div class="container">
-	<table class="container table tabled-bordered">
+	<table class="container table tabled-bordered" style="border:1px solid black;text-align:center;">
 		<tr>
 			<th>회원번호</th>
 			<th>이메일</th>
@@ -38,7 +69,7 @@
 						<td id="userM">${user.u_id}</td>
 						<td>${user.u_name}</td>
 						<td>
-							<select id="authM">
+							<select id="authM" class="select" style="font-size:1em;">
 								<c:forEach var="auth" items="${user.authList}">
 									<c:if test="${auth.u_auth eq 'ROLE_USER'}">
 										<option value="ROLE_USER">일반 사용자</option>
@@ -58,17 +89,17 @@
 							<f:formatDate value="${user.u_visit_date}" pattern="yyyy-MM-dd (E) HH:mm"/>
 						</td>
 						<td>
-							<select>
+							<select class="select">
 								<option value="y" ${user.u_withdraw eq 'y' ? 'selected' : '' }>비활성화</option>
 								<option value="n" ${user.u_withdraw eq 'n' ? 'selected' : '' }>활성화</option>
 							</select>
 							<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')"> 
-								<input type="button" value="활성/비활성" class="deleteBtn btn btn-primary"/>
+								<input type="button" value="활성/비활성" class="deleteBtn btn btn-primary" />
 							</sec:authorize>
 						</td>
 						<td>
 							<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">	
-								<select class="authChange">
+								<select class="authChange select">
 									<option selected>권한선택</option>
 									<option value="ROLE_USER">일반회원</option>
 									<option value="ROLE_MASTER">관리자</option>

@@ -23,11 +23,13 @@ public class SessionListner implements HttpSessionListener, HttpSessionAttribute
 	
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
+		/*
 		if(event.getName().equals("userInfo")) {
 			HttpSession session = event.getSession();
 			System.out.println("userInfo regist : "+session.getId());
 			sessionRepository.put(event.getName(), event.getValue());
 		}
+		*/
 	}
 	
 	@Override

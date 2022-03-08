@@ -31,7 +31,7 @@
 	<tx:annotation-driven />
 	
 
-	<!-- <context:component-scan base-package="net.koreate.user.session"/> -->
+	<context:component-scan base-package="net.koreate.user.session"/>
 	<context:component-scan base-package="net.koreate.*.service, net.koreate.*.controller" />
 
 </beans:beans>

@@ -17,7 +17,6 @@
 	}  
 	.table{
 		justify-align:center;
-		border:1px solid skyblue;
 	}
 	#u_birth{
 		background-color:white;
@@ -61,98 +60,101 @@
 		box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15); 
 		transform: translateX(-50%) translateY(-50%); 
 	}
-
+	input[type="checkbox"]{
+		width:23px;
+		height:23px;
+	}
+	input[type="text"]{
+		height:45px;
+	}
+	input[type="password"]{
+		height:45px;
+	}
 </style>
-<div class="div" style="display:flex; justify-content:center; align-items:center; padding-top:150px;">
+<div class="div" style="display:flex; justify-content:center; align-items:center; padding-top:50px;">
 	<form id="signUpForm" action="${pageContext.request.contextPath}/user/signUpPost" method="POST">
-		<h1 style="text-align:center;">회원가입</h1>
+		<h1 style="text-align:center;font-size:4.5em;font-weight:800;">JOIN</h1>
 		<table class="table">
 			<tr>
-			
-			</tr>
-			<tr>
-				<td>아이디(email)</td>
+				<td style="font-weight:700;font-size:1.2em;">아이디(email)</td>
 				<td>
-					<input type="text" class="form-control" name="u_id" id="u_id" autocomplete="off" placeholder="E-Mail"/>
+					<input type="text" class="form-control" name="u_id" id="u_id" autocomplete="off" placeholder="E-Mail" style="font-size:1.3em;" />
 					<button type="button" id="acceptEmail" name="acceptEmail" class="btn btn-primary btn-sm">이메일 인증</button>
 					<div class="result"></div>
 					<div id="emailCodeWrap">
-						<input type="text" id="emailCode" class="form-control" name="emailCode" placeholder="이메일 인증" autocomplete="off"/>
+						<input type="text" id="emailCode" class="form-control" name="emailCode" placeholder="이메일 인증" style="font-size:1.3em;" autocomplete="off"/>
 						<button type="button" id="emailAcceptBtn" class="btn btn-primary btn-sm">인증 완료</button>
 					</div>
 				</td>
 			</tr>
 			<tr>
-				<td>비밀번호</td>
+				<td style="font-weight:700;font-size:1.2em;">비밀번호</td>
 				<td>
-					<input type="password" class="form-control" name="u_pw" id="u_pw" autocomplete="off" placeholder="password"/>
+					<input type="password" class="form-control" name="u_pw" id="u_pw" autocomplete="off" placeholder="password" style="font-size:1.3em;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>비밀번호 확인</td>
+				<td style="font-weight:700;font-size:1.2em;">비밀번호 확인</td>
 				<td>
-					<input type="password" class="form-control" name="u_repw" id="u_repw" placeholder="password check"/>
+					<input type="password" class="form-control" name="u_repw" id="u_repw" placeholder="password check" style="font-size:1.3em;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>이름(2~6자이내)</td>
+				<td style="font-weight:700;font-size:1.2em;">이름(2~6자이내)</td>
 				<td>
-					<input type="text" name="u_name" class="form-control" id="u_name" placeholder="Name"/>
+					<input type="text" name="u_name" class="form-control" id="u_name" placeholder="Name" style="font-size:1.3em;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>생년월일(ex-19820607)</td>
+				<td style="font-weight:700;font-size:1.2em;">생년월일(ex-19820607)</td>
 				<td>
-					<input type="text" name="u_birth" class="form-control" id="u_birth" autocomplete="off" placeholder="생년월일"/>
+					<input type="text" name="u_birth" class="form-control" id="u_birth" autocomplete="off" placeholder="생년월일" style="font-size:1.3em;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>주소</td>
+				<td style="font-weight:700;font-size:1.2em;">주소</td>
 				<td>
 					<div class="row">
 						<div class="col-md-8">
-							<input type="text" class="form-control" name="u_addr_post" id="u_addr_post" placeholder="우편 번호"/>
+							<input type="text" class="form-control" name="u_addr_post" id="u_addr_post" placeholder="우편 번호" style="font-size:1.3em;"/>
 						</div>
 						<div class="col-md-4">
-							<input type="button" class="form-control btn btn-primary" onclick="sample6_execDaumPostcode();" value="주소찾기"/>
+							<input type="button" class="form-control btn btn-primary" onclick="sample6_execDaumPostcode();" value="주소찾기" style="border-radius:20px;"/>
 						</div>
 					</div>
 					<br/>
-					<input type="text" class="form-control" name="u_addr" id="u_addr" placeholder="주소"/>
+					<input type="text" class="form-control" name="u_addr" id="u_addr" placeholder="주소" style="font-size:1.3em;"/>
 					<br/>
-					<input type="text" class="form-control" name="u_addr_detail" id="u_addr_detail" placeholder="상세 주소"/>
+					<input type="text" class="form-control" name="u_addr_detail" id="u_addr_detail" placeholder="상세 주소" style="font-size:1.3em;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>전화번호(-제외 숫자만)</td>
+				<td style="font-weight:700;font-size:1.2em;">전화번호(-제외 숫자만)</td>
 				<td>
-					<input type="text" name="u_phone" class="form-control" id="u_phone" placeholder="Phone Number"/>
+					<input type="text" name="u_phone" class="form-control" id="u_phone" placeholder="Phone Number" style="font-size:1.3em;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<td style="font-weight:700;font-size:1.2em;">
 					<label>
 						개인정보 이용동의
-						<input type="checkbox" checked name="u_info" id="u_info" value="y"/>(필수)
+						<input type="checkbox" name="u_info" id="u_info" value="y"/>(필수)
 					</label>
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#thisModal">자세히보기</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#thisModal" style="border-radius:20px;">자세히보기</button>
 					<%-- <a href="${path}/user/text">자세히 보기</a> --%>
 					<%-- <input type="button" value="자세히 보기" class="detail btn btn-primary btn-sm" onclick="location.href='${path}/user/text';"/> --%>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" class="btn-primary form-control" id="signUpBtn" value="회원가입"/> 
+					<input type="submit" class="btn-primary form-control" id="signUpBtn" value="회원가입" style="border-radius:20px;"/> 
 				</td>
 			</tr>
 		</table>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	</form>
-	
-	
-	
-	
-	
+</div>
+	<!-- modal 개인정보용 -->
 	<div id="thisModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -214,32 +216,11 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>
 			</div>  
-	</div> 
-</div>
+		</div> 
+	</div>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 
-	/* 개인정보 사용동의 dialog */
- 	/* const modal = document.querySelector('.modal'); 
-	const btnOpenPopup = document.querySelector('.btn-open-popup'); 
-	
-	btnOpenPopup.addEventListener('click', () => { 
-		modal.style.display = 'block';
-		modal.classList.toggle('show');
-	});
-	 */
-	/* $(document).ready(function(){
-		
-		$("#btn-open-popup").click(function(){
-			$(".modal").modal("show");
-		});
-		
-        $("#close_modal").click(function() {
-             $(".modal").modal("hide");
-        });
-	});
-	 */
-	
 	function sample6_execDaumPostcode(){
 		new daum.Postcode({
 			oncomplete : function(data){
