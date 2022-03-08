@@ -265,6 +265,7 @@
 	$("#u_birth").datepicker({
 		changeMonth : true,
 		changeYear : true,
+		yearRange: 'c-80:c+1',
 		dateFormat : "yymmdd",
 		dayNames : ['월요일','화요일','수요일','목요일','금요일','토요일','일요일'],
 		dayNamesMin : ['월','화','수','목','금','토','일'],

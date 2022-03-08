@@ -38,7 +38,7 @@
 	
 	<!-- UserVO getUserById(String u_id) throws Exception; -->
 	<select id="getUserById" parameterType="String" resultMap="userMap">
-		SELECT user.*, u_auth FROM 
+		SELECT user.*, auth.u_auth FROM 
 		trade_user AS user
 		LEFT OUTER JOIN
 		user_auth AS auth

@@ -13,14 +13,21 @@ public class AccessDeniedHandler implements org.springframework.security.web.acc
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-			AccessDeniedException accessDeniedException) throws IOException, ServletException {
-		System.out.println("말레이시아에서 접속합"+accessDeniedException.getMessage());
+			AccessDeniedException exception) throws IOException, ServletException {
+
+		System.out.println(exception.getMessage());
 		response.setContentType("html/text;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print("<script>");
 		out.print("alert('접근 권한이 없습니다.');");
 		out.print("history.go(-1);");
 		out.print("</script>");
+/*
+		String error = exception.getMessage();
+		String context = request.getServletContext().getContextPath();
+		String url = request.getServletContext().getContextPath()+"/user/signOff?message="+error;
+		response.sendRedirect(url);
+		*/
 	}
 
 }

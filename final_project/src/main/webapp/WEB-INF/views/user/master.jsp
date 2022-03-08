@@ -40,11 +40,11 @@
 	}
 	th{
 		font-weight:600;
-		font-size:1.5em;
+		font-size:1.4em;
 	}
 	td{
 		font-weight:600;
-		font-size:1.2em;
+		font-size:1em;
 	}
 </style>
 <h1>관리자 페이지</h1>

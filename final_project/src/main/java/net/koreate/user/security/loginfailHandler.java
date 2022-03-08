@@ -14,10 +14,9 @@ public class loginfailHandler implements AuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		String message = exception.getMessage();
-		System.out.println(message);
+		String error = exception.getMessage();
 		String context = request.getServletContext().getContextPath();
-		String url = context+"/user/signIn?message="+message;
+		String url = context+"/user/signIn?message="+error;
 		response.sendRedirect(url);
 	}
 

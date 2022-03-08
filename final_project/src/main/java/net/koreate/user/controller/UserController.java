@@ -131,20 +131,6 @@ public class UserController {
 				System.out.println(msg);
 				rttr.addFlashAttribute("result",msg);
 				return "redirect:/user/signOut";
-				/*
-				if(msg == "수정 성공") {
-					rttr.addFlashAttribute("result",msg);	
-					System.out.println(msg);
-					result = true;
-					System.out.println(result);
-				}else if(msg == "수정 실패"){
-					result = false;
-					System.out.println(result);
-					rttr.addFlashAttribute("result",msg);
-					System.out.println(msg);
-					return "redirect:/user/signIn";
-				}
-				*/
 			}
 		}
 		String msg = "수정 실패";
@@ -181,9 +167,9 @@ public class UserController {
 	}
 	
 	// 중복 로그인 블럭 페이지
-	@GetMapping("signOff")
-	public String signOff() {
-		return "/user/signOff";
+	@GetMapping("/signOff")
+	public String signOff(Model model) {
+		return "user/signOff";
 	}
 	
 	// 관리자 페이지 

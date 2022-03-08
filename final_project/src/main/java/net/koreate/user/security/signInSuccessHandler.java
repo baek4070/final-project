@@ -25,28 +25,12 @@ public class signInSuccessHandler implements AuthenticationSuccessHandler {
 		CustomUser user = (CustomUser)authentication.getPrincipal();
 		System.out.println("user : "+user);
 		UserVO vo = user.getUser();
-		System.out.println("vo"+vo);
-		
 		try {
 			 us.updateVisitDate(vo.getU_id()); 
-			 System.out.println(vo.getU_id());
 		} catch (Exception e) {
 			 e.printStackTrace(); 
 		}
-		/*
-		String result = "";
-		if(vo.getU_id().equals(user.getUsername())) {
-			System.out.println("vo.getU_id()"+vo.getU_id());
-			System.out.println("user.getUsername()"+user.getUsername());
-			result = "로그인 성공";
-			String context = File.separator+"result="+result;
-		}else {
-			result = "로그인 실패";
-			String context = File.separator+"result="+result;
-		}
-		*/
 		String context = File.separator;
-		System.out.println("context " +context);
 		response.sendRedirect(context);
 	}
 

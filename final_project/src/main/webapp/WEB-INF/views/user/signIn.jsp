@@ -31,11 +31,6 @@
 	<h1 id="text" style="text-align:center;font-size:7.5em;font-weight:800;">LOGIN</h1>
 	<table id="table" style="border-spacing:30px 30px;">
 		<tr>
-			<th colspan="2">
-				<h2>${message}</h2>
-			</th>
-		</tr>
-		<tr>
 			<td style="font-weight:700;font-size:1.5em;">E-MAIL</td>
 			<td>
 				<input type="text" name="u_id" id="u_id" placeholder="E-Mail" class="form-control" autocomplete="off" style="font-size:1.3em;"/>
@@ -68,5 +63,17 @@
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 </div>
+<script>
+	
+	var message = '${message}';
+
+	if(message == "UserDetailsService returned null, which is an interface contract violation") {
+		msg = "아이디가 존재하지않습니다.";
+		alert(msg);
+	}else if(message == "Bad credentials"){
+		msg = "비밀번호가 틀렷습니다.";
+		alert(msg);
+	}
+</script>
 </body>
 </html>

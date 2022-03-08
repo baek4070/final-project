@@ -25,8 +25,8 @@
 	
 	<security:http auto-config="true">
 	
-	<!-- <security:csrf disabled="true"/> -->
-		<!-- 동시 접속 차단 -->
+	
+	<!-- 동시 접속 차단 -->
 		<security:access-denied-handler ref="accessdeniedHandler"/>
 	
 		<security:form-login 
@@ -44,30 +44,33 @@
 			token-validity-seconds="604800"
 		/>
 		
+		
+				<!-- error-if-maximum-exceeded="true" -->
+		<!-- expired-url="/user/signOff" -->
 		<security:session-management>
 			<security:concurrency-control 
-				error-if-maximum-exceeded="false"
 				max-sessions="1"
-				expired-url="/signOff"
+				expired-url="/user/signOff"	
 			/>
 		</security:session-management>
+		
 		
 		
 		<security:logout logout-url="/user/signOut" logout-success-url="/" delete-cookies="userCookie"/>
 		
 		<security:intercept-url pattern="/user/**" access="permitAll"/>
 		
-		<!-- <security:intercept-url pattern="/user/master" access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')"/> -->
+		<security:intercept-url pattern="/user/master" access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')"/>
 		
 		<!-- <security:intercept-url pattern="/board/register" access="permitAll"/> -->
 		
-		<!-- <security:intercept-url pattern="/user/signOut" access="authenticated"/> -->
+		<security:intercept-url pattern="/user/signOut" access="authenticated"/>
 		
-		<!-- <security:intercept-url pattern="/user/info" access="authenticated"/> -->
+		<security:intercept-url pattern="/user/info" access="authenticated"/>
 		
 		<!-- <security:intercept-url pattern="/user/**" access="isAnonymous()"/> -->
 		
-		<security:intercept-url pattern="/signOff" access="isAnonymous()"/>
+		<security:intercept-url pattern="/user/signOff" access="isAnonymous()"/>
 		
 	</security:http>
 	
