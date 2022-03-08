@@ -29,4 +29,7 @@ public interface BoardDAO {
 	
 	// 찜목록 삭제
 	public int deleteWishlist(BoardVO board) throws Exception;
+	
+	// 조회수 증가
+	public int updateViewCount(int bno) throws Exception;
 }

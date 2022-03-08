@@ -108,13 +108,6 @@
 		  				</div>
 					</div>
 	  	 		</c:forEach>
-	  	 		<!-- 로그인 된 사용자만 물품 등록 가능 -->
-		   		<sec:authorize access="isAuthenticated()">
-		   			<form action="register" method="get">
-						<button class="btn btn-outline-danger" style="border-radius: 0.25rem; float: right;">새 물품 등록</button>
-					</form>
-		   		</sec:authorize>
-		   		
 	  	 	<!-- 페이징 블럭 시작 -->
 	  	 	<ul class="pagination">
 				<c:if test="${pm.prev}">
@@ -140,6 +133,12 @@
 	  	 		<h3>등록된 게시물이 없습니다.</h3>
 	  	 	</c:otherwise>
    		</c:choose>
+   		<!-- 로그인 된 사용자만 물품 등록 가능 -->
+   		<sec:authorize access="isAuthenticated()">
+   			<form action="register" method="get">
+				<button class="btn btn-outline-danger" style="border-radius: 0.25rem; float: right;">새 물품 등록</button>
+			</form>
+   		</sec:authorize>
    		<!-- 검색 시작 -->
    			<div class="input-group mb-3"
    			style="justify-content: center;">
@@ -155,7 +154,6 @@
 				placeholder="검색어를 입력하세요."/>
 				<input type="button" id="go_search" class="btn btn-primary" style="border-radius: 0 0.25rem 0.25rem 0;" value="검색"/>
 			</div>
-			
 			<input type="hidden" name="page" value="${pm.cri.page}"/>
 			<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

@@ -1,11 +1,13 @@
 package net.koreate.board.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import net.koreate.board.service.BoardService;
 import net.koreate.board.util.Criteria;
-import net.koreate.board.util.FileUtils;
+import net.koreate.board.vo.BoardCommentVO;
 import net.koreate.board.vo.BoardVO;
-import net.koreate.home.vo.WishVO;
 
 @Controller
 @RequestMapping("/board")
@@ -69,8 +71,20 @@ public class BoardController {
 	}
 	
 	// 상세보기
-	@GetMapping({"/detail", "modify"})
-	public void detailOrModify(@RequestParam("bno") int bno,
+	@GetMapping("/detail")
+	public void detail(@RequestParam("bno") int bno, BoardCommentVO board,
+			@ModelAttribute("cri") Criteria cri,
+			Model model) throws Exception {
+		model.addAttribute("board",service.get(bno));
+		service.updateViewCnt(bno);
+		
+		// 댓글 리스트 조회
+		List<BoardCommentVO> commentList = service.getCommentList(bno);
+		model.addAttribute("commentList", commentList);
+	}
+	
+	@GetMapping("/modify")
+	public void modify(@RequestParam("bno") int bno,
 			@ModelAttribute("cri") Criteria cri,
 			Model model) throws Exception {
 		model.addAttribute("board",service.get(bno));
@@ -108,4 +122,31 @@ public class BoardController {
 		return "redirect:/board/detail?bno="+bno;
 	}
 	
+	// 댓글 작성
+	@PostMapping("/registerComment")
+	public String registerComment(BoardVO board, Criteria cri, RedirectAttributes rttr, Model model, int bno) throws Exception {
+		String result = service.registerComment(board);
+		rttr.addFlashAttribute("result", result);
+		model.addAttribute("bno", board.getBno());
+		model.addAttribute("pm", service.getPageMaker(cri));
+		model.addAttribute("ltt",cri.getTradeType());
+		model.addAttribute("lct",cri.getCategory());
+		return "redirect:/board/detail?bno="+bno;
+	}
+	
+	// 댓글 수정
+	@PostMapping("/modifyComment")
+	public String modifyComment(BoardCommentVO board, RedirectAttributes rttr, int bno) throws Exception {
+		String result = service.modifyComment(board);
+		rttr.addFlashAttribute("result", result);
+		return "redirect:/board/detail?bno="+bno;
+	}
+	
+	// 댓글 삭제
+	@PostMapping("/removeComment")
+	public String removeComment(BoardCommentVO board, RedirectAttributes rttr, int bno) throws Exception {
+		String result = service.removeComment(board);
+		rttr.addFlashAttribute("result", result);
+		return "redirect:/board/detail?bno="+bno;
+	}
 }

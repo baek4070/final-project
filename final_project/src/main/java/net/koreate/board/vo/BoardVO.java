@@ -20,5 +20,6 @@ public class BoardVO {
 	private String category;
 	private String fileName;
 	private String filePath;
+	private int viewcnt;
 	private MultipartFile uploadFile;
 }

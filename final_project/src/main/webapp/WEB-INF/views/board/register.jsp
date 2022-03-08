@@ -50,8 +50,8 @@
 				<td>물품구분</td>
 				<td>
 					<select name="tradeType" class="form-select">
-						<option>필요해요</option>
-						<option>필요없어요</option>
+						<option>삽니다</option>
+						<option>팝니다</option>
 					</select>
 				</td>
 			</tr>

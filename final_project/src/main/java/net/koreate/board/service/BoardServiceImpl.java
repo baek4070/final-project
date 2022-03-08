@@ -6,9 +6,11 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import net.koreate.board.dao.BoardCommentDAO;
 import net.koreate.board.dao.BoardDAO;
 import net.koreate.board.util.Criteria;
 import net.koreate.board.util.PageMaker;
+import net.koreate.board.vo.BoardCommentVO;
 import net.koreate.board.vo.BoardVO;
 
 @Service
@@ -16,6 +18,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Inject 
 	BoardDAO dao;
+	
+	@Inject
+	BoardCommentDAO commentDao;
 	
 	@Override
 	public List<BoardVO> list(Criteria cri) throws Exception {
@@ -70,6 +75,37 @@ public class BoardServiceImpl implements BoardService {
 	public String removeWishlist(BoardVO board) throws Exception {
 		int result = dao.deleteWishlist(board);
 		return getMessage(result, "찜 취소");
+	}
+
+	@Override
+	public int updateViewCnt(int bno) throws Exception {
+		int result = dao.updateViewCount(bno);
+		return result;
+	}
+	
+	// 댓글 리스트 조회
+	@Override
+	public List<BoardCommentVO> getCommentList(int bno) throws Exception {
+		return commentDao.getCommentList(bno);
+	}
+	
+	// 댓글 작성
+	@Override
+	public String registerComment(BoardVO board) throws Exception {
+		int result = commentDao.registerComment(board);
+		return getMessage(result, "작성");
+	}
+
+	@Override
+	public String modifyComment(BoardCommentVO board) throws Exception {
+		int result = commentDao.modifyComment(board);
+		return getMessage(result, "수정");
+	}
+
+	@Override
+	public String removeComment(BoardCommentVO board) throws Exception {
+		int result = commentDao.deleteComment(board);
+		return getMessage(result, "삭제");
 	}
 
 }
