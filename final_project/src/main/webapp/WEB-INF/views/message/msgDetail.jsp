@@ -3,12 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <style>
+
+	.con{
+		scrollbars:no;
+		resizable:no;
+		width:800;
+		height:600;
+	}
 
 	img {
 		width: 302px; height: 150px;
@@ -68,13 +74,34 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="writes con">
+	<div class="detail con">
+	<h2 class="text-center">쪽지</h2>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<table class="table table-hover">
+			<tr>
+				<td>제목</td>
+				<td><input class="form-control" type="text" name="title" value="${msgList.title}" readonly/></td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td><input class="form-control" type="text" name="receiver" value="${msgList.sender}" readonly/></td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td><textarea class="form-control" name="content" rows="20" cols="50" readonly>${msgList.content}</textarea></td>
+			</tr>
+		</table>
+		<input class="btn btn-outline-danger resistGo" style="border-radius: 0.25rem; float:left;" type="button" value="답장보내기" />
+		<input class="btn btn-outline-danger close" style="border-radius: 0.25rem; float:right;" type="button" value="닫기" />
+	</div>
+	
+	<div class="writes con" style="display:none;">
 	<h2 class="text-center">쪽지보내기</h2>
 	<form action="${path}/message/resister" method="post">
 	<sec:authorize access="isAuthenticated()">
 	<sec:authentication var="user" property="principal.user"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" name="uno" value="${uno}"/>
+			<input type="hidden" name="uno" value="${msgList.suno}"/>
 			<input type="hidden" name="suno" id="d" value="${user.uno}"/>
 		<table class="table table-hover">
 			<tr>
@@ -83,7 +110,7 @@
 			</tr>
 			<tr>
 				<td>받는사람</td>
-				<td><input class="form-control" type="text" name="receiver" value="${sender}" readonly required/></td>
+				<td><input class="form-control" type="text" name="receiver" value="${msgList.sender}" readonly required/></td>
 			</tr>
 			<tr>
 				<td>작성자</td>
@@ -107,6 +134,11 @@
 	$(".close").click(function(){
 		window.close();
 	});
+	
+	$(".resistGo").click(function(){
+		$(".detail").css('display','none');
+		$(".writes").css('display','block');
+	})
 	
 	var result = '${results}';
 	if(result == 'true'){

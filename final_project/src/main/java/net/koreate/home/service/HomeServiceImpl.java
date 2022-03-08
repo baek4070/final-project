@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import net.koreate.board.util.Criteria;
+import net.koreate.board.util.PageMaker;
 import net.koreate.board.vo.BoardVO;
 import net.koreate.home.dao.HomeDAO;
 import net.koreate.home.vo.BellVO;
@@ -70,6 +72,23 @@ public class HomeServiceImpl implements HomeService {
 	public List<MessageVO> messageList(int uno) {
 		List<MessageVO> msgList = dao.messageList(uno);
 		return msgList;
+	}
+
+	@Override
+	public MessageVO messageDetail(int mno) {
+		MessageVO msg = dao.messageDetail(mno);
+		return msg;
+	}
+
+	@Override
+	public void updateMessageCheck(int mno) {
+		dao.updateMessageCheck(mno);
+	}
+
+	@Override
+	public boolean insertMessage(MessageVO vo) {
+		boolean tf = dao.insertMessage(vo);
+		return tf;
 	}
 
 

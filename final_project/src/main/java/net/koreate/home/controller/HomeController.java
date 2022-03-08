@@ -13,12 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import net.koreate.board.util.Criteria;
 import net.koreate.board.vo.BoardVO;
 import net.koreate.home.service.HomeService;
 import net.koreate.home.vo.BellVO;
@@ -111,9 +113,30 @@ public class HomeController {
 	
 	@GetMapping("message/msgList")
 	public void msgList(@RequestParam("uno") int uno, Model model) {
+		System.out.println(uno);
 		model.addAttribute("mList",hs.messageList(uno));
 	}
 	
+	@Transactional
+	@GetMapping("message/msgDetail")
+	public void msgDetail(@RequestParam("mno") int mno, Model model) {
+		model.addAttribute("msgList",hs.messageDetail(mno));
+		hs.updateMessageCheck(mno);
+	}
 	
+	/*
+	 * @PostMapping("message/resend") public String msgResend(@RequestParam("uno")
+	 * int uno, @RequestParam("receiver") String receiver , Model model) { MessageVO
+	 * resend = new MessageVO(); resend.setUno(uno); resend.setReceiver(receiver);
+	 * model.addAttribute("wList",resend); return "message/msgWrite"; }
+	 */
+	
+	@PostMapping("message/resister")
+	public String insertMessage(MessageVO vo, HttpServletRequest request, RedirectAttributes rttr) {
+		boolean result = hs.insertMessage(vo);
+		String referer = request.getHeader("REFERER");
+		rttr.addFlashAttribute("results",result);
+		return "redirect:"+referer;
+	}
 	
 }
