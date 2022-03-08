@@ -14,7 +14,7 @@ import net.koreate.qnaboard.vo.QnABoardVO;
 
 public interface HomeDAO {
 
-	@Select("SELECT * FROM qna_tbl ORDER BY qno DESC limit 1,5")
+	@Select("SELECT * FROM qna_tbl ORDER BY viewcnt desc limit 1,10")
 	List<QnABoardVO> QnaList();
 
 	/*
