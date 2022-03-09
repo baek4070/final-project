@@ -17,13 +17,13 @@
 <div>
 <ul class="nav nav-tabs mx-auto" style="max-width: 800px;">
   <li class="nav-item">
-    <a class="nav-link active" data-bs-toggle="tab" href="#all">전체 메세지</a>
+    <a class="nav-link active" data-bs-toggle="tab" id="a" href="#all">전체 메세지</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-bs-toggle="tab" href="#non-read">안읽은 메세지</a>
+    <a class="nav-link" data-bs-toggle="tab" id="non" href="#non-read">안읽은 메세지</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-bs-toggle="tab" href="#read">읽은 메세지</a>
+    <a class="nav-link" data-bs-toggle="tab" id="readed" href="#read">읽은 메세지</a>
   </li>
 </ul>
 <div id="myTabContent" class="tab-content mx-auto" style="max-width: 800px;">
@@ -73,7 +73,7 @@
 			</c:if>
 		</ul>
   </div>
-  <div class="tab-pane fade mx-auto" id="non-read" style="max-width: 800px;">
+  <div class="tab-pane fade" id="non-read" style="max-width: 800px;">
   <table class="table table-hover">
   	<tr>
   		<th scope="col">번호</th>
@@ -113,7 +113,7 @@
 			</c:if>
 			<c:forEach var="num" begin="${npm.startPage}" end="${npm.endPage}">
 				<li class="page-item">
-   					<a class="page-link" href="${npm.search(num)}">${num}</a>
+   					<a class="page-link" href="${npm.search(num)}&c=c">${num}</a>
    				</li>
 			</c:forEach>
 			<c:if test="${pm.next}">
@@ -121,6 +121,7 @@
 					<a class="page-link" href="${npm.endPage+1}">&raquo;</a>
 				</li>
 			</c:if>
+			
 		</ul>
   </div>
     <div class="tab-pane fade" id="read" style="max-width: 800px;">
@@ -159,7 +160,7 @@
 			</c:if>
 			<c:forEach var="num" begin="${cpm.startPage}" end="${cpm.endPage}">
 				<li class="page-item">
-   					<a class="page-link" href="${cpm.search(num)}">${num}</a>
+   					<a class="page-link" href="${cpm.search(num)}&ct=ct">${num}</a>
    				</li>
 			</c:forEach>
 			<c:if test="${pm.next}">
@@ -175,6 +176,24 @@
 </body>
 <script>
 
+	var c = '${getc}';
+	var ct = '${getct}';
+
+	$(document).ready(function(){
+		if(c !== ''){
+			$("#a").attr('class','nav-link');
+			$("#non").attr('class','nav-link active');
+			$("#non-read").attr('class','tab-pane fade active show');
+			$("#all").attr('class','tab-pane fade');
+		}else if(ct !== ''){
+			$("#a").attr('class','nav-link');
+			$("#readed").attr('class','nav-link active');
+			$("#read").attr('class','tab-pane fade active show');
+			$("#all").attr('class','tab-pane fade');
+		}
+		
+	});
+
 	$(".msg").click(function(){
 		var mno = $(this).children(".mno").text();
 		var suno = $(this).children(".mno").children("input[type='hidden']").val();
@@ -184,9 +203,7 @@
 	});
 	
 	$(".n a").on("click", function(e){
-		window.onload(function(){
-			$(".n").click();			
-		});
+		
 	});
 </script>
 </html>

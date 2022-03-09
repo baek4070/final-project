@@ -64,7 +64,7 @@
           	<img style="width:35px; height:auto;" src="../resources/css/bells.png"/>
           </a>
           <div class="dropdown-menu" id="bell" style="position:absolute;">
-          	<div>알림<div class="ms-auto"><a href="${path}/home/bell.jsp">더보기</a></div></div>
+          	<div style="text-align:center; font-family: 'Gugi', cursive; font-size:x-large;">알&nbsp;&nbsp;림</div>
           </div>
       </ul>
       </c:if>

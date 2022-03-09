@@ -104,7 +104,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("message/msgList")
-	public void msgList(MessageCriteria cri, Model model) throws Exception {
+	public void msgList(MessageCriteria cri, Model model, @RequestParam(value="c", required=false) String c, @RequestParam(value="ct", required=false) String ct ) throws Exception {
 		System.out.println(cri);
 		model.addAttribute("mList",hs.messageList(cri));
 		MessagePageMaker pm = hs.getPageMaker(cri);
@@ -118,6 +118,8 @@ public class HomeController {
 		MessagePageMaker npm = hs.getCheckedPageMaker(cri);
 		model.addAttribute("cpm", npm);
 		
+		model.addAttribute("getc",c);
+		model.addAttribute("getct",ct);
 	}
 	
 	@Transactional
