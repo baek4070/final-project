@@ -43,3 +43,16 @@ ALTER TABLE qna_tbl ADD depth int default 0;
 ALTER TABLE qna_tbl ADD seq int default 0;
 
 commit;
+
+CREATE TABLE notice_tbl(
+	nno INT primary key auto_increment,
+    title VARCHAR(300) NOT NULL,
+    content VARCHAR(4000) NOT NULL,
+    userNickname VARCHAR(20) NOT NULL,
+    deleted VARCHAR(1) NOT NULL DEFAULT 'n',
+    regdate TIMESTAMP NOT NULL DEFAULT now(),
+    updatedate TIMESTAMP NOT NULL DEFAULT now(),
+    viewcnt INT DEFAULT 0,
+    filename VARCHAR(300),
+    filepath VARCHAR(300)
+);

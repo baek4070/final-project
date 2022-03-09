@@ -64,57 +64,25 @@
 	}
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>투레이do!</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2 class="text-center" >질문과 답하기</h2>
+	<h2 class="text-center" style="font-family: 'Gugi', cursive;">공지사항</h2>
 	<table class="table table-hover">
-		<tr>
+		<tr style="font-family: 'Gugi', cursive;">
 			<th scope="row">번호</th>
 			<th>제목</th>
 			<th>작성일</th>
 		</tr>
 		<c:choose>
 			<c:when test="${!empty list}">
-				<c:forEach var="qnaboard" items="${list}" varStatus="status">
+				<c:forEach var="notice" items="${list}" varStatus="status">
 				
-					<tr >
-						<td>${qnaboard.root}</td>
-						<td style="cursor:pointer;" onclick="location.href='detail?qno=${qnaboard.qno}'">${qnaboard.title}</td>
-						<sec:authorize access="isAnonymous()">
-							<td>
-								${qnaboard.userNickname}
-							</td>
-						</sec:authorize>
-						<sec:authorize access="isAuthenticated()">
-							<td>
-								<div class="dropdown" style="position:relative; ">
-									  <a class="dropbtn" style="cursor:pointer; text-decoration:none;">${qnaboard.userNickname}</a>
-								  <div class="dropdown-content" style="z-index:2; left:20px; width:120px; height:50px; background-color:rgba(123,123,123,1); position:absolute; display:none">
-								    <a href="${path}/message/msgWrite" onclick="window.open(this.href, '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600'); return false;" style="color:white;">쪽지 보내기</a><br/>
-								    <a href="writed?qno=${qnaboard.qno}" style="color:white;">작성 게시물 확인</a>
-								  </div>
-								</div>
-							</td>
-						</sec:authorize>
-						<td><f:formatDate pattern="yyyy-MM-dd HH:mm" value="${qnaboard.regdate}"/></td>
-						<c:choose>
-							<c:when test="${qnaboard.regdate eq qnaboard.updatedate}">
-								<td> </td>
-							</c:when>
-							<c:otherwise>
-								<td><f:formatDate pattern="MM월dd일 HH시" value="${qnaboard.updatedate}"/></td>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${!empty qnaboard.filename}">
-								<th><img src="${path}/resources/img/file.png" style="width:25px; height:25px;" /></th>
-							</c:when>
-							<c:otherwise>
-								<td> </td>
-							</c:otherwise>
-						</c:choose>
+					<tr style="cursor:pointer;" onclick="location.href='detail?nno=${notice.nno}'">
+						<td>${notice.nno}</td>
+						<td>${notice.title}</td>
+						<td><f:formatDate pattern="yyyy-MM-dd" value="${notice.updatedate}"/></td>
 					</tr>
 				</c:forEach>
 			</c:when>
@@ -129,7 +97,7 @@
 			<a href="write" class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right;">글쓰기</a>
 		</sec:authorize>
 		<!-- 페이징 블럭 -->
-		<ul class="pagination">
+		<ul class="pagination" style="font-family: 'Gugi', cursive;">
 				<c:if test="${pm.prev}">
 					<li class="page-item">
 						<a class="page-link" href="list?page=${pm.startPage-1}">이전</a>
@@ -137,9 +105,18 @@
 				</c:if>
 				<c:forEach var="i" begin="${pm.startPage}" 
 								   end="${pm.endPage}">
-   					<li class="page-item">
-					   <a class="page-link" href="list${pm.search(i)}">${i}</a>
-	   				</li>
+		   				<c:choose>
+							<c:when test="${pm.cri.page eq i}">
+								 <li class="active page-item">
+		  						 <a class="page-link" href="list${pm.search(i)}">${i}</a>
+			   					</li>
+							</c:when>
+							<c:otherwise>
+								<li class=page-item>
+		  						 <a class="page-link" href="list${pm.search(i)}">${i}</a>
+		   						</li>
+							</c:otherwise>
+						</c:choose>
 				</c:forEach>
 				<c:if test="${pm.next}">
 					<li class="page-item">
@@ -156,7 +133,7 @@
 			<option value="tc">제목+내용</option>
 		</select>
 		&nbsp;
-		<input class="search_box" type="text" id="keyword" placeholder="QnA게시판내에서 검색" style="border-radius: 0.25rem 0 0 0.25rem;" />
+		<input class="search_box" type="text" id="keyword" placeholder="공지사항내에서 검색" style="border-radius: 0.25rem 0 0 0.25rem;" />
 		<input class="btn btn-primary" style="border-radius: 0 0.25rem 0.25rem 0;" type="button" value="검색" id="searchBtn"/>
 	</div>
 	

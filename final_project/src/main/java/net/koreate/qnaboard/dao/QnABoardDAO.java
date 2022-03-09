@@ -17,7 +17,6 @@ public interface QnABoardDAO {
 			+ " VALUES(#{userId},#{title},#{content},#{userNickname},#{filename},#{filepath})")
 	void regist(QnABoardVO vo) throws Exception;
 	
-	//@Select("SELECT * FROM qna_tbl")
 	@SelectProvider(type=QnABoardQueryProvider.class,
 			method="searchSelectSql")
 	List<QnABoardVO> list(QnACriteria cri) throws Exception;

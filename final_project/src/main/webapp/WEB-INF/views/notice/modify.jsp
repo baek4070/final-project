@@ -6,7 +6,7 @@
 	<form action="update" method="POST">
 		<table border=1>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" name="qno" value=${vo.qno} />
+			<input type="hidden" name="nno" value=${vo.nno} />
 			<tr>
 				<td>제목</td>
 				<td><input type="text" name="title"  value="${vo.title}" required/></td>

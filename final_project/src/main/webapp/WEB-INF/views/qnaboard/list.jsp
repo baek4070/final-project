@@ -72,7 +72,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2 class="text-center" style="font-family: 'Gugi', cursive;"><span style="color:rgb(255,174,66)">투</span><span style="color:#2ea65a;">레</span><span style="color:#187bcd;">이</span><span style="color:rgb(220,20,60);">DO</span></h2>
+	<h2 class="text-center" style="font-family: 'Gugi', cursive;">질문과 답하기</h2>
 	<table class="table table-hover"  >
 		<tr style="font-family: 'Gugi', cursive;">
 			<th scope="row">번호</th>

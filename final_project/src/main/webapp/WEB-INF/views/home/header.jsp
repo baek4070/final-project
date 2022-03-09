@@ -85,7 +85,7 @@
     <div class="collapse navbar-collapse navbarColor01">
       <ul class="navbar-nav me-auto" style="font-family: 'Gugi', cursive; float:left ;">
         <li class="nav-item">
-          <a class="nav-link" href="#">공지사항</a>
+          <a class="nav-link" href="${path}/notice/list">공지사항</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="${path}/board/list?tradeType=buy">필요해요</a>
