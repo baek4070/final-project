@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import net.koreate.board.util.Criteria;
 import net.koreate.board.vo.BoardVO;
 import net.koreate.home.service.HomeService;
 import net.koreate.home.vo.BellVO;
@@ -36,35 +35,27 @@ public class HomeController {
 	HomeService hs;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model, UserVO uno) throws Exception{
-		model.addAttribute("qlist",hs.qlist());
-		/* model.addAttribute("blist",hs.blist()); */
-		/*
-		 * if(hs.bellList(uno) != null) { System.out.println(uno);
-		 * model.addAttribute("bellList",hs.bellList(uno)); }
-		 */
+	public String home() throws Exception{
 		return "home/home";
 	}
 	
-	@Transactional
-	@RequestMapping("total")
-	public String totalSearch(BoardVO bvo, QnABoardVO qvo, @RequestParam("searchValue") String search, Model model) {
-			System.out.println(search);
-			bvo.setTitle(search);
-			bvo.setContent(search);
-			
-			qvo.setTitle(search);
-			qvo.setContent(search);
-			qvo.setUserNickname(search);
-			
-			model.addAttribute("bBoard",hs.boardListSearch(bvo));
-			model.addAttribute("qBoard",hs.qlistSearch(qvo));
-			model.addAttribute("value",search);
-		return "home/list";
-	}
+	/*
+	 * @Transactional
+	 * 
+	 * @RequestMapping("total") public String totalSearch(BoardVO bvo, QnABoardVO
+	 * qvo, @RequestParam("searchValue") String search, @RequestParam("searchType")
+	 * String type, Model model) { System.out.println(search); bvo.setTitle(search);
+	 * bvo.setContent(search); bvo.setTradeType(type);
+	 * 
+	 * qvo.setTitle(search); qvo.setContent(search); qvo.setUserNickname(search);
+	 * 
+	 * model.addAttribute("bBoard",hs.boardListSearch(bvo));
+	 * model.addAttribute("qBoard",hs.qlistSearch(qvo));
+	 * model.addAttribute("value",search); return "home/list"; }
+	 */
 	
 	@RequestMapping(value = "/home/myList", method = RequestMethod.POST)
-	public String wishList(Model model, UserVO uno) {
+	public String wishList(Model model, UserVO uno) throws Exception {
 		WishVO wish = new WishVO();
 		int number = uno.getUno();
 		System.out.println(number);
@@ -88,7 +79,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("/selected")
-	public String selectBell(@RequestParam("uno") int uno, @RequestParam("bno") int bno, RedirectAttributes rttr) {
+	public String selectBell(@RequestParam("uno") int uno, @RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
 		BellVO bell = new BellVO();
 		bell.setBno(bno);
 		bell.setUno(uno);
@@ -98,7 +89,7 @@ public class HomeController {
 	
 	@Transactional
 	@GetMapping("called")
-	public String callBell(@RequestParam("uno") int uno, @RequestParam("mno") int mno, HttpServletRequest request, RedirectAttributes rttr) {
+	public String callBell(@RequestParam("uno") int uno, @RequestParam("mno") int mno, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		BellVO bell = new BellVO();
 		bell.setUno(uno);
 		bell.setMno(mno);
@@ -112,14 +103,14 @@ public class HomeController {
 	}
 	
 	@GetMapping("message/msgList")
-	public void msgList(@RequestParam("uno") int uno, Model model) {
+	public void msgList(@RequestParam("uno") int uno, Model model) throws Exception {
 		System.out.println(uno);
 		model.addAttribute("mList",hs.messageList(uno));
 	}
 	
 	@Transactional
 	@GetMapping("message/msgDetail")
-	public void msgDetail(@RequestParam("mno") int mno, Model model) {
+	public void msgDetail(@RequestParam("mno") int mno, Model model) throws Exception {
 		model.addAttribute("msgList",hs.messageDetail(mno));
 		hs.updateMessageCheck(mno);
 	}
@@ -131,12 +122,21 @@ public class HomeController {
 	 * model.addAttribute("wList",resend); return "message/msgWrite"; }
 	 */
 	
+	@Transactional
 	@PostMapping("message/resister")
-	public String insertMessage(MessageVO vo, HttpServletRequest request, RedirectAttributes rttr) {
+	public String insertMessage(MessageVO vo, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		boolean result = hs.insertMessage(vo);
+		MessageVO tobell = new MessageVO();
+		BellVO bell = new BellVO();
+		if(result = true) {
+			tobell = hs.getMessageRecent();
+			bell.setUno(tobell.getUno());
+			bell.setMno(tobell.getMno());
+			bell.setSender(tobell.getSender());
+			hs.insertBell(bell);
+		}
 		String referer = request.getHeader("REFERER");
 		rttr.addFlashAttribute("results",result);
 		return "redirect:"+referer;
 	}
-	
 }

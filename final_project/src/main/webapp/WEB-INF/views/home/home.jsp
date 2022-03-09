@@ -30,10 +30,11 @@
         </form>
         </li>
       </ul>
-        <form action="total" id="total">
+        <form action="board/list" id="totalbuy">
 			<div class="input-group mb-3" style="margin-top:16.2px;">
-	    		<input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="필요한 사람 찾기" style="float:right" >
-	    		<button class="btn btn-primary totalSearch" type="button" id="button-addon2" style="float:right">검색</button>
+	    		<input type="text" class="form-control" name="keyword" id="searchValue1" placeholder="필요한 것 찾기" style="float:right" >
+	    		<input type="hidden" name="TradeType" value="buy">
+	    		<button class="btn btn-primary totalSearch1" type="button" id="button-addon2" style="float:right">검색</button>
 	    	</div>
     	</form>
     </div>
@@ -67,10 +68,11 @@
         </form>
         </li>
       </ul>
-        <form action="total" id="total">
+        <form action="board/list" id="totalsell">
 			<div class="input-group mb-3" style="margin-top:16.2px;">
-	    		<input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="필요한 것 찾기" style="float:right" >
-	    		<button class="btn btn-primary totalSearch" type="button" id="button-addon2" style="float:right">검색</button>
+	    		<input type="text" class="form-control" name="keyword" id="searchValue2" placeholder="필요한 사람 찾기" style="float:right" >
+	    		<input type="hidden" name="TradeType" value="sell">
+	    		<button class="btn btn-primary totalSearch2" type="button" id="button-addon2" style="float:right">검색</button>
 	    	</div>
     	</form>
     </div>
@@ -226,5 +228,21 @@
 	</form>
 <jsp:include page="/WEB-INF/views/home/footer.jsp"/>
 <script>
-	
+$(".totalSearch1").click(function(event){
+	event.stopPropagation();
+	if($("#searchValue1").val() == ""){
+		alert("검색어를 입력해주세요");
+		return;
+	}
+	$("#totalbuy").submit();
+});
+
+$(".totalSearch2").click(function(event){
+	event.stopPropagation();
+	if($("#searchValue2").val() == ""){
+		alert("검색어를 입력해주세요");
+		return;
+	}
+	$("#totalsell").submit();
+});
 </script>

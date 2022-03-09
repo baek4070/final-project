@@ -29,66 +29,77 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public List<BoardVO> boardListSearch(BoardVO bvo) {
+	public List<BoardVO> boardListSearch(BoardVO bvo) throws Exception{
 		List<BoardVO> blist = dao.BoardListSearch(bvo);
 		return blist;
 	}
 
 	@Override
-	public List<QnABoardVO> qlistSearch(QnABoardVO qvo) {
+	public List<QnABoardVO> qlistSearch(QnABoardVO qvo) throws Exception{
 		List<QnABoardVO> qlist = dao.QnAListSearch(qvo);
 		return qlist;
 	}
 
 	@Override
-	public List<BoardVO> wish(WishVO wish) {
+	public List<BoardVO> wish(WishVO wish) throws Exception {
 		List<BoardVO> wishGet = dao.wish(wish);
 		return wishGet;
 	}
 
 	@Override
-	public List<BellVO> bellList(int uno) {
+	public List<BellVO> bellList(int uno) throws Exception {
 		List<BellVO> bellList = dao.bellList(uno);
 		return bellList;
 	}
 
 	@Override
-	public void updateCheckBoard(BellVO bell) {
+	public void updateCheckBoard(BellVO bell) throws Exception {
 		dao.updateCheckBoard(bell);
 	}
 
 	@Override
-	public void updateCheckMessage(BellVO bell) {
+	public void updateCheckMessage(BellVO bell) throws Exception {
 		dao.updateCheckMessage(bell);
 	}
 
 	@Override
-	public MessageVO getMessage(MessageVO message) {
+	public MessageVO getMessage(MessageVO message) throws Exception {
 		MessageVO mg = dao.getMessage(message);
 		return mg;
 	}
 
 	@Override
-	public List<MessageVO> messageList(int uno) {
+	public List<MessageVO> messageList(int uno) throws Exception {
 		List<MessageVO> msgList = dao.messageList(uno);
 		return msgList;
 	}
 
 	@Override
-	public MessageVO messageDetail(int mno) {
+	public MessageVO messageDetail(int mno) throws Exception {
 		MessageVO msg = dao.messageDetail(mno);
 		return msg;
 	}
 
 	@Override
-	public void updateMessageCheck(int mno) {
+	public void updateMessageCheck(int mno) throws Exception {
 		dao.updateMessageCheck(mno);
 	}
 
 	@Override
-	public boolean insertMessage(MessageVO vo) {
+	public boolean insertMessage(MessageVO vo) throws Exception {
 		boolean tf = dao.insertMessage(vo);
 		return tf;
+	}
+
+	@Override
+	public MessageVO getMessageRecent() throws Exception {
+		MessageVO recent = dao.getMessageRecent();
+		return recent;
+	}
+
+	@Override
+	public void insertBell(BellVO bell) throws Exception {
+		dao.insertBell(bell);
 	}
 
 

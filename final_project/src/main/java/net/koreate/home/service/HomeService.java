@@ -14,26 +14,30 @@ public interface HomeService {
 
 	public List<QnABoardVO> qlist() throws Exception;
 
-	public List<BoardVO> boardListSearch(BoardVO qvo);
+	public List<BoardVO> boardListSearch(BoardVO qvo) throws Exception;
 
-	public List<QnABoardVO> qlistSearch(QnABoardVO qvo);
+	public List<QnABoardVO> qlistSearch(QnABoardVO qvo) throws Exception;
 
-	public List<BoardVO> wish(WishVO wish);
+	public List<BoardVO> wish(WishVO wish) throws Exception;
 
-	public List<BellVO> bellList(int uno);
+	public List<BellVO> bellList(int uno) throws Exception;
 
-	public void updateCheckBoard(BellVO bell);
+	public void updateCheckBoard(BellVO bell) throws Exception;
 
-	public void updateCheckMessage(BellVO bell);
+	public void updateCheckMessage(BellVO bell) throws Exception;
 
-	public MessageVO getMessage(MessageVO message);
+	public MessageVO getMessage(MessageVO message) throws Exception;
 
-	public List<MessageVO> messageList(int uno);
+	public List<MessageVO> messageList(int uno) throws Exception;
 
-	public MessageVO messageDetail(int mno);
+	public MessageVO messageDetail(int mno) throws Exception;
 
-	public void updateMessageCheck(int mno);
+	public void updateMessageCheck(int mno) throws Exception;
 
-	public boolean insertMessage(MessageVO vo);
+	public boolean insertMessage(MessageVO vo) throws Exception;
+
+	public MessageVO getMessageRecent() throws Exception;
+
+	public void insertBell(BellVO bell) throws Exception;
 	
 }

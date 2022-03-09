@@ -34,12 +34,14 @@ public class BoardController {
 	BoardService service;
 	
 	@GetMapping("/list")
-	public void list(Criteria cri, Model model) throws Exception {
+	public String list(Criteria cri, Model model) throws Exception {
 		model.addAttribute("list", service.list(cri));
 		model.addAttribute("pm", service.getPageMaker(cri));
 		model.addAttribute("ltt",cri.getTradeType());
 		model.addAttribute("lct",cri.getCategory());
+		model.addAttribute("lkt",cri.getKeyword());
 		System.out.println(model);
+		return "board/list";
 	}
 	
 	@GetMapping("/register")

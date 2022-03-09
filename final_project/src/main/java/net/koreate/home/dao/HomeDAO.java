@@ -15,7 +15,7 @@ import net.koreate.qnaboard.vo.QnABoardVO;
 public interface HomeDAO {
 
 	@Select("SELECT * FROM qna_tbl ORDER BY viewcnt desc limit 1,10")
-	List<QnABoardVO> QnaList();
+	List<QnABoardVO> QnaList() throws Exception;
 
 	/*
 	 * @Select("SELECT * FROM board ORDER BY bno DESC limit 1,5") List<BoardVO>
@@ -23,47 +23,53 @@ public interface HomeDAO {
 	 */
 
 	@Select("SELECT * FROM qna_tbl WHERE title LIKE CONCAT('%',#{title},'%') OR content LIKE CONCAT('%',#{content},'%') OR userNickname LIKE CONCAT('%',#{userNickname},'%') ORDER BY qno DESC limit 1,5")
-	List<QnABoardVO> QnAListSearch(QnABoardVO qvo);
+	List<QnABoardVO> QnAListSearch(QnABoardVO qvo) throws Exception;
 
 	
 	@Select("SELECT * FROM board WHERE title LIKE CONCAT('%',#{title},'%') OR content LIKE CONCAT('%',#{content},'%') ORDER BY bno DESC limit 1,5")
-	List<BoardVO> BoardListSearch(BoardVO bvo);
+	List<BoardVO> BoardListSearch(BoardVO bvo) throws Exception;
 
 	/*
 	 * @Select("SELECT B.*, U.uname AS writer FROM re_tbl_board AS B NATURAL JOIN tbl_user AS U WHERE B.bno = #{bno}"
 	 * )
 	 */
 	@Select("SELECT B.* FROM board AS B NATURAL JOIN wish AS W WHERE uno = #{uno}")
-	List<BoardVO> wish(WishVO wish);
+	List<BoardVO> wish(WishVO wish) throws Exception;
 
 	@Select("SELECT * FROM ring_the_bell WHERE uno = #{uno} AND checked = 'n' GROUP BY bno, mno limit 1,5")
-	List<BellVO> bellList(int uno);
+	List<BellVO> bellList(int uno) throws Exception;
 
 	// 알림용 보드 체크
 	@Update("UPDATE ring_the_bell SET checked='y' WHERE bno = #{bno} AND uno = #{uno}")
-	void updateCheckBoard(BellVO bell);
+	void updateCheckBoard(BellVO bell) throws Exception;
 
 	// 알림용 메세지 체크
 	@Update("UPDATE ring_the_bell SET checked='y' WHERE uno = #{uno} AND mno = #{mno}")
-	void updateCheckMessage(BellVO bell);
+	void updateCheckMessage(BellVO bell) throws Exception;
 
 	// 알림용 메세지 받아오기
 	@Select("SELECT * FROM message WHERE uno = #{uno} AND mno = #{mno}")
-	MessageVO getMessage(MessageVO message);
+	MessageVO getMessage(MessageVO message) throws Exception;
 
 	// 쪽지함 리스트
 	@Select("SELECT * FROM message WHERE uno = #{uno} ORDER BY mno DESC limit 0,15")
-	List<MessageVO> messageList(int uno);
+	List<MessageVO> messageList(int uno) throws Exception;
 
 	// 메세지 상세내용
 	@Select("SELECT * FROM message WHERE mno = #{mno}")
-	MessageVO messageDetail(int mno);
+	MessageVO messageDetail(int mno) throws Exception;
 
 	// 쪽지함 체크여부 업데이트
 	@Update("UPDATE message SET checked='y' WHERE mno = #{mno}")
-	void updateMessageCheck(int mno);
+	void updateMessageCheck(int mno) throws Exception;
 
 	@Insert("INSERT INTO message(uno,suno,title,sender,content) VALUES(#{uno},#{suno},#{title},#{sender},#{content})")
-	boolean insertMessage(MessageVO vo);
+	boolean insertMessage(MessageVO vo) throws Exception;
+
+	@Select("SELECT * FROM message ORDER BY mno DESC limit 1")
+	MessageVO getMessageRecent() throws Exception;
+
+	@Insert("INSERT INTO ring_the_bell(uno,mno,sender) VALUES(#{uno},#{mno},#{sender}")
+	void insertBell(BellVO bell) throws Exception;
 }
 
