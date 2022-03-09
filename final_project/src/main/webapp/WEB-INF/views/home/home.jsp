@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f"%>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 <style>
+
 	th{
+		text-align:center;
+	}
+	
+	td{
 		text-align:center;
 	}
 </style>
@@ -141,27 +147,27 @@
 	      <table class="table table-hover">
 		    <c:if test="${!empty bslist}">
 		      <tr>
+		      	<th>작성자</th>
 		      	<th>제목</th>
 		      	<th>내용</th>
-		      	<th>작성자</th>
 		      	<th>작성일</th>
 		      	<th>조회수</th>
 		      </tr>
 				<c:forEach var="bs" items="${bslist}">
-					<tr class="navbar-nav me-auto" style="cursor:pointer;" onclick="location.href='${path}/board/list?bno=${bs.bno}&tradeType=${bs.tradeType}'">
-					   <td class="nav-item page-link mb-1">
-							<a>${bs.title}</a>
-					   </td>
-					   <td class="nav-item page-link mb-1">
-							<a>${bs.content}</a>
-					   </td>
-					   <td class="nav-item page-link mb-1">
+					<tr style="cursor:pointer;" onclick="location.href='${path}/board/list?bno=${bs.bno}&tradeType=${bs.tradeType}'">
+					   <td style="max-width:50px;">
 							<a>${bs.writer}</a>
 					   </td>
-					   <td class="nav-item page-link mb-1">
-							<a>${bs.updateDate}</a>
+					   <td style="max-width:100px;">
+							<a>${bs.title}</a>
 					   </td>
-					   <td class="nav-item page-link mb-1">
+					   <td>
+							<a>${bs.content}</a>
+					   </td>
+					   <td>
+							<a><f:formatDate value="${bs.updateDate}" pattern="yyyy-MM-dd (E) HH:mm"/></a>
+					   </td>
+					   <td>
 							<a>${bs.viewcnt}</a>
 					   </td>
 					</tr>
@@ -188,27 +194,27 @@
       	<table class="table table-hover">
 		    <c:if test="${!empty bblist}">
 		      <tr>
+		      	<th>작성자</th>
 		      	<th>제목</th>
 		      	<th>내용</th>
-		      	<th>작성자</th>
 		      	<th>작성일</th>
 		      	<th>조회수</th>
 		      </tr>
 				<c:forEach var="bb" items="${bblist}">
-					<tr class="navbar-nav me-auto" style="cursor:pointer;" onclick="location.href='${path}/board/list?bno=${bb.bno}&tradeType=${bb.tradeType}'">
-					   <td class="nav-item page-link mb-1">
-							<a>${bb.title}</a>
-					   </td>
-					   <td class="nav-item page-link mb-1">
-							<a>${bb.content}</a>
-					   </td>
-					   <td class="nav-item page-link mb-1">
+					<tr style="cursor:pointer;" onclick="location.href='${path}/board/list?bno=${bb.bno}&tradeType=${bb.tradeType}'">
+					   <td>
 							<a>${bb.writer}</a>
 					   </td>
-					   <td class="nav-item page-link mb-1">
-							<a>${bb.updateDate}</a>
+					   <td>
+							<a>${bb.title}</a>
 					   </td>
-					   <td class="nav-item page-link mb-1">
+					   <td>
+							<a>${bb.content}</a>
+					   </td>
+					   <td>
+							<a><f:formatDate value="${bb.updateDate}" pattern="yyyy-MM-dd (E) HH:mm"/></a>
+					   </td>
+					   <td>
 							<a>${bb.viewcnt}</a>
 					   </td>
 					</tr>
@@ -237,9 +243,9 @@
 		      	<th>제목</th>
 		      </tr>
 				<c:forEach var="question" items="${qlist}">
-					<tr class="navbar-nav me-auto">
-					   <td class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/qnaboard/detail?qno=${question.qno}'">
-							<a style="cursor:pointer;" onclick="location.href='${path}/qnaboard/detail?qno=${question.qno}'">${question.title}</a>
+					<tr style="cursor:pointer; text-align:center;" onclick="location.href='${path}/qnaboard/detail?qno=${question.qno}'">
+					   <td>
+							<a>${question.title}</a>
 					   </td>
 					</tr>
 				</c:forEach>
