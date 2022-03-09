@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
+<style>
+	th{
+		text-align:center;
+	}
+</style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light lownavbar" >
   <div class="container-fluid" style="background-color:#2ea65a;">
     <a class="navbar-brand" href="${path}/board/list?tradeType=buy" style="font-family: 'Gugi', cursive;">필요해요</a>
@@ -133,34 +138,39 @@
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
       <div class="accordion-body">
       
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=one'">
-	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=one">상품1</a>
-	      	</li>
-	      </ul>
-	      
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=two'">
-	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=two">상품2</a>
-	      	</li>
-	      </ul>
-	      
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=three'">
-	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=three">상품3</a>
-	      	</li>
-	      </ul>
-	      
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=four'">
-	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=sell&category=four">상품4</a>
-	      	</li>
-	      </ul>
-	      
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=sell&category=five'">
-	      	</li>
-	      </ul>
+	      <table class="table table-hover">
+		    <c:if test="${!empty bslist}">
+		      <tr>
+		      	<th>제목</th>
+		      	<th>내용</th>
+		      	<th>작성자</th>
+		      	<th>작성일</th>
+		      	<th>조회수</th>
+		      </tr>
+				<c:forEach var="bs" items="${bslist}">
+					<tr class="navbar-nav me-auto" style="cursor:pointer;" onclick="location.href='${path}/board/list?bno=${bs.bno}&tradeType=${bs.tradeType}'">
+					   <td class="nav-item page-link mb-1">
+							<a>${bs.title}</a>
+					   </td>
+					   <td class="nav-item page-link mb-1">
+							<a>${bs.content}</a>
+					   </td>
+					   <td class="nav-item page-link mb-1">
+							<a>${bs.writer}</a>
+					   </td>
+					   <td class="nav-item page-link mb-1">
+							<a>${bs.updateDate}</a>
+					   </td>
+					   <td class="nav-item page-link mb-1">
+							<a>${bs.viewcnt}</a>
+					   </td>
+					</tr>
+				</c:forEach>
+			</c:if>
+			<c:if test="${empty bslist}">
+				<h3>내용이 없습니다.</h3>
+			</c:if>
+	      </table>
       
       </div>
     </div>
@@ -175,6 +185,39 @@
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
       <div class="accordion-body">
+      	<table class="table table-hover">
+		    <c:if test="${!empty bblist}">
+		      <tr>
+		      	<th>제목</th>
+		      	<th>내용</th>
+		      	<th>작성자</th>
+		      	<th>작성일</th>
+		      	<th>조회수</th>
+		      </tr>
+				<c:forEach var="bb" items="${bblist}">
+					<tr class="navbar-nav me-auto" style="cursor:pointer;" onclick="location.href='${path}/board/list?bno=${bb.bno}&tradeType=${bb.tradeType}'">
+					   <td class="nav-item page-link mb-1">
+							<a>${bb.title}</a>
+					   </td>
+					   <td class="nav-item page-link mb-1">
+							<a>${bb.content}</a>
+					   </td>
+					   <td class="nav-item page-link mb-1">
+							<a>${bb.writer}</a>
+					   </td>
+					   <td class="nav-item page-link mb-1">
+							<a>${bb.updateDate}</a>
+					   </td>
+					   <td class="nav-item page-link mb-1">
+							<a>${bb.viewcnt}</a>
+					   </td>
+					</tr>
+				</c:forEach>
+			</c:if>
+			<c:if test="${empty bblist}">
+				<h3>내용이 없습니다.</h3>
+			</c:if>
+	      </table>
       </div>
     </div>
   </div>
@@ -189,10 +232,10 @@
     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
 	    <div class="accordion-body">
 	      <table class="table table-hover">
+		    <c:if test="${!empty qlist}">
 		      <tr>
 		      	<th>제목</th>
 		      </tr>
-		    <c:if test="${!empty qlist}">
 				<c:forEach var="question" items="${qlist}">
 					<tr class="navbar-nav me-auto">
 					   <td class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/qnaboard/detail?qno=${question.qno}'">
@@ -205,7 +248,6 @@
 				<h3>내용이 없습니다.</h3>
 			</c:if>
 	      </table>
-	      
 	    </div>
     </div>
   </div>

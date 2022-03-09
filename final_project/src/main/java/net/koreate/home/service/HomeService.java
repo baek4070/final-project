@@ -13,7 +13,9 @@ public interface HomeService {
 
 	public List<QnABoardVO> qlist() throws Exception;
 
-	public List<BoardVO> boardListSearch(BoardVO qvo) throws Exception;
+	public List<BoardVO> boardBuyListSearch(BoardVO bvo) throws Exception;
+	
+	public List<BoardVO> boardSellListSearch(BoardVO tradeType) throws Exception;
 
 	public List<QnABoardVO> qlistSearch(QnABoardVO qvo) throws Exception;
 
@@ -48,6 +50,10 @@ public interface HomeService {
 	public List<MessageVO> messageNonCheckedList(MessageCriteria cri) throws Exception;
 	
 	public List<MessageVO> messageCheckedList(MessageCriteria cri) throws Exception;
+
+
+
+	
 
 
 	

@@ -29,8 +29,15 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public List<BoardVO> boardListSearch(BoardVO bvo) throws Exception{
-		List<BoardVO> blist = dao.BoardListSearch(bvo);
+	public List<BoardVO> boardBuyListSearch(BoardVO tradeType) throws Exception{
+		List<BoardVO> blist = dao.BoardBuyListSearch(tradeType);
+		return blist;
+	}
+	
+
+	@Override
+	public List<BoardVO> boardSellListSearch(BoardVO tradeType) throws Exception {
+		List<BoardVO> blist = dao.BoardSellListSearch(tradeType);
 		return blist;
 	}
 
@@ -143,6 +150,7 @@ public class HomeServiceImpl implements HomeService {
 		List<MessageVO> msgList = dao.CheckedmessageList(cri);
 		return msgList;
 	}
+
 
 
 	/*

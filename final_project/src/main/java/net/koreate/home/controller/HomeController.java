@@ -3,7 +3,6 @@ package net.koreate.home.controller;
 
 import java.util.List;
 
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import net.koreate.board.vo.BoardVO;
 import net.koreate.home.service.HomeService;
 import net.koreate.home.util.MessageCriteria;
 import net.koreate.home.util.MessagePageMaker;
@@ -36,7 +36,13 @@ public class HomeController {
 	HomeService hs;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() throws Exception{
+	public String home(Model model) throws Exception{
+		model.addAttribute("qlist",hs.qlist());
+		BoardVO tradeType = new BoardVO();
+		tradeType.setTradeType("buy");
+		model.addAttribute("bblist",hs.boardBuyListSearch(tradeType));
+		tradeType.setTradeType("sell");
+		model.addAttribute("bslist",hs.boardSellListSearch(tradeType));
 		return "home/home";
 	}
 	

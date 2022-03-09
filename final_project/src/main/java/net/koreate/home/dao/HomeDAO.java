@@ -29,10 +29,6 @@ public interface HomeDAO {
 	@Select("SELECT * FROM qna_tbl WHERE title LIKE CONCAT('%',#{title},'%') OR content LIKE CONCAT('%',#{content},'%') OR userNickname LIKE CONCAT('%',#{userNickname},'%') ORDER BY qno DESC limit 1,5")
 	List<QnABoardVO> QnAListSearch(QnABoardVO qvo) throws Exception;
 
-	
-	@Select("SELECT * FROM board WHERE title LIKE CONCAT('%',#{title},'%') OR content LIKE CONCAT('%',#{content},'%') ORDER BY bno DESC limit 1,5")
-	List<BoardVO> BoardListSearch(BoardVO bvo) throws Exception;
-
 	/*
 	 * @Select("SELECT B.*, U.uname AS writer FROM re_tbl_board AS B NATURAL JOIN tbl_user AS U WHERE B.bno = #{bno}"
 	 * )
@@ -90,5 +86,11 @@ public interface HomeDAO {
 
 	@SelectProvider(type=MessageQueryProvider.class, method="searchSelectSqlChecked")
 	List<MessageVO> CheckedmessageList(MessageCriteria cri) throws Exception;
+
+	@Select("SELECT * FROM board WHERE tradeType = #{tradeType} ORDER BY bno DESC limit 1,5")
+	List<BoardVO> BoardBuyListSearch(BoardVO tradeType);
+	
+	@Select("SELECT * FROM board WHERE tradeType = #{tradeType} ORDER BY bno DESC limit 1,5")
+	List<BoardVO> BoardSellListSearch(BoardVO tradeType);
 }
 
