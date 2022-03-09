@@ -2,11 +2,15 @@ package net.koreate.home.dao;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.provider.MessageQueryProvider;
+import net.koreate.home.util.MessageCriteria;
 import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.MessageVO;
 import net.koreate.home.vo.WishVO;
@@ -52,8 +56,8 @@ public interface HomeDAO {
 	MessageVO getMessage(MessageVO message) throws Exception;
 
 	// 쪽지함 리스트
-	@Select("SELECT * FROM message WHERE uno = #{uno} ORDER BY mno DESC limit 0,15")
-	List<MessageVO> messageList(int uno) throws Exception;
+	@SelectProvider(type=MessageQueryProvider.class, method="searchSelectSql")
+	List<MessageVO> messageList(MessageCriteria cri) throws Exception;
 
 	// 메세지 상세내용
 	@Select("SELECT * FROM message WHERE mno = #{mno}")
@@ -71,5 +75,20 @@ public interface HomeDAO {
 
 	@Insert("INSERT INTO ring_the_bell(uno,mno,sender) VALUES(#{uno},#{mno},#{sender}")
 	void insertBell(BellVO bell) throws Exception;
+
+	@SelectProvider(type=MessageQueryProvider.class, method="searchSelectCount")
+	int listCount(MessageCriteria cri) throws Exception;
+
+	@SelectProvider(type=MessageQueryProvider.class, method="searchSelectCountNon")
+	int listCountNon(MessageCriteria cri) throws Exception;
+
+	@SelectProvider(type=MessageQueryProvider.class, method="searchSelectCountChecked")
+	int listCountChecked(MessageCriteria cri) throws Exception;
+
+	@SelectProvider(type=MessageQueryProvider.class, method="searchSelectSqlNon")
+	List<MessageVO> NonCheckedmessageList(MessageCriteria cri) throws Exception;
+
+	@SelectProvider(type=MessageQueryProvider.class, method="searchSelectSqlChecked")
+	List<MessageVO> CheckedmessageList(MessageCriteria cri) throws Exception;
 }
 

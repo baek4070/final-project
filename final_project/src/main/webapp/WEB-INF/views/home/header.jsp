@@ -38,22 +38,6 @@
 </style>
 </head>
 <body>
-<div id="dialog-message" title="쪽지" style='display:none'>
-	<table>
-		<tr>
-			<td>보낸이</td>
-			<td><p id="sender"></p></td>
-		</tr>
-		<tr>
-			<td>제목</td>
-			<td><p id="title"></p></td>
-		</tr>
-		<tr>
-			<td>내용</td>
-			<td><textarea id="content" readonly></textarea></td>
-		</tr>
-	</table>
-</div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="position:fixed; top:0%; width:100%; z-index:999; min-height:72px;">
 <div class="row col-10 offset-1">
   <div class="container-fluid ">
@@ -136,7 +120,7 @@
     </div>
 </div>
 
-<div class="row col-10 offset-1">
+<div class="row col-10 offset-1" style="min-height:800px;">
 
 
 

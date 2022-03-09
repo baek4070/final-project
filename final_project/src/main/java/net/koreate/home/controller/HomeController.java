@@ -3,6 +3,7 @@ package net.koreate.home.controller;
 
 import java.util.List;
 
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import net.koreate.board.vo.BoardVO;
 import net.koreate.home.service.HomeService;
+import net.koreate.home.util.MessageCriteria;
+import net.koreate.home.util.MessagePageMaker;
 import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.MessageVO;
 import net.koreate.home.vo.WishVO;
-import net.koreate.qnaboard.vo.QnABoardVO;
 import net.koreate.user.vo.UserVO;
 
 @Controller
@@ -103,9 +104,20 @@ public class HomeController {
 	}
 	
 	@GetMapping("message/msgList")
-	public void msgList(@RequestParam("uno") int uno, Model model) throws Exception {
-		System.out.println(uno);
-		model.addAttribute("mList",hs.messageList(uno));
+	public void msgList(MessageCriteria cri, Model model) throws Exception {
+		System.out.println(cri);
+		model.addAttribute("mList",hs.messageList(cri));
+		MessagePageMaker pm = hs.getPageMaker(cri);
+		model.addAttribute("pm", pm);
+		
+		model.addAttribute("nmList",hs.messageNonCheckedList(cri));
+		MessagePageMaker cpm = hs.getNonCheckedPageMaker(cri);
+		model.addAttribute("npm", cpm);
+		
+		model.addAttribute("cmList",hs.messageCheckedList(cri));
+		MessagePageMaker npm = hs.getCheckedPageMaker(cri);
+		model.addAttribute("cpm", npm);
+		
 	}
 	
 	@Transactional

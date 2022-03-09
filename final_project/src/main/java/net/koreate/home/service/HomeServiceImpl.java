@@ -6,10 +6,10 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import net.koreate.board.util.Criteria;
-import net.koreate.board.util.PageMaker;
 import net.koreate.board.vo.BoardVO;
 import net.koreate.home.dao.HomeDAO;
+import net.koreate.home.util.MessageCriteria;
+import net.koreate.home.util.MessagePageMaker;
 import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.MessageVO;
 import net.koreate.home.vo.WishVO;
@@ -69,8 +69,8 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public List<MessageVO> messageList(int uno) throws Exception {
-		List<MessageVO> msgList = dao.messageList(uno);
+	public List<MessageVO> messageList(MessageCriteria cri) throws Exception {
+		List<MessageVO> msgList = dao.messageList(cri);
 		return msgList;
 	}
 
@@ -100,6 +100,48 @@ public class HomeServiceImpl implements HomeService {
 	@Override
 	public void insertBell(BellVO bell) throws Exception {
 		dao.insertBell(bell);
+	}
+
+	@Override
+	public MessagePageMaker getPageMaker(MessageCriteria cri) throws Exception {
+		int totalCount = dao.listCount(cri);
+		MessagePageMaker pageMaker = new MessagePageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		System.out.println(pageMaker);
+		return pageMaker;
+	}
+
+	@Override
+	public MessagePageMaker getNonCheckedPageMaker(MessageCriteria cri) throws Exception {
+		int totalCount = dao.listCountNon(cri);
+		MessagePageMaker pageMaker = new MessagePageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		System.out.println(pageMaker);
+		return pageMaker;
+	}
+
+	@Override
+	public MessagePageMaker getCheckedPageMaker(MessageCriteria cri) throws Exception {
+		int totalCount = dao.listCountChecked(cri);
+		MessagePageMaker pageMaker = new MessagePageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(totalCount);
+		System.out.println(pageMaker);
+		return pageMaker;
+	}
+
+	@Override
+	public List<MessageVO> messageNonCheckedList(MessageCriteria cri) throws Exception {
+		List<MessageVO> msgList = dao.NonCheckedmessageList(cri);
+		return msgList;
+	}
+
+	@Override
+	public List<MessageVO> messageCheckedList(MessageCriteria cri) throws Exception {
+		List<MessageVO> msgList = dao.CheckedmessageList(cri);
+		return msgList;
 	}
 
 

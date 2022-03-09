@@ -1,10 +1,9 @@
 package net.koreate.home.service;
 
 import java.util.List;
-
-import net.koreate.board.util.Criteria;
-import net.koreate.board.util.PageMaker;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.util.MessageCriteria;
+import net.koreate.home.util.MessagePageMaker;
 import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.MessageVO;
 import net.koreate.home.vo.WishVO;
@@ -28,7 +27,7 @@ public interface HomeService {
 
 	public MessageVO getMessage(MessageVO message) throws Exception;
 
-	public List<MessageVO> messageList(int uno) throws Exception;
+	public List<MessageVO> messageList(MessageCriteria cri) throws Exception;
 
 	public MessageVO messageDetail(int mno) throws Exception;
 
@@ -39,5 +38,17 @@ public interface HomeService {
 	public MessageVO getMessageRecent() throws Exception;
 
 	public void insertBell(BellVO bell) throws Exception;
+
+	public MessagePageMaker getPageMaker(MessageCriteria cri) throws Exception;
+	
+	public MessagePageMaker getNonCheckedPageMaker(MessageCriteria cri) throws Exception;
+
+	public MessagePageMaker getCheckedPageMaker(MessageCriteria cri) throws Exception;
+
+	public List<MessageVO> messageNonCheckedList(MessageCriteria cri) throws Exception;
+	
+	public List<MessageVO> messageCheckedList(MessageCriteria cri) throws Exception;
+
+
 	
 }
