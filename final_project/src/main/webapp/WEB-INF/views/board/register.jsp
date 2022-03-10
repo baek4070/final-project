@@ -40,7 +40,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2>BoardRegister Page</h2>
+	<h2 class="text-center" style="font-family: 'Gugi', cursive;">물품 등록</h2>
 	<form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
 		<sec:authentication property="principal" var="pinfo"/>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -48,41 +48,36 @@
 		<input type="hidden" name="uno" value="${pinfo.user.uno}"/>
 		<table class="table table-hover">
 			<tr>
-				<td>물품구분</td>
-				<td>
-					<select name="tradeType" class="form-select">
-						<option>삽니다</option>
-						<option>팝니다</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>카테고리</td>
-				<td>
-					<select name="category" class="form-select">
-						<option>one</option>
-						<option>two</option>
-						<option>three</option>
-						<option>four</option>
-						<option>five</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>제목</td>
+				<th style="font-family: 'Gugi', cursive;" >제목</th>
 				<td><input class="form-control" type="text" name="title" placeholder="제목을 입력해주세요." required/></td>
 			</tr>
 			<tr>
-				<td>작성자</td>
-				<td><input class="form-control" type="text" name="writer" readonly
-					value="${pinfo.user.u_name}"/></td>
+				<th style="font-family: 'Gugi', cursive;" >물품구분</th>
+				<td>
+					<select name="tradeType" class="form-select">
+						<option>필요해요</option>
+						<option>필요없어요</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<td>상품설명</td>
+				<th style="font-family: 'Gugi', cursive;" >종류</th>
+				<td>
+					<select name="category" class="form-select">
+						<option>의류</option>
+						<option>식품</option>
+						<option>전자기기</option>
+						<option>서적</option>
+						<option>기타</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th style="font-family: 'Gugi', cursive;">상품설명</th>
 				<td><textarea class="form-control" name="content" required></textarea></td>
 			</tr>
 			<tr>
-				<td>이미지</td>
+				<th style="font-family: 'Gugi', cursive;">이미지</th>
 				<td>
 					<div class="img_cover" onclick="imgUpload()">
 						<img id="img" alt="이미지 등록" src="${path}/resources/img/camera.png">
@@ -95,14 +90,15 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button class="btn btn-primary" type="submit" id="register" style="border-radius: 0.25rem;">물품등록</button>
 					<button class="btn btn-primary" type="button"
-					onclick="location.href='/board/list'" style="border-radius: 0.25rem;">목록으로</button>
+					onclick="location.href='/board/list'" style="border-radius: 0.25rem; float:right; margin-left:4px;">목록</button>
+					<button class="btn btn-primary" type="submit" id="register" style="border-radius: 0.25rem;  float:right;">물품등록</button>
 				</td>
 			</tr>
 		</table>
 		<input type="file" id="profileImage" name="uploadFile" accept="image/*" style="display: none;"/>
 		<input type="hidden" name="uimage" id="uimage"/>
+		<input class="form-control" type="hidden" name="writer" value="${pinfo.user.u_name}"/>
 	</form>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>

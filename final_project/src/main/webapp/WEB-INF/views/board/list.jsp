@@ -8,13 +8,14 @@
 <head>
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
 <style>
-	img {
+	.image {
 		width: 302px; height: 150px;
 		object-fit: contain;
 	}
 
 	.row {
-		align-content: space-around;
+		align-items: center;
+		justify-content: center;
 		margin: auto;
 	}
 	
@@ -73,41 +74,101 @@
 	 -->
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 		<c:if test="${ltt eq 'buy'}">
-			<h1>삽니다</h1>
+			<h1 class="text-center" style="font-family: 'Gugi', cursive;" >
+			삽니다
+			<c:if test="${lct eq 'one'}">(의류)</c:if>
+			<c:if test="${lct eq 'two'}">(식품)</c:if>
+			<c:if test="${lct eq 'three'}">(전자)</c:if>
+			<c:if test="${lct eq 'four'}">(서적)</c:if>
+			<c:if test="${lct eq 'five'}">(기타)</c:if>
+			</h1>
+<div class="row col-10">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light lownavbar " >
+	  <div class="container-fluid" style="background-color:#2ea65a;">
+	    <a class="navbar-brand " href="${path}/board/list?tradeType=buy" style="font-family: 'Gugi', cursive;">필요해요</a>
+	    <div class="navbar-collapse" id="navbarColor03">
+	      <ul class="navbar-nav me-auto " style="margin-left:3em; font-family: 'Gugi', cursive;" >
+	        <li class="nav-item" >
+	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=one">의류</a>
+	        </li>
+	        <li class="nav-item" style="margin-left:1em;">
+	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=two">식품</a>
+	        </li>
+	        <li class="nav-item" style="margin-left:1em;">
+	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=three">전자기기</a>
+	        </li>
+	        <li class="nav-item" style="margin-left:1em;">
+	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=four">서적</a>
+	        </li>
+	        <li class="nav-item" style="margin-left:1em;">
+	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=five">기타</a>
+	        </li>
+	      </ul>
+	        <form action="board/list" id="totalbuy">
+				<div class="input-group mb-3 firstnone" style="margin-top:16.2px; ">
+		    		<input type="text" class="form-control" name="keyword" id="searchValue1" placeholder="필요한 것 찾기" style=" float:right" >
+		    		<input type="hidden" name="TradeType" value="buy">
+		    		<button class="btn btn-primary totalSearch1" type="button" id="button-addon2" style="float:right;">검색</button>
+		    	</div>
+	    	</form>
+	    </div>
+	  </div>
+	</nav>
+</div>
 		</c:if>
 		<c:if test="${ltt eq 'sell'}">
-			<h1>팝니다</h1>
+			<h1 class="text-center" style="font-family: 'Gugi', cursive;" >
+			팝니다
+			<c:if test="${lct eq 'one'}">(의류)</c:if>
+			<c:if test="${lct eq 'two'}">(식품)</c:if>
+			<c:if test="${lct eq 'three'}">(전자)</c:if>
+			<c:if test="${lct eq 'four'}">(서적)</c:if>
+			<c:if test="${lct eq 'five'}">(기타)</c:if>
+			</h1>
 		</c:if>
 		<c:if test="${ltt ne 'buy' and ltt ne 'sell'}">
-			<h1>전체 물품</h1>
+			<h1 class="text-center" style="font-family: 'Gugi', cursive;" >전체 물품</h1>
 		</c:if>
-		<c:if test="${lct eq 'one'}"><h2>상품1</h2></c:if>
-		<c:if test="${lct eq 'two'}"><h2>상품2</h2></c:if>
-		<c:if test="${lct eq 'three'}"><h2>상품3</h2></c:if>
-		<c:if test="${lct eq 'four'}"><h2>상품4</h2></c:if>
-		<c:if test="${lct eq 'five'}"><h2>상품5</h2></c:if>
 		<div style="margin-bottom: 15px"></div>
 		<sec:authentication property="principal" var="pinfo"/>
 		<div class="row">
 		<c:choose>
 	  	 	<c:when test="${!empty list}">
 	  	 		<c:forEach items="${list}" var="board">
-	  	 			<div class="card border-primary mb-3 p-0 mx-2" style="max-width: 19rem; height: 200px; border-radius: 0.25rem;" onclick="location.href='detail?bno=${board.bno}&uno=${board.uno}&w_uno=${pinfo.user.uno}'">
-			  		<div class="card-body p-0" style="cursor: pointer;">
-			  			<c:choose>
-			  				<c:when test="${!empty board.fileName}">
-			  					<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
-			  				</c:when>
-			  				<c:otherwise>
-								<img alt="이미지" src="${pageContext.request.contextPath}/resources/img/camera.png">
-							</c:otherwise>
-			  			</c:choose>
-			  		</div>
-		  				<div style="cursor: pointer; background-color: #ccc;">
+	  	 			<div class="card border-primary mb-3 p-0 mx-2" style=" position:relative; min-width:19rem; max-width: 19rem; height: 200px; border-radius: 0.25rem;" >
+	  	 			<sec:authorize access="isAuthenticated()">
+	  	 					<div class="card-body p-0" style="cursor: pointer;" onclick="location.href='detail?bno=${board.bno}&uno=${board.uno}&w_uno=${pinfo.user.uno}'">
+	  	 					<c:choose>
+				  				<c:when test="${!empty board.fileName}">
+				  					<img class="image" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+				  				</c:when>
+				  				<c:otherwise>
+									<img class="image" alt="이미지" src="${pageContext.request.contextPath}/resources/img/camera.png">
+								</c:otherwise>
+				  			</c:choose>
+						</div>
+		  				<div style="cursor:pointer; background-color: #ccc;" onclick="location.href='detail?bno=${board.bno}&uno=${board.uno}&w_uno=${pinfo.user.uno}'" >
 		  					<div>${board.title}</div>
-	  	 					<div class="boardWriter">${board.writer}</div>
-		  				</div>
-					</div>
+	  	 					${board.writer}
+  	 					</div>
+	  	 			</sec:authorize>
+	  	 			<sec:authorize access="isAnonymous()">
+  	 					<div class="card-body p-0" style="cursor: pointer;" onclick="location.href='detail?bno=${board.bno}'">
+	  	 					<c:choose>
+				  				<c:when test="${!empty board.fileName}">
+				  					<img class="image" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+				  				</c:when>
+				  				<c:otherwise>
+									<img class="image" alt="이미지" src="${pageContext.request.contextPath}/resources/img/camera.png">
+								</c:otherwise>
+				  			</c:choose>
+						</div>
+		  				<div style="cursor:pointer; background-color: #ccc;" onclick="location.href='detail?bno=${board.bno}'" >
+		  					<div>${board.title}</div>
+	  	 					${board.writer}
+  	 					</div>
+	  	 			</sec:authorize>
+			  		</div>
 	  	 		</c:forEach>
 	  	 	<!-- 페이징 블럭 시작 -->
 	  	 	<ul class="pagination">
@@ -157,7 +218,6 @@
 			</div>
 			<input type="hidden" name="page" value="${pm.cri.page}"/>
 			<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<input type="hidden" id="tradeType" value="${ltt}"/>
 			<input type="hidden" id="category" value="${lct}"/>
 		<!-- 검색 끝 -->
@@ -166,6 +226,7 @@
 		<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
 	</form>
 	</div>
+	<div id="test"></div>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -203,6 +264,7 @@
 				location.href="list?searchType="+searchType+"&keyword="+keyword+"&tradeType="+tradeType+"&category="+category;
 			});
 		});
+			
 	</script>
 	<jsp:include page="/WEB-INF/views/home/footer.jsp"/>
 </body>

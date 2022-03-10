@@ -44,4 +44,5 @@ public interface BoardService {
 		
 	// 댓글 삭제
 	public String removeComment(BoardCommentVO board) throws Exception;
+	
 }

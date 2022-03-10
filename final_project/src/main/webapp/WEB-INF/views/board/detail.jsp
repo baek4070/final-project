@@ -25,17 +25,39 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2>물품 상세정보</h2>
+	<h2 class="text-center" style="font-family: 'Gugi', cursive;" >물품 상세정보</h2>
 	<form id="detailForm" action="" method="get">
 		<sec:authentication property="principal" var="pinfo"/>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<sec:authorize access="isAuthenticated()">
+			<c:if test="${pinfo.user.u_id ne board.writerId}">
+				<c:choose>
+					<c:when test="${empty wishlist}">
+						<button class="btn btn-danger" type="submit" data-oper="addWishlist"
+						style="border-radius: 0.25rem; float: right; margin-right:8px;"><img width="25px" src="../resources/img/heart2.png"/></button>
+					</c:when>
+					<c:otherwise>
+						<button class="btn btn-danger" type="submit" data-oper="removeWishlist"
+						style="border-radius: 0.25rem; float: right; margin-right:8px; "><img width="25px" src="../resources/img/heart1.png"/></button>
+					</c:otherwise>
+				</c:choose>
+			</c:if>
+		</sec:authorize>
+		
+		
 		<table class="table table-hover">
 			<tr>
-				<td>글번호</td>
-				<td><input type="text" class="form-control" name="title" value="${board.bno}" readonly/></td>
+				<th class="title" style="font-family: 'Gugi', cursive;" >제목</th>
+				<td colspan="3">
+					<input type="text" class="form-control" name="title" value="${board.title}" readonly/>
+				</td>
+				<th class="title" style="font-family: 'Gugi', cursive;" >조회수</th>
+				<td>
+					<input type="text" class="form-control" name="viewcnt" value="${board.viewcnt}" readonly/>
+				</td>
 			</tr>
 			<tr>
-				<td>물품구분</td>
+				<th style="font-family: 'Gugi', cursive;">물품구분</th>
 				<td>
 					<c:choose>
 						<c:when test="${board.tradeType eq 'buy'}">
@@ -46,93 +68,53 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
-			</tr>
-			<tr>
-				<td>카테고리</td>
+				<th style="font-family: 'Gugi', cursive;">카테고리</th>
 				<td><input type="text" class="form-control" name="category" value="${board.category}" readonly/></td>
-			</tr>
-			<tr>
-				<td class="title">제목</td>
-				<td>
-					<input type="text" class="form-control" name="title" value="${board.title}" readonly/>
-				</td>
-			</tr>
-			<tr>
-				<td class="title">작성자</td>
+				<th class="title" style="font-family: 'Gugi', cursive;" >작성자</th>
 				<td>
 					<input type="text" class="form-control" name="writer" value="${board.writer}" readonly/>
 				</td>
 			</tr>
 			<tr>
-				<td class="title">내용</td>
-				<td>
-					<textarea class="form-control" readonly>${board.content}</textarea>
+			</tr>
+			<tr>
+				<th class="title" style="font-family: 'Gugi', cursive;" >내용</th>
+				<td colspan="5">
+					<textarea class="form-control" rows="10" readonly>${board.content}</textarea>
 				</td>
 			</tr>
-			<tr>
-				<td class="title">조회수</td>
-				<td>
-					<input type="text" class="form-control" name="viewcnt" value="${board.viewcnt}" readonly/>
-				</td>
-			</tr>
-			<tr>
-				<td class="title">이미지</td>
-				<c:if test="${!empty board.fileName}">
-					<td>
-						<img id="img" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
-					</td>
-				</c:if>
-			</tr>
-			<tr>
-				<td class="title" colspan="4">
+			<c:if test="${!empty board.fileName}">
+				<tr>
+					<th class="title" style="font-family: 'Gugi', cursive;">이미지</th>
+						<td colspan="5">
+							<img id="img" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
+						</td>
+				</tr>
+			</c:if>
+		</table>
 					<sec:authorize access="isAuthenticated()">
 						<c:if test="${pinfo.user.u_id eq board.writerId or pinfo.user.u_id eq 'admin@admin' }">
-							<button class="btn btn-primary" type="submit" data-oper="modify" style="border-radius: 0.25rem;">수정</button>
-							<button class="btn btn-primary" type="submit" data-oper="remove" style="border-radius: 0.25rem;">삭제</button>
+							<button class="btn btn-primary" type="submit" data-oper="modify" style="border-radius: 0.25rem; float:right; margin-left:3px; ">수정</button>
+							<button class="btn btn-primary" type="submit" data-oper="remove" style="border-radius: 0.25rem; float:right; margin-left:3px; ">삭제</button>
 						</c:if>
-						<c:if test="${pinfo.user.u_id ne board.writerId}">
-							<c:choose>
-								<c:when test="${empty wishlist}">
-									<button class="btn btn-primary" type="submit" data-oper="addWishlist"
-									style="border-radius: 0.25rem; float: right;">찜하기</button>
-									<textarea>${wishlist}</textarea>
-								</c:when>
-								<c:otherwise>
-									<button class="btn btn-primary" type="submit" data-oper="removeWishlist"
-									style="border-radius: 0.25rem; float: right;">찜취소</button>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
+						<input type="hidden" name="w_uno" value="${pinfo.user.uno}"/>
 					</sec:authorize>
-					<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem;">목록</button>
-				</td>
-			</tr>
-		</table>
-		<input type="hidden" name="w_uno" value="${pinfo.user.uno}"/>
+					<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem; float:right; margin-left:3px; ">목록</button>
 		<input type="hidden" name="uno" value="${board.uno}"/>
 		<input type="hidden" name="bno" value="${board.bno}"/>
 		<input type="hidden" name="page" value="${cri.page}"/> 
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
 	</form>
 	<!-- 댓글 리스트 -->
-	<h4>댓글</h4>
+	<h4 style="font-family: 'Gugi', cursive;" >댓글</h4>
 	<c:forEach items="${commentList}" var="commentList">
 		<form action="" method="post" class="commentForm">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="hidden" name="rno" value="${commentList.rno}"/>
 		<sec:authentication property="principal" var="pinfo"/>
-		<table>
+		<table class="table table-hover" >
 			<tr>
-				<td class="title">작성자</td>
-				<td class="title"><input type="text" class="form-control" value="${commentList.writer}" readonly/></td>
-			</tr>
-			<tr>
-				<td class="title">작성일자</td>
-				<td class="title"><input type="text" class="form-control"
-				value="<f:formatDate value="${commentList.regdate}" pattern="yyyy-MM-dd HH:mm" />" readonly /></td>
-			</tr>
-			<tr>
-				<td class="title">내용</td>
+				<th class="title">${commentList.writer}</th>
 				<sec:authorize access="isAuthenticated()">
 					<c:choose>
 						<c:when test="${pinfo.user.u_id eq commentList.writerId or pinfo.user.u_id eq 'admin@admin'}">
@@ -146,15 +128,18 @@
 				<sec:authorize access="isAnonymous()">
 					<td><textarea class="form-control" readonly>${commentList.content}</textarea></td>
 				</sec:authorize>
+				<th class="title" style="text-align:right; width:150px;"><f:formatDate value="${commentList.regdate}" pattern="yy-MM-dd HH:mm" /><br/>
+					<button id="modifyComment" class="btn btn-primary" type="submit" data-oper="modifyComment"
+					style="border-radius: 0.25rem;  margin-right: 5px;">수정</button>
+					<button id="removeComment" class="btn btn-outline-danger" type="submit" data-oper="removeComment"
+					style="border-radius: 0.25rem; ">삭제</button>
+				</th>
 			</tr>
 			<sec:authorize access="isAuthenticated()">
 				<c:if test="${pinfo.user.u_id eq commentList.writerId or pinfo.user.u_id eq 'admin@admin'}">
 					<tr>
 						<td colspan="2">
-							<button id="removeComment" class="btn btn-primary" type="submit" data-oper="removeComment"
-							style="border-radius: 0.25rem; float: right;">삭제</button>
-							<button id="modifyComment" class="btn btn-primary" type="submit" data-oper="modifyComment"
-							style="border-radius: 0.25rem; float: right; margin-right: 5px;">수정</button>
+							
 						</td>
 					</tr>
 				</c:if>
@@ -175,25 +160,23 @@
 		<input type="hidden" name="page" value="${cri.page}"/> 
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
 		<sec:authorize access="isAuthenticated()">
-			<h4>댓글 작성</h4>
+			<h4 style="font-family: 'Gugi', cursive;" >댓글 작성</h4>
 			<input type="hidden" name="writerId" value="${pinfo.user.u_id}"/>
-			<table>
+			<table class="table table-hover">
 				<tr>
-					<td>작성자</td>
+					<th>작성자</th>
 					<td>
 						<input type="text" class="form-control" name="writer" value="${pinfo.user.u_name}" readonly/>
 					</td>
 				</tr>
 				<tr>
-					<td>내용</td>
+					<th>내용</th>
 					<td>
 						<textarea class="form-control" name="content"></textarea>
 					</td>
-				</tr>
-				<tr>
-					<td>
+					<td style="width:80px; ">
 						<button id="registerComment" class="btn btn-primary" type="submit" data-oper="registerComment"
-						style="border-radius: 0.25rem;">작성</button>
+						style="border-radius: 0.25rem; margin-top:20px;">등록</button>
 					</td>
 				</tr>
 			</table>

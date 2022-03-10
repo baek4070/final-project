@@ -12,7 +12,7 @@ public class Criteria {
 	private String category;
 	
 	public Criteria() {
-		this(1,12);
+		this(1,8);
 	}
 	
 	public Criteria(int page, int perPageNum) {
@@ -74,6 +74,8 @@ public class Criteria {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType + ", keyword="
 				+ keyword + ", tradeType=" + tradeType + ", category=" + category + "]";
 	}
+
+	
 }
 
 

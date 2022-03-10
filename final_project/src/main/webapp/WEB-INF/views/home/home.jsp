@@ -14,63 +14,58 @@
 	}
 	
 </style>
-<nav class="navbar navbar-expand-lg navbar-light bg-light lownavbar" >
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light lownavbar " >
   <div class="container-fluid" style="background-color:#2ea65a;">
-    <a class="navbar-brand" href="${path}/board/list?tradeType=buy" style="font-family: 'Gugi', cursive;">필요해요</a>
+    <a class="navbar-brand " href="${path}/board/list?tradeType=buy" style="font-family: 'Gugi', cursive;">필요해요</a>
     <div class="navbar-collapse" id="navbarColor03">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=one">상품1</a>
+      <ul class="navbar-nav me-auto " style="margin-left:3em; font-family: 'Gugi', cursive;" >
+        <li class="nav-item" >
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=one">의류</a>
         </li>
-        <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=two">상품2</a>
+        <li class="nav-item" style="margin-left:1em;">
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=two">식품</a>
         </li>
-        <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=three">상품3</a>
+        <li class="nav-item" style="margin-left:1em;">
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=three">전자기기</a>
         </li>
-        <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=four">상품4</a>
+        <li class="nav-item" style="margin-left:1em;">
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=four">서적</a>
         </li>
-        <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=five">상품5</a>
-        </li>
-        <li class="nav-item">
-        <form action="${path}/home/myList" method="post" id="wishGo">
-          <a style="color:white;" class="nav-link wish" href="#">내가 주고싶은 목록</a>
-          <input type="hidden" name="uno" value="${user.uno}"/>
-          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
+        <li class="nav-item" style="margin-left:1em;">
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=five">기타</a>
         </li>
       </ul>
         <form action="board/list" id="totalbuy">
-			<div class="input-group mb-3" style="margin-top:16.2px;">
-	    		<input type="text" class="form-control" name="keyword" id="searchValue1" placeholder="필요한 것 찾기" style="float:right" >
+			<div class="input-group mb-3 firstnone" style="margin-top:16.2px; ">
+	    		<input type="text" class="form-control" name="keyword" id="searchValue1" placeholder="필요한 것 찾기" style=" float:right" >
 	    		<input type="hidden" name="TradeType" value="buy">
-	    		<button class="btn btn-primary totalSearch1" type="button" id="button-addon2" style="float:right">검색</button>
+	    		<button class="btn btn-primary totalSearch1" type="button" id="button-addon2" style="float:right;">검색</button>
 	    	</div>
     	</form>
     </div>
   </div>
 </nav>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light lownavbar" >
   <div class="container-fluid" style="background-color:rgb(220,20,60);">
     <a class="navbar-brand" href="${path}/board/list?tradeType=sell" style="font-family: 'Gugi', cursive;">필요 없어요</a>
     <div class="navbar-collapse" id="navbarColor03">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto" style="font-family: 'Gugi', cursive;">
         <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=one">상품1</a>
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=one">의류</a>
         </li>
         <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=two">상품2</a>
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=two">식품</a>
         </li>
         <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=three">상품3</a>
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=three">전자기기</a>
         </li>
         <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=four">상품4</a>
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=four">서적</a>
         </li>
          <li class="nav-item">
-          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=five">상품5</a>
+          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=five">기타</a>
         </li>
         <li class="nav-item">
         <form action="${path}/home/myList" method="post" id="wishGo">

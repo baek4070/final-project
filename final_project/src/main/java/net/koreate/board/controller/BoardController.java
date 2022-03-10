@@ -1,6 +1,7 @@
 package net.koreate.board.controller;
 
 import java.io.File;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,6 +9,8 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +44,7 @@ public class BoardController {
 		model.addAttribute("ltt",cri.getTradeType());
 		model.addAttribute("lct",cri.getCategory());
 		model.addAttribute("lkt",cri.getKeyword());
+		
 		return "board/list";
 	}
 	
@@ -72,7 +76,7 @@ public class BoardController {
 	
 	// 상세보기
 	@GetMapping("/detail")
-	public void detail(@RequestParam("bno") int bno, BoardCommentVO board, @RequestParam("uno") int uno, @RequestParam(value="w_uno", required=false) int w_uno,
+	public void detail(@RequestParam("bno") int bno, BoardCommentVO board, @RequestParam(value="uno", required=false) String uno, @RequestParam(value="w_uno", required=false) String w_uno,
 			@ModelAttribute("cri") Criteria cri,
 			Model model) throws Exception {
 		model.addAttribute("board",service.get(bno));
@@ -83,12 +87,15 @@ public class BoardController {
 		model.addAttribute("commentList", commentList);
 		
 		// 찜 리스트
+		if(w_uno!=null) {
 		WishVO wish = new WishVO();
 		wish.setBno(bno);
-		wish.setUno(w_uno);
+		wish.setUno(Integer.parseInt(w_uno));
 		wish = service.getWish(wish);
 		model.addAttribute("wishlist", wish);
+		}
 	}
+	
 	
 	@GetMapping("/modify")
 	public void modify(@RequestParam("bno") int bno,
@@ -125,6 +132,8 @@ public class BoardController {
 		return "redirect:/board/detail?bno="+bno+"&uno="+uno+"&w_uno="+w_uno;
 	}
 	
+	
+	
 	@PostMapping("/removeWishlist")
 	public String removeWishlist(int bno, int uno, @RequestParam(value="w_uno", required=false) int w_uno, RedirectAttributes rttr) throws Exception {
 		WishVO wish = new WishVO();
@@ -134,6 +143,7 @@ public class BoardController {
 		rttr.addFlashAttribute("result", result);
 		return "redirect:/board/detail?bno="+bno+"&uno="+uno+"&w_uno="+w_uno;
 	}
+	
 	
 	// 댓글 등록
 	@PostMapping("/registerComment")

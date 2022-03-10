@@ -19,9 +19,12 @@
 	.btn-outline-danger{
 	width:auto;
 	}
+	.btn-primary{
+	width:auto;
+	}
 	
 	@media (max-width:992px) {
-		.lownavbar{
+		.firstnone{
 		display:none;
 		}
 	 }

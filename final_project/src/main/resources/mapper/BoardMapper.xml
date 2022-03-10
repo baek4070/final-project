@@ -159,4 +159,5 @@
 		viewcnt = viewcnt + 1
 		WHERE bno = #{bno}
 	</update>
+	
 </mapper>
