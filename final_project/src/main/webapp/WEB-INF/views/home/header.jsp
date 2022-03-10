@@ -15,11 +15,17 @@
 <link href="${path}/resources/css/bootstrap.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <style>
+
+	.btn-outline-danger{
+	width:auto;
+	}
+	
 	@media (max-width:992px) {
 		.lownavbar{
 		display:none;
 		}
 	 }
+	 
 	 
 	.remote{
 		position: fixed;
@@ -119,7 +125,10 @@
     	</div>
     </div>
 </div>
-
+<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
+<br/>
+<br/>
+</sec:authorize>
 <div class="row col-10 offset-1" style="min-height:800px;">
 
 

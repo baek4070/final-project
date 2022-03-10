@@ -32,19 +32,16 @@
 		</tr>
 	</table>
 	<sec:authentication property="principal" var="pinfo"/>
-	<sec:authorize access="isAuthenticated()">
-	<a href="list" class="btn btn-outline-danger" style="border-radius: 0.25rem;">목록으로</a>
-	<c:if test="${pinfo.username eq 'qwe@qwe' }">
+	<div style="float:right;">
+	<a href="list" class="btn btn-outline-danger" style="border-radius: 0.25rem ; margin-left:3px; float:right;">목록으로</a>
+	<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
 	<a href="modify?nno=${vo.nno}" style="border-radius: 0.25rem ; margin-left:3px; float:right;" class="btn btn-outline-danger" >수정</a>
 	
 	<a href="#" id="delete" class="btn btn-outline-danger" style="margin-left:3px; border-radius: 0.25rem; float:right;" data-uri="delete?nno=${vo.nno}" >삭제</a>
 	&nbsp;
-	</c:if>
 	</sec:authorize>
+	</div>
 	
-	<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
-	<a href="reply?nno=${vo.nno}" class="btn btn-outline-danger" style="margin-left:3px; border-radius: 0.25rem; float:right;">답글</a>&nbsp;
-	</sec:authorize>
 	
 	
 	

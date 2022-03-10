@@ -130,9 +130,11 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
+		<div style="float:right;">
 		<sec:authorize access="isAuthenticated()">
-			<a href="write" class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right; font-family: 'Gugi', cursive;">글쓰기</a>
+			<a href="write" class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right; ">글쓰기</a>
 		</sec:authorize>
+		</div>
 		<!-- 페이징 블럭 -->
 		<ul class="pagination" style="font-family: 'Gugi', cursive;">
 				<c:if test="${pm.prev}">
