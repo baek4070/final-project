@@ -55,6 +55,8 @@ public interface HomeService {
 
 	public List<NoticeVO> nlist() throws Exception;
 
+	public int getUno(int bno) throws Exception;
+
 
 
 	

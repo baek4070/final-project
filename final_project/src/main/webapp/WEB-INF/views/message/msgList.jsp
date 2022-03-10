@@ -13,6 +13,12 @@
 		max-width:600px;
 	
 	}
+	
+	.pagination {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 </style>
 <div>
 <ul class="nav nav-tabs mx-auto" style="max-width: 800px;">

@@ -34,7 +34,7 @@ public interface HomeDAO {
 	 * @Select("SELECT B.*, U.uname AS writer FROM re_tbl_board AS B NATURAL JOIN tbl_user AS U WHERE B.bno = #{bno}"
 	 * )
 	 */
-	@Select("SELECT B.* FROM board AS B NATURAL JOIN wish AS W WHERE uno = #{uno}")
+	@Select("SELECT * FROM board WHERE bno in (SELECT bno FROM wish WHERE uno = #{uno}) ORDER BY bno DESC")
 	List<BoardVO> wish(WishVO wish) throws Exception;
 
 	@Select("SELECT * FROM ring_the_bell WHERE uno = #{uno} AND checked = 'n' GROUP BY bno, mno limit 0,4")
@@ -95,6 +95,9 @@ public interface HomeDAO {
 	List<BoardVO> BoardSellListSearch(BoardVO tradeType) throws Exception;
 
 	@Select("SELECT * FROM notice_tbl ORDER BY nno DESC limit 0,4")
-	List<NoticeVO> nlist() throws Exception;;
+	List<NoticeVO> nlist() throws Exception;
+
+	@Select("SELECT uno FROM board WHERE bno = #{bno}")
+	int getUno(int bno) throws Exception;
 }
 

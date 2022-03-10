@@ -157,6 +157,12 @@ public class HomeServiceImpl implements HomeService {
 		return ntList;
 	}
 
+	@Override
+	public int getUno(int bno) throws Exception {
+		int uno = dao.getUno(bno);
+		return uno;
+	}
+
 
 
 	/*

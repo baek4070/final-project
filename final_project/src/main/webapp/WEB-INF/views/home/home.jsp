@@ -12,6 +12,7 @@
 	td{
 		text-align:center;
 	}
+	
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light lownavbar" >
   <div class="container-fluid" style="background-color:#2ea65a;">
@@ -55,7 +56,7 @@
   <div class="container-fluid" style="background-color:rgb(220,20,60);">
     <a class="navbar-brand" href="${path}/board/list?tradeType=sell" style="font-family: 'Gugi', cursive;">필요 없어요</a>
     <div class="navbar-collapse" id="navbarColor03">
-      <ul class="navbar-nav me-auto" ">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=one">상품1</a>
         </li>

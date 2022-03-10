@@ -87,12 +87,13 @@ public class HomeController {
 	}
 	
 	@GetMapping("/selected")
-	public String selectBell(@RequestParam("uno") int uno, @RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
+	public String selectBell(@RequestParam("uno") int uno, @RequestParam("bno") int bno) throws Exception {
 		BellVO bell = new BellVO();
 		bell.setBno(bno);
 		bell.setUno(uno);
 		hs.updateCheckBoard(bell);
-		return "redirect:/board/detail?bno="+bno;
+		int writerNum = hs.getUno(bno);
+		return "redirect:board/detail?bno="+bno+"&uno="+writerNum+"&w_uno="+uno;
 	}
 	
 	@Transactional
