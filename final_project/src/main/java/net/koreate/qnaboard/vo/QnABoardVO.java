@@ -11,6 +11,7 @@ import lombok.Data;
 public class QnABoardVO {
 
 	private int qno;
+	private int uno;
 	private String userId;
 	private String title;
 	private String content;

@@ -7,6 +7,7 @@
 	<form action="resister" method="POST" enctype="multipart/form-data" >
 				<sec:authentication property="principal" var="pinfo"/>
 			<input type="hidden" name="userId" value="${pinfo.username}"/>
+			<input type="hidden" name="uno" value="${pinfo.user.uno}"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<table class="table table-hover">
 			<tr>

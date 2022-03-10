@@ -94,11 +94,12 @@
 							</td>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
+						<sec:authentication var="user" property="principal.user"/>
 							<td>
 								<div class="dropdown" style="position:relative; ">
 									  <a class="dropbtn" style="cursor:pointer; text-decoration:none;">${qnaboard.userNickname}</a>
 								  <div class="dropdown-content" style="z-index:2; left:20px; width:120px; height:50px; background-color:rgba(123,123,123,1); position:absolute; display:none">
-								    <a href="${path}/message/msgWrite?mno=${qnaboard.userId}&suno=${user.uno}" onclick="window.open(this.href, '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600'); return false;" style="color:white;">쪽지 보내기</a><br/>
+								    <a href="${path}/message/msgWrite?userNickname=${qnaboard.userNickname}&uno=${qnaboard.uno}&suno=${user.uno}" onclick="window.open(this.href, '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600'); return false;" style="color:white;">쪽지 보내기</a><br/>
 								    <a href="writed?qno=${qnaboard.qno}" style="color:white;">작성 게시물 확인</a>
 								  </div>
 								</div>
@@ -130,9 +131,11 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
+		<div style="float:right;">
 		<sec:authorize access="isAuthenticated()">
-			<a href="write" class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right; font-family: 'Gugi', cursive;">글쓰기</a>
+			<a href="write" class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right; ">글쓰기</a>
 		</sec:authorize>
+		</div>
 		<!-- 페이징 블럭 -->
 		<ul class="pagination" style="font-family: 'Gugi', cursive;">
 				<c:if test="${pm.prev}">

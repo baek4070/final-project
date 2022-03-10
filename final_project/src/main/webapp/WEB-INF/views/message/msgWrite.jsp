@@ -74,7 +74,7 @@
 	<sec:authorize access="isAuthenticated()">
 	<sec:authentication var="user" property="principal.user"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" name="uno" value="${uno}"/>
+			<input type="hidden" name="uno" value="${vo.uno}"/>
 			<input type="hidden" name="suno" id="d" value="${user.uno}"/>
 		<table class="table table-hover">
 			<tr>
@@ -83,7 +83,7 @@
 			</tr>
 			<tr>
 				<td>받는사람</td>
-				<td><input class="form-control" type="text" name="receiver" value="${sender}" readonly required/></td>
+				<td><input class="form-control" type="text" name="receiver" value="${vo.userNickname}" readonly required/></td>
 			</tr>
 			<tr>
 				<td>작성자</td>
@@ -91,12 +91,13 @@
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea class="form-control" name="content" rows="20" cols="40" required></textarea></td>
+				<td><textarea class="form-control" name="content" rows="15" cols="10" required></textarea></td>
 			</tr>
 			
 		</table>
-		<input class="btn btn-outline-danger" style="border-radius: 0.25rem; float:left;" type="submit" value="보내기" />
-		<input class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right;" type="reset" value="초기화"/>
+		
+		<input class="btn btn-outline-danger" style="border-radius: 0.25rem; margin:0px 10px 7px 3px; float:right;" type="submit" value="보내기" />
+		<input class="btn btn-outline-danger" style="border-radius: 0.25rem; margin-left:3px; float:right;" type="reset" value="초기화"/>
 		<input class="btn btn-outline-danger close" style="border-radius: 0.25rem; float:right;" type="button" value="닫기"/>
 		</sec:authorize>
 	</form>

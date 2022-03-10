@@ -15,11 +15,17 @@
 <link href="${path}/resources/css/bootstrap.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <style>
+
+	.btn-outline-danger{
+	width:auto;
+	}
+	
 	@media (max-width:992px) {
 		.lownavbar{
 		display:none;
 		}
 	 }
+	 
 	 
 	.remote{
 		position: fixed;
@@ -119,7 +125,10 @@
     	</div>
     </div>
 </div>
-
+<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
+<br/>
+<br/>
+</sec:authorize>
 <div class="row col-10 offset-1" style="min-height:800px;">
 
 
@@ -131,7 +140,7 @@ console.log(exist);
 
 if(exist != ''){
 	$(document).on('ready',function(){
-		window.open('${path}/message/msgWrite?mno=${mslist.mno}', '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600');
+		window.open('${path}/message/msgDetail?mno=${mslist.mno}', '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600');
 	});
 }
 

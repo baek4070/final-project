@@ -32,8 +32,9 @@
 		</tr>
 	</table>
 	<sec:authentication property="principal" var="pinfo"/>
+	<div style="float:right;">
 	<sec:authorize access="isAuthenticated()">
-	<a href="list" class="btn btn-outline-danger" style="border-radius: 0.25rem;">목록으로</a>
+	<a href="list" class="btn btn-outline-danger" style="border-radius: 0.25rem ; margin-left:3px; float:right;">목록으로</a>
 	<c:if test="${pinfo.username eq vo.userId or pinfo.username eq 'qwe@qwe' }">
 	<a href="modify?qno=${vo.qno}" style="border-radius: 0.25rem ; margin-left:3px; float:right;" class="btn btn-outline-danger" >수정</a>
 	
@@ -45,6 +46,7 @@
 	<sec:authorize access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')">
 	<a href="reply?qno=${vo.qno}" class="btn btn-outline-danger" style="margin-left:3px; border-radius: 0.25rem; float:right;">답글</a>&nbsp;
 	</sec:authorize>
+	</div>
 	
 	
 	

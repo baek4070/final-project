@@ -108,4 +108,16 @@
 		UPDATE trade_user SET u_withdraw = #{u_withdraw} WHERE u_id = #{u_id}
 	</update>
 	
+	<!-- List<UserVO> getSearchList(String word) throws Exception; -->
+	<select id="getSearchList" parameterType="String" resultMap="userMap">
+		SELECT user.*,u_auth FROM
+		trade_user AS user
+		LEFT OUTER JOIN
+		user_auth AS auth
+		on user.u_id = auth.u_id
+		WHERE u_name = #{u_name} 
+		ORDER BY uno DESC
+	</select>
+	
+	
 </mapper>

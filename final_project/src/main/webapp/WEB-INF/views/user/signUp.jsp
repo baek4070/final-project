@@ -71,9 +71,9 @@
 		height:45px;
 	}
 </style>
-<div class="div" style="display:flex; justify-content:center; align-items:center; padding-top:50px;">
+<div class="div" style="display:flex; justify-content:center; align-items:center; padding-top:25px; font-family: 'Gugi', cursive;">
 	<form id="signUpForm" action="${pageContext.request.contextPath}/user/signUpPost" method="POST">
-		<h1 style="text-align:center;font-size:4.5em;font-weight:800;">JOIN</h1>
+		<h1 style="text-align:center;font-size:3em;font-weight:800;">JOIN</h1>
 		<table class="table">
 			<tr>
 				<td style="font-weight:700;font-size:1.2em;">아이디(email)</td>
@@ -384,16 +384,6 @@
 		errorClass : "text-danger"
 	});
 	
-	/* 
-	// 개인정보 동의
-	$("#detail").on("click",function(){
-		$.ajax({
-			type : "GET",
-			url : ""
-		});
-	});
-	
- */
 	// 인증 코드 저장소
 	var emailCode = "";
 	

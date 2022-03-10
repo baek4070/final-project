@@ -66,10 +66,10 @@ public interface HomeDAO {
 	@Insert("INSERT INTO message(uno,suno,title,sender,content) VALUES(#{uno},#{suno},#{title},#{sender},#{content})")
 	boolean insertMessage(MessageVO vo) throws Exception;
 
-	@Select("SELECT * FROM message ORDER BY mno DESC limit 1")
+	@Select("SELECT * FROM message WHERE mno = last_insert_id()")
 	MessageVO getMessageRecent() throws Exception;
 
-	@Insert("INSERT INTO ring_the_bell(uno,mno,sender) VALUES(#{uno},#{mno},#{sender}")
+	@Insert("INSERT INTO ring_the_bell(uno,mno,sender) VALUES(#{uno},#{mno},#{sender})")
 	void insertBell(BellVO bell) throws Exception;
 
 	@SelectProvider(type=MessageQueryProvider.class, method="searchSelectCount")

@@ -26,9 +26,9 @@
 		border-spacing: 0 4px;
 	}
 </style>
-<div class="container" style="display:flex; justify-content:center; align-items:center; padding-top:100px;">
+<div class="container" style="display:flex; justify-content:center; align-items:center; padding-top:50px; font-family: 'Gugi', cursive;">
 <form action="/user/signIn" method="POST">
-	<h1 id="text" style="text-align:center;font-size:7.5em;font-weight:800;">LOGIN</h1>
+	<h1 id="text" style="text-align:center;font-size:4em;font-weight:800;">LOGIN</h1>
 	<table id="table" style="border-spacing:30px 30px;">
 		<tr>
 			<td style="font-weight:700;font-size:1.5em;">E-MAIL</td>
@@ -64,6 +64,11 @@
 </form>
 </div>
 <script>
+	var csrf = '${_csrf.parameterName}';
+	console.log(csrf);
+	
+	var csrfT = '${_csrf.token}';
+	console.log(csrfT);
 	
 	var message = '${message}';
 

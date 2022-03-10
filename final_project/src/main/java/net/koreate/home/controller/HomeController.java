@@ -148,8 +148,9 @@ public class HomeController {
 		boolean result = hs.insertMessage(vo);
 		MessageVO tobell = new MessageVO();
 		BellVO bell = new BellVO();
-		if(result = true) {
+		if(result == true) {
 			tobell = hs.getMessageRecent();
+			System.out.println(tobell);
 			bell.setUno(tobell.getUno());
 			bell.setMno(tobell.getMno());
 			bell.setSender(tobell.getSender());
