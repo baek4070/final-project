@@ -33,6 +33,17 @@
 		boder-left:1px solid skyblue;
 		border-radius:15px;
 	}
+	select{
+		appearance:none;
+		background-color:white;
+		color:rgb(39,128,227);
+		padding:3px 0;
+		width:100px;
+		text-align:center;
+		font-weight:500;
+		boder-left:1px solid skyblue;
+		border-radius:15px;
+	}
 	.select option{
 		width:100px;
 		text-align:center;
@@ -53,8 +64,8 @@
 	<table style="padding-top:25px;float:right;">
 		<tr>
 			<td>
-				<input type="text" class="inner" style="width:180px;height:25px;border-radius:20px;text-align:center;font-weight:500;font-size:1.2em;" placeholder="이름으로 검색"/>
-				<input type="button" class="btn btn-primary sbtn" value="검색" style="width:75px;border-radius:5px;"/>
+				<input type="text" class="inner" style="border-radius: 0.25rem 0 0 0.25rem;" placeholder="이름으로 검색"/>
+				<input type="button" class="sbtn btn btn-primary" style="border-radius: 0 0.25rem 0.25rem 0;width:75px;height:33px;" value="검색"/>
 			</td>
 		</tr>
 	</table>
@@ -76,21 +87,21 @@
 		<c:choose>
 				<c:when test="${empty searchList && !empty userList}">
 					<c:forEach var="user" items="${userList}">
-						<tr>
+						<tr class="here">
 							<td>${user.uno}</td>
 							<td id="userM">${user.u_id}</td>
-							<td>${user.u_name}</td>
+							<td id="userName">${user.u_name}</td>
 							<td>
-								<select id="authM" class="select" style="font-size:1em;">
+								<select id="authM" class="select authSelect" style="font-size:1em;">
 									<c:forEach var="auth" items="${user.authList}">
 										<c:if test="${auth.u_auth eq 'ROLE_USER'}">
-											<option value="ROLE_USER">일반 사용자</option>
+											<option class="one" value="ROLE_USER">일반 사용자</option>
 										</c:if>
 										<c:if test="${auth.u_auth eq 'ROLE_MASTER'}">
-											<option value="ROLE_MASTER">관리자</option>
+											<option class="two" value="ROLE_MASTER">관리자</option>
 										</c:if>
 										<c:if test="${auth.u_auth eq 'ROLE_ADMIN'}">
-											<option value="ROLE_ADMIN">관리자</option>
+											<option class="three" value="ROLE_ADMIN">관리자</option>
 										</c:if>
 									</c:forEach>
 								</select>
@@ -128,7 +139,7 @@
 							<td id="userM">${suser.u_id}</td>
 							<td>${suser.u_name}</td>
 							<td>
-								<select id="authM" class="select" style="font-size:1em;">
+								<select id="authM" style="font-size:1em;">
 									<c:forEach var="auth" items="${suser.authList}">
 										<c:if test="${auth.u_auth eq 'ROLE_USER'}">
 											<option value="ROLE_USER">일반 사용자</option>
@@ -164,6 +175,7 @@
 										<option value="ROLE_MASTER">관리자</option>
 									</select>
 								</sec:authorize>
+								
 							</td>
 						</tr>
 					</c:forEach>
@@ -190,10 +202,23 @@
 		location.href="/user/master?word="+word;
 	});
 
+	
+	$(".inner").keydown(function(e){
+		if(e.keyCode == 13){
+			$(".sbtn").click();
+		}
+	});
+	
+			$(".inner").focus();
 
 	$(".deleteBtn").on("click",function(){
+		
+		var parentTr = $(this).closest("tr");
+		var u_name =  parentTr.find("#userName").text(); 
+		console.log(u_name);
+		
 		var deletef = $(this).parent().find("select").val();
-		console.log(deletef);
+		console.log('deletef'+deletef);
 		
 		var parentTr = $(this).closest("tr");
 		console.log('parentTr'+parentTr);
@@ -212,22 +237,32 @@
 			success : function(data){
 				console.log(data);
 				if(data == 'y' || data == 'n'){
-					alert('변경 완료'+data);
+				 	if(data == 'y'){
+						alert(u_name+"님이 비활성화 되었습니다.");
+					}else if(data == 'n'){
+						alert(u_name+"님이 활성화 되었습니다.");
+					} 
 				}else{
 					alert('문제 발생');
 				}
 			}
 		});
-		
 	}); 
 		
+	
+	
 	$(".authChange").on("change",function(){
+		
+		var parentTr = $(this).closest("tr");
+		var u_name =  parentTr.find("#userName").text(); 
+
 		var selectAuth = $(this);
 		var changeValue = selectAuth.val();
 		console.log('changeValue'+changeValue);
-		
-		var parentTr = $(this).parent().parent();
+
+		var parentTr = $(this).parent().parent();		
 		console.log('parentTr'+parentTr);
+		
 		var userId = parentTr.find("#userM").text();
 		console.log('userId'+userId);
 		
@@ -247,15 +282,19 @@
 				var str = "";
 				$(result).each(function(){
 					if(this.u_auth == 'ROLE_USER'){
-						str += "<option>일반사용자</option>";
+						str += "<option class='onlyAuth'>일반사용자</option>";
 					}else if(this.u_auth == 'ROLE_MASTER'){
-						str += "<option>관리자</option>";
+						str += "<option class='onlyAuth'>관리자</option>";
 					}else if(this.u_auth == 'ROLE_ADMIN'){
-						str += "<option>관리자</option>";
+						str += "<option class='onlyAuth'>관리자</option>";
 					}
 				});
 				
+				
 				parentTr.find("#authM").html(str);
+
+				alert(u_name+"님의 권한이 변경되었습니다.");
+				
 			},
 			error : function(res){
 				console.log(res);
@@ -265,7 +304,6 @@
 		// 선택후에 권한선택으로 다시 돌아오는 문구		
 		selectAuth.find("option").eq(0).prop("selected",true);
 	});
-	
 	
 </script>
 </body>

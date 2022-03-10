@@ -1,6 +1,8 @@
 package net.koreate.user.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
@@ -19,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.koreate.user.service.UserService;
 import net.koreate.user.vo.AuthVO;
-import net.koreate.user.vo.SearchVO;
 import net.koreate.user.vo.UserVO;
 
 @Controller
@@ -185,11 +186,16 @@ public class UserController {
 	
 	@PostMapping("changeAuth")
 	@ResponseBody
-	public List<AuthVO> changeAuth(AuthVO vo) throws Exception{
-		System.out.println(vo);
+	public List<AuthVO> changeAuth(AuthVO vo,Model model) throws Exception{
+		System.out.println("asdasdasd"+vo);
 		List<AuthVO> list = us.getAuthById(vo);
-		System.out.println("여기서 이러니"+vo);
-		System.out.println("리스트"+list);
+		System.out.println("con list "+list);
+		
+		/*
+		 * String detailAuth = us.onlyAuthById(vo.getU_id());
+		 * model.addAttribute("userAuth",detailAuth);
+		 * System.out.println("권한이다 "+detailAuth);
+		 */
 		return list;
 	}
 	

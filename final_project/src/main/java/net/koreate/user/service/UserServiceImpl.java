@@ -1,6 +1,8 @@
 package net.koreate.user.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.koreate.user.dao.UserDAO;
 import net.koreate.user.vo.AuthVO;
-import net.koreate.user.vo.SearchVO;
 import net.koreate.user.vo.UserVO;
 
 @Service
@@ -112,7 +113,6 @@ public class UserServiceImpl implements UserService {
 			ud.getAddAuth(vo);
 			System.out.println("service add "+vo);
 		}
-		
 		return ud.getAuthById(vo.getU_id());
 	}
 
@@ -126,6 +126,11 @@ public class UserServiceImpl implements UserService {
 		String u_name = word;
 		List<UserVO> list = ud.getSearchList(u_name);
 		return list;
+	}
+
+	@Override
+	public String onlyAuthById(String u_id) throws Exception {
+		return ud.onlyAuth(u_id);
 	}
 
 	

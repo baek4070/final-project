@@ -2,7 +2,6 @@ package net.koreate.user.session;
 
 import java.util.Hashtable;
 
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;

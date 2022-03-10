@@ -1,6 +1,7 @@
 package net.koreate.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import net.koreate.user.vo.AuthVO;
 import net.koreate.user.vo.SearchVO;
@@ -44,14 +45,17 @@ public interface UserService {
 
 	List<UserVO> getAll() throws Exception;
 	
-	// 유저 권한 호출용
+	// 유저 권한
 	List<AuthVO> getAuthById(AuthVO vo) throws Exception;
-	
+
 	// 활성 비활성 버튼
 	void deleteF(UserVO vo) throws Exception;
 	
 	// 사용자 이름으로 검색기능
 	List<UserVO> getSearchList(String word) throws Exception;
+	
+	// 권한만 가져오기
+	String onlyAuthById(String u_id) throws Exception;
 
 	
 }

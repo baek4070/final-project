@@ -65,6 +65,8 @@
 		
 		<security:intercept-url pattern="/user/signOut" access="authenticated"/>
 		
+		<security:intercept-url pattern="/home/myList" access="authenticated"/>
+		
 		<security:intercept-url pattern="/user/info" access="authenticated"/>
 		
 		<!-- <security:intercept-url pattern="/user/**" access="isAnonymous()"/> -->

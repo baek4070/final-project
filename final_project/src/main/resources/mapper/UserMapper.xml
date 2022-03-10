@@ -90,7 +90,7 @@
 	
 	<!-- List<AuthVO> getAuthById(String u_id) throws Exception; -->
 	<select id="getAuthById" parameterType="String" resultType="net.koreate.user.vo.AuthVO">
-		SELECT * FROM user_auth WHERE u_id = #{u_id}
+		SELECT u_auth FROM user_auth WHERE u_id = #{u_id}
 	</select>
 	
 	<!-- void getDeleteAuth(AuthVO vo) throws Exception; -->
@@ -118,6 +118,12 @@
 		WHERE u_name = #{u_name} 
 		ORDER BY uno DESC
 	</select>
+<!-- 	
+	String onlyAuth(String u_id) throws Exception;
+	<select id="onlyAuth" parameterType="String" resultType="">
+		SELECT u_auth FROM user_auth WHERE u_id = #{u_id}
+	</select>
 	
-	
+ -->	
+ 
 </mapper>

@@ -71,9 +71,9 @@
 		height:45px;
 	}
 </style>
-<div class="div" style="display:flex; justify-content:center; align-items:center; padding-top:25px; font-family: 'Gugi', cursive;">
+<div class="div" style="display:flex; justify-content:center; align-items:center; padding-top:25px;">
 	<form id="signUpForm" action="${pageContext.request.contextPath}/user/signUpPost" method="POST">
-		<h1 style="text-align:center;font-size:3em;font-weight:800;">JOIN</h1>
+		<h1 style="text-align:center;font-size:3em;font-weight:800;font-family: 'Gugi', cursive;">JOIN</h1>
 		<table class="table">
 			<tr>
 				<td style="font-weight:700;font-size:1.2em;">아이디(email)</td>
@@ -140,9 +140,9 @@
 						개인정보 이용동의
 						<input type="checkbox" name="u_info" id="u_info" value="y"/>(필수)
 					</label>
+				</td>
+				<td>
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#thisModal" style="border-radius:20px;">자세히보기</button>
-					<%-- <a href="${path}/user/text">자세히 보기</a> --%>
-					<%-- <input type="button" value="자세히 보기" class="detail btn btn-primary btn-sm" onclick="location.href='${path}/user/text';"/> --%>
 				</td>
 			</tr>
 			<tr>

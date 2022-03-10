@@ -50,4 +50,9 @@ public interface UserDAO {
 	// 관리자 검색 기능
 	List<UserVO> getSearchList(String u_name) throws Exception;
 
+	// 오직 권한만!
+	String onlyAuth(String u_id) throws Exception;
+
+	AuthVO getUserAuth(AuthVO vo);
+
 }

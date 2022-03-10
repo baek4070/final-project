@@ -73,10 +73,10 @@
 	var message = '${message}';
 
 	if(message == "UserDetailsService returned null, which is an interface contract violation") {
-		msg = "아이디가 존재하지않습니다.";
+		msg = "일치하는 정보가 없습니다.";
 		alert(msg);
 	}else if(message == "Bad credentials"){
-		msg = "비밀번호가 틀렷습니다.";
+		msg = "일치하는 정보가 없습니다.";
 		alert(msg);
 	}
 </script>

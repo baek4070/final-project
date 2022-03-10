@@ -22,12 +22,6 @@ public class AccessDeniedHandler implements org.springframework.security.web.acc
 		out.print("alert('접근 권한이 없습니다.');");
 		out.print("history.go(-1);");
 		out.print("</script>");
-/*
-		String error = exception.getMessage();
-		String context = request.getServletContext().getContextPath();
-		String url = request.getServletContext().getContextPath()+"/user/signOff?message="+error;
-		response.sendRedirect(url);
-		*/
 	}
 
 }
