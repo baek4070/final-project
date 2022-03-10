@@ -3,19 +3,20 @@ package net.koreate.board.dao;
 import java.util.List;
 import net.koreate.board.util.Criteria;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.WishVO;
 
 public interface BoardDAO {
 	
-	// 검색
+	// 리스트
 	public List<BoardVO> list(Criteria cri) throws Exception;
 
-	// 전체 게시물 수
+	// 리스트 갯수
 	public int listCount() throws Exception;
 	
 	// 삽입
 	public int insert(BoardVO board) throws Exception;
 	
-	// 선택
+	// 읽기
 	public BoardVO read(int bno) throws Exception;
 	
 	// 수정
@@ -24,11 +25,14 @@ public interface BoardDAO {
 	// 삭제
 	public int delete(int bno) throws Exception;
 	
-	// 찜목록 추가
-	public int addWishlist(BoardVO board) throws Exception;
+	// 찜 리스트
+	public WishVO getWish(WishVO wish) throws Exception;
 	
-	// 찜목록 삭제
-	public int deleteWishlist(BoardVO board) throws Exception;
+	// 찜 추가
+	public int addWishlist(WishVO wish) throws Exception;
+	
+	// 찜 삭제
+	public int deleteWishlist(WishVO wish) throws Exception;
 	
 	// 조회수 증가
 	public int updateViewCount(int bno) throws Exception;

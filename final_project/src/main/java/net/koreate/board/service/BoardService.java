@@ -5,6 +5,7 @@ import net.koreate.board.util.Criteria;
 import net.koreate.board.util.PageMaker;
 import net.koreate.board.vo.BoardCommentVO;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.WishVO;
 
 public interface BoardService {
 
@@ -20,17 +21,20 @@ public interface BoardService {
 	
 	public String delete(int bno) throws Exception;
 	
-	// 찜목록 추가
-	public String addWishlist(BoardVO board) throws Exception;
+	// 찜 추가
+	public String addWishlist(WishVO wish) throws Exception;
 	
-	// 찜목록 삭제
-	public String removeWishlist(BoardVO board) throws Exception;
+	// 찜 삭제
+	public String removeWishlist(WishVO wish) throws Exception;
 	
 	// 조회수 증가
 	public int updateViewCnt(int bno) throws Exception;
 	
-	// 댓글 리스트 조회
+	// 댓글 리스트
 	public List<BoardCommentVO> getCommentList(int bno) throws Exception;
+	
+	// 찜 리스트
+	public WishVO getWish(WishVO wish) throws Exception;
 	
 	// 댓글 작성
 	public String registerComment(BoardVO board) throws Exception;

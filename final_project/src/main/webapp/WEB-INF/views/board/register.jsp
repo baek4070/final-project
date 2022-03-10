@@ -45,6 +45,7 @@
 		<sec:authentication property="principal" var="pinfo"/>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="hidden" name="writerId" value="${pinfo.username}"/>
+		<input type="hidden" name="uno" value="${pinfo.user.uno}"/>
 		<table class="table table-hover">
 			<tr>
 				<td>물품구분</td>

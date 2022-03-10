@@ -87,8 +87,10 @@
 
 	<!-- 삽입 -->
 	<insert id="insert" parameterType="boardVO">
-		INSERT INTO board (title,content,writer,writerId,fileName,filePath,tradeType,category)
-		VALUES (#{title},#{content},#{writer},#{writerId},#{fileName},#{filePath},
+		INSERT INTO board
+		(title,uno,content,writer,writerId,fileName,filePath,tradeType,category)
+		VALUES
+		(#{title},#{uno},#{content},#{writer},#{writerId},#{fileName},#{filePath},
 		<choose>
 			<when test="tradeType == '삽니다'">"buy",</when>
 			<when test="tradeType == '팝니다'">"sell",</when>
@@ -120,18 +122,18 @@
 		DELETE FROM board WHERE bno = #{bno}
 	</delete>
 	
-	<!-- 내가 찜한 리스트 가져오기 -->
-	<select id="selectWishlist" resultType="boardCommentVO">
-		SELECT * FROM wish WHERE uno = #{uno}
+	<!-- 찜목록 확인 -->
+	<select id="getWish" resultType="wishVO">
+		SELECT * FROM wish WHERE uno = #{uno} and bno = #{bno};
 	</select>
 	
 	<!-- 찜목록 추가 -->
-	<insert id="addWishlist" parameterType="boardVO">
+	<insert id="addWishlist" parameterType="WishVO">
 		INSERT INTO wish(bno,uno) VALUES (#{bno},#{uno})
 	</insert>
 	
 	<!-- 찜목록 삭제 -->
-	<insert id="deleteWishlist" parameterType="boardVO">
+	<insert id="deleteWishlist" parameterType="WishVO">
 		DELETE FROM wish WHERE bno = #{bno} AND uno = #{uno}
 	</insert>
 	

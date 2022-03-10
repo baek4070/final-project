@@ -91,18 +91,25 @@
 							<button class="btn btn-primary" type="submit" data-oper="remove" style="border-radius: 0.25rem;">삭제</button>
 						</c:if>
 						<c:if test="${pinfo.user.u_id ne board.writerId}">
-							
-							<button class="btn btn-primary" type="submit" data-oper="addWishlist"
-							style="border-radius: 0.25rem; float: right;">찜하기</button>
-							<button class="btn btn-primary" type="submit" data-oper="removeWishlist"
-							style="border-radius: 0.25rem; float: right;">찜취소</button>
+							<c:choose>
+								<c:when test="${empty wishlist}">
+									<button class="btn btn-primary" type="submit" data-oper="addWishlist"
+									style="border-radius: 0.25rem; float: right;">찜하기</button>
+									<textarea>${wishlist}</textarea>
+								</c:when>
+								<c:otherwise>
+									<button class="btn btn-primary" type="submit" data-oper="removeWishlist"
+									style="border-radius: 0.25rem; float: right;">찜취소</button>
+								</c:otherwise>
+							</c:choose>
 						</c:if>
-						<input type="hidden" name="uno" value="${pinfo.user.uno}"/>
 					</sec:authorize>
 					<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem;">목록</button>
 				</td>
 			</tr>
 		</table>
+		<input type="hidden" name="w_uno" value="${pinfo.user.uno}"/>
+		<input type="hidden" name="uno" value="${board.uno}"/>
 		<input type="hidden" name="bno" value="${board.bno}"/>
 		<input type="hidden" name="page" value="${cri.page}"/> 
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
@@ -115,10 +122,6 @@
 		<input type="hidden" name="rno" value="${commentList.rno}"/>
 		<sec:authentication property="principal" var="pinfo"/>
 		<table>
-			<tr>
-				<td>rno</td>
-				<td>${commentList.rno}</td>
-			</tr>
 			<tr>
 				<td class="title">작성자</td>
 				<td class="title"><input type="text" class="form-control" value="${commentList.writer}" readonly/></td>

@@ -87,11 +87,12 @@
 		<c:if test="${lct eq 'four'}"><h2>상품4</h2></c:if>
 		<c:if test="${lct eq 'five'}"><h2>상품5</h2></c:if>
 		<div style="margin-bottom: 15px"></div>
+		<sec:authentication property="principal" var="pinfo"/>
 		<div class="row">
 		<c:choose>
 	  	 	<c:when test="${!empty list}">
 	  	 		<c:forEach items="${list}" var="board">
-	  	 			<div class="card border-primary mb-3 p-0 mx-2" style="max-width: 19rem; height: 200px; border-radius: 0.25rem;" onclick="location.href='detail?bno=${board.bno}'">
+	  	 			<div class="card border-primary mb-3 p-0 mx-2" style="max-width: 19rem; height: 200px; border-radius: 0.25rem;" onclick="location.href='detail?bno=${board.bno}&uno=${board.uno}&w_uno=${pinfo.user.uno}'">
 			  		<div class="card-body p-0" style="cursor: pointer;">
 			  			<c:choose>
 			  				<c:when test="${!empty board.fileName}">

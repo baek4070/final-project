@@ -12,6 +12,7 @@ import net.koreate.board.util.Criteria;
 import net.koreate.board.util.PageMaker;
 import net.koreate.board.vo.BoardCommentVO;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.WishVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -66,15 +67,15 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public String addWishlist(BoardVO board) throws Exception {
-		int result = dao.addWishlist(board);
+	public String addWishlist(WishVO wish) throws Exception {
+		int result = dao.addWishlist(wish);
 		return getMessage(result, "찜 추가");
 	}
 
 	@Override
-	public String removeWishlist(BoardVO board) throws Exception {
-		int result = dao.deleteWishlist(board);
-		return getMessage(result, "찜 취소");
+	public String removeWishlist(WishVO wish) throws Exception {
+		int result = dao.deleteWishlist(wish);
+		return getMessage(result, "찜 삭제");
 	}
 
 	@Override
@@ -83,29 +84,34 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 	
-	// 댓글 리스트 조회
+	// 댓글 리스트
 	@Override
 	public List<BoardCommentVO> getCommentList(int bno) throws Exception {
 		return commentDao.getCommentList(bno);
 	}
 	
-	// 댓글 작성
+	// 댓글 추가
 	@Override
 	public String registerComment(BoardVO board) throws Exception {
 		int result = commentDao.registerComment(board);
-		return getMessage(result, "작성");
+		return getMessage(result, "댓글 추가");
 	}
 
 	@Override
 	public String modifyComment(BoardCommentVO board) throws Exception {
 		int result = commentDao.modifyComment(board);
-		return getMessage(result, "수정");
+		return getMessage(result, "댓글 수정");
 	}
 
 	@Override
 	public String removeComment(BoardCommentVO board) throws Exception {
 		int result = commentDao.deleteComment(board);
-		return getMessage(result, "삭제");
+		return getMessage(result, "댓글 삭제");
+	}
+
+	@Override
+	public WishVO getWish(WishVO wish) throws Exception {
+		return dao.getWish(wish);
 	}
 
 }

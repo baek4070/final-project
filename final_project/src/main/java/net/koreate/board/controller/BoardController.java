@@ -22,6 +22,7 @@ import net.koreate.board.service.BoardService;
 import net.koreate.board.util.Criteria;
 import net.koreate.board.vo.BoardCommentVO;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.WishVO;
 
 @Controller
 @RequestMapping("/board")
@@ -40,7 +41,6 @@ public class BoardController {
 		model.addAttribute("ltt",cri.getTradeType());
 		model.addAttribute("lct",cri.getCategory());
 		model.addAttribute("lkt",cri.getKeyword());
-		System.out.println(model);
 		return "board/list";
 	}
 	
@@ -55,10 +55,8 @@ public class BoardController {
 			RedirectAttributes rttr,
 			HttpServletRequest request) throws Exception {
 		String uploadFolder = context.getRealPath("/resources/img");
-		System.out.println("폴더경로:"+uploadFolder);
 		String fileName = null;
 		MultipartFile uploadFile = board.getUploadFile();
-		System.out.println(board);
 		UUID uuid = UUID.randomUUID();
 		if (!uploadFile.isEmpty()) {
 			fileName = uuid+"_"+uploadFile.getOriginalFilename();
@@ -74,15 +72,22 @@ public class BoardController {
 	
 	// 상세보기
 	@GetMapping("/detail")
-	public void detail(@RequestParam("bno") int bno, BoardCommentVO board,
+	public void detail(@RequestParam("bno") int bno, BoardCommentVO board, @RequestParam("uno") int uno, @RequestParam(value="w_uno", required=false) int w_uno,
 			@ModelAttribute("cri") Criteria cri,
 			Model model) throws Exception {
 		model.addAttribute("board",service.get(bno));
 		service.updateViewCnt(bno);
 		
-		// 댓글 리스트 조회
+		// 댓글 리스트
 		List<BoardCommentVO> commentList = service.getCommentList(bno);
 		model.addAttribute("commentList", commentList);
+		
+		// 찜 리스트
+		WishVO wish = new WishVO();
+		wish.setBno(bno);
+		wish.setUno(w_uno);
+		wish = service.getWish(wish);
+		model.addAttribute("wishlist", wish);
 	}
 	
 	@GetMapping("/modify")
@@ -111,20 +116,26 @@ public class BoardController {
 	}
 	
 	@PostMapping("/addWishlist")
-	public String addWishlist(BoardVO board, int bno, RedirectAttributes rttr) throws Exception {
-		String result = service.addWishlist(board);
+	public String addWishlist(int bno, int uno, @RequestParam(value="w_uno", required=false) int w_uno, RedirectAttributes rttr) throws Exception {
+		WishVO wish = new WishVO();
+		wish.setBno(bno);
+		wish.setUno(w_uno);
+		String result = service.addWishlist(wish);
 		rttr.addFlashAttribute("result", result);
-		return "redirect:/board/detail?bno="+bno;
+		return "redirect:/board/detail?bno="+bno+"&uno="+uno+"&w_uno="+w_uno;
 	}
 	
 	@PostMapping("/removeWishlist")
-	public String removeWishlist(BoardVO board, int bno, RedirectAttributes rttr) throws Exception {
-		String result = service.removeWishlist(board);
+	public String removeWishlist(int bno, int uno, @RequestParam(value="w_uno", required=false) int w_uno, RedirectAttributes rttr) throws Exception {
+		WishVO wish = new WishVO();
+		wish.setBno(bno);
+		wish.setUno(w_uno);
+		String result = service.removeWishlist(wish);
 		rttr.addFlashAttribute("result", result);
-		return "redirect:/board/detail?bno="+bno;
+		return "redirect:/board/detail?bno="+bno+"&uno="+uno+"&w_uno="+w_uno;
 	}
 	
-	// 댓글 작성
+	// 댓글 등록
 	@PostMapping("/registerComment")
 	public String registerComment(BoardVO board, Criteria cri, RedirectAttributes rttr, Model model, int bno) throws Exception {
 		String result = service.registerComment(board);
