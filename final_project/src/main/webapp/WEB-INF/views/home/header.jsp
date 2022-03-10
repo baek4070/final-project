@@ -140,7 +140,7 @@ console.log(exist);
 
 if(exist != ''){
 	$(document).on('ready',function(){
-		window.open('${path}/message/msgWrite?mno=${mslist.mno}', '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600');
+		window.open('${path}/message/msgDetail?mno=${mslist.mno}', '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600');
 	});
 }
 
