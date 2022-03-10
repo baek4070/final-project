@@ -22,6 +22,14 @@
 				content like CONCAT('%', #{keyword}, '%')
 				)
 			</if>
+			<if test="keyword != null and keyword != '' ">
+				AND
+				title like CONCAT('%', #{keyword}, '%')
+				OR
+				content like CONCAT('%', #{keyword}, '%')
+				OR
+				writer like CONCAT('%', #{keyword}, '%')
+			</if>
 			<choose>
 				<when test="tradeType == 'buy' and tradeType != null and tradeType != '' ">
 					AND tradeType = #{tradeType}
@@ -61,6 +69,14 @@
 				OR
 				content like CONCAT('%', #{keyword}, '%')
 				)
+			</if>
+			<if test="keyword != null and keyword != '' ">
+				AND
+				title like CONCAT('%', #{keyword}, '%')
+				OR
+				content like CONCAT('%', #{keyword}, '%')
+				OR
+				writer like CONCAT('%', #{keyword}, '%')
 			</if>
 			<choose>
 				<when test="tradeType == 'buy' and tradeType != null and tradeType != '' ">
