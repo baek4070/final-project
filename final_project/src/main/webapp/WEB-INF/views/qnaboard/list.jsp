@@ -78,8 +78,8 @@
 			<th scope="row">번호</th>
 			<th>제목</th>
 			<th>작성자</th>
-			<th class="lownavbar">마지막수정</th>
-			<th class="lownavbar">첨부파일</th>
+			<th class="firstnone">마지막수정</th>
+			<th class="firstnone">첨부파일</th>
 		</tr>
 		<c:choose>
 			<c:when test="${!empty list}">
@@ -106,18 +106,18 @@
 						</sec:authorize>
 						<c:choose >
 							<c:when test="${qnaboard.regdate eq qnaboard.updatedate}">
-								<td class="lownavbar"><f:formatDate pattern="yy-MM-dd HH:mm" value="${qnaboard.regdate}"/></td>
+								<td class="firstnone"><f:formatDate pattern="yy-MM-dd HH:mm" value="${qnaboard.regdate}"/></td>
 							</c:when>
 							<c:otherwise>
-								<td class="lownavbar"><f:formatDate pattern="yy-MM-dd HH:mm" value="${qnaboard.updatedate}"/></td>
+								<td class="firstnone"><f:formatDate pattern="yy-MM-dd HH:mm" value="${qnaboard.updatedate}"/></td>
 							</c:otherwise>
 						</c:choose>
 						<c:choose >
 							<c:when test="${!empty qnaboard.filename}">
-								<th class="lownavbar"><img src="${path}/resources/img/file.png" style="width:25px; height:25px;" /></th>
+								<th class="firstnone"><img src="${path}/resources/img/file.png" style="width:25px; height:25px;" /></th>
 							</c:when>
 							<c:otherwise>
-								<td class="lownavbar"> </td>
+								<td class="firstnone"> </td>
 							</c:otherwise>
 						</c:choose>
 					</tr>

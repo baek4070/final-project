@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<form action="update" method="POST">
-	<h2 class="text-center" style="font-family: 'Gugi', cursive;">질문 수정</h2>
+	<h1 class="text-center" style="font-family: 'Gugi', cursive;">질문 수정</h1>
 		<table class="table table-hover">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<input type="hidden" name="qno" value=${vo.qno} />

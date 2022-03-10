@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 <style>
 
@@ -15,29 +16,30 @@
 	
 </style>
 
+<sec:authentication property="principal" var="pinfo"/>
 <nav class="navbar navbar-expand-lg navbar-light bg-light lownavbar " >
   <div class="container-fluid" style="background-color:#2ea65a;">
     <a class="navbar-brand " href="${path}/board/list?tradeType=buy" style="font-family: 'Gugi', cursive;">필요해요</a>
     <div class="navbar-collapse" id="navbarColor03">
-      <ul class="navbar-nav me-auto " style="margin-left:3em; font-family: 'Gugi', cursive;" >
+      <ul class="navbar-nav me-auto " style=" font-family: 'Gugi', cursive;" >
         <li class="nav-item" >
           <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=one">의류</a>
         </li>
-        <li class="nav-item" style="margin-left:1em;">
+        <li class="nav-item" >
           <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=two">식품</a>
         </li>
-        <li class="nav-item" style="margin-left:1em;">
+        <li class="nav-item" >
           <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=three">전자기기</a>
         </li>
-        <li class="nav-item" style="margin-left:1em;">
+        <li class="nav-item" >
           <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=four">서적</a>
         </li>
-        <li class="nav-item" style="margin-left:1em;">
+        <li class="nav-item" >
           <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=five">기타</a>
         </li>
       </ul>
         <form action="board/list" id="totalbuy">
-			<div class="input-group mb-3 firstnone" style="margin-top:16.2px; ">
+			<div class="input-group mb-3 " style="margin-top:16.2px; ">
 	    		<input type="text" class="form-control" name="keyword" id="searchValue1" placeholder="필요한 것 찾기" style=" float:right" >
 	    		<input type="hidden" name="TradeType" value="buy">
 	    		<button class="btn btn-primary totalSearch1" type="button" id="button-addon2" style="float:right;">검색</button>
@@ -67,13 +69,6 @@
          <li class="nav-item">
           <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=five">기타</a>
         </li>
-        <li class="nav-item">
-        <form action="${path}/home/myList" method="post" id="wishGo">
-          <a style="color:white;" class="nav-link wish" href="#">가지고싶은 목록</a>
-          <input type="hidden" name="uno" value="${user.uno}"/>
-          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-        </li>
       </ul>
         <form action="board/list" id="totalsell">
 			<div class="input-group mb-3" style="margin-top:16.2px;">
@@ -91,8 +86,8 @@
 <div class="accordion " id="accordionExample" >
   <div class="accordion-item" >
     <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-       	 공지사항
+      <button style=" font-family: 'Gugi', cursive;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+       	 공지사항(최신순)
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
@@ -101,28 +96,24 @@
 		<table class="table table-hover">
 		    <c:if test="${!empty nlist}">
 		      <tr>
-		      	<th>작성자</th>
+		      	<th style="width:100px;">번호</th>
 		      	<th>제목</th>
-		      	<th>내용</th>
-		      	<th>작성일</th>
-		      	<th>조회수</th>
+		      	<th style="width:200px;" class="firstnone">작성일</th>
+		      	<th style="width:100px;">조회수</th>
 		      </tr>
 				<c:forEach var="ns" items="${nlist}">
-					<tr style="cursor:pointer;" onclick="location.href='${path}/notice/list?nno=${ns.nno}'">
-					   <td style="max-width:50px;">
-							<a>${ns.userNickname}</a>
-					   </td>
-					   <td style="max-width:100px;">
-							<a>${ns.title}</a>
-					   </td>
+					<tr style="cursor:pointer;" onclick="location.href='${path}/notice/detail?nno=${ns.nno}'">
+						<td>
+							${ns.nno}
+						</td>
 					   <td>
-							<a>${ns.content}</a>
+							${ns.title}
 					   </td>
-					   <td>
-							<a><f:formatDate value="${ns.updatedate}" pattern="yyyy-MM-dd (E) HH:mm"/></a>
+					   <td class="firstnone" >
+							<f:formatDate value="${ns.updatedate}" pattern="yy-MM-dd (E) HH:mm"/>
 					   </td>
-					   <td>
-							<a>${ns.viewcnt}</a>
+					   <td >
+							${ns.viewcnt}
 					   </td>
 					</tr>
 				</c:forEach>
@@ -137,8 +128,8 @@
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-       	팝니다
+      <button style=" font-family: 'Gugi', cursive;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+       	필요없어요(최신순)
       </button>
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
@@ -147,30 +138,44 @@
 	      <table class="table table-hover">
 		    <c:if test="${!empty bslist}">
 		      <tr>
-		      	<th>작성자</th>
 		      	<th>제목</th>
-		      	<th>내용</th>
-		      	<th>작성일</th>
-		      	<th>조회수</th>
+		      	<th style="width:100px;">작성자</th>
+		      	<th style="width:200px;" class="firstnone">작성일</th>
+		      	<th style="width:100px;">조회수</th>
 		      </tr>
 				<c:forEach var="bs" items="${bslist}">
-					<tr style="cursor:pointer;" onclick="location.href='${path}/board/list?bno=${bs.bno}&tradeType=${bs.tradeType}'">
-					   <td style="max-width:50px;">
-							<a>${bs.writer}</a>
-					   </td>
-					   <td style="max-width:100px;">
-							<a>${bs.title}</a>
-					   </td>
-					   <td>
-							<a>${bs.content}</a>
-					   </td>
-					   <td>
-							<a><f:formatDate value="${bs.updateDate}" pattern="yyyy-MM-dd (E) HH:mm"/></a>
-					   </td>
-					   <td>
-							<a>${bs.viewcnt}</a>
-					   </td>
-					</tr>
+					<sec:authorize access="isAuthenticated()">
+						<tr style="cursor:pointer;" onclick="location.href='${path}/board/detail?bno=${bs.bno}&uno=${bs.uno}&w_uno=${pinfo.user.uno}'">
+						   <td >
+								${bs.title}
+						   </td>
+						   <td >
+								${bs.writer}
+						   </td>
+						   <td>
+								<f:formatDate value="${bs.updateDate}" pattern="yy-MM-dd (E) HH:mm"/>
+						   </td>
+						   <td>
+								${bs.viewcnt}
+						   </td>
+						</tr>
+					</sec:authorize>
+					<sec:authorize access="isAnonymous()"> 
+						<tr style="cursor:pointer;" onclick="location.href='${path}/board/detail?bno=${bs.bno}&uno=${bs.uno}'">
+						   <td >
+								${bs.title}
+						   </td>
+						   <td >
+								${bs.writer}
+						   </td>
+						   <td>
+								<f:formatDate value="${bs.updateDate}" pattern="yy-MM-dd (E) HH:mm"/>
+						   </td>
+						   <td>
+								${bs.viewcnt}
+						   </td>
+						</tr>
+					</sec:authorize>
 				</c:forEach>
 			</c:if>
 			<c:if test="${empty bslist}">
@@ -185,8 +190,8 @@
   
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-      	 삽니다
+      <button style=" font-family: 'Gugi', cursive;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+      	 필요해요(최신순)
       </button>
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -194,30 +199,44 @@
       	<table class="table table-hover">
 		    <c:if test="${!empty bblist}">
 		      <tr>
-		      	<th>작성자</th>
-		      	<th>제목</th>
-		      	<th>내용</th>
-		      	<th>작성일</th>
-		      	<th>조회수</th>
+		    	<th>제목</th>
+		      	<th style="width:100px;">작성자</th>
+		      	<th style="width:200px;" class="firstnone">작성일</th>
+		      	<th style="width:100px;">조회수</th>
 		      </tr>
 				<c:forEach var="bb" items="${bblist}">
-					<tr style="cursor:pointer;" onclick="location.href='${path}/board/list?bno=${bb.bno}&tradeType=${bb.tradeType}'">
-					   <td>
-							<a>${bb.writer}</a>
-					   </td>
-					   <td>
-							<a>${bb.title}</a>
-					   </td>
-					   <td>
-							<a>${bb.content}</a>
-					   </td>
-					   <td>
-							<a><f:formatDate value="${bb.updateDate}" pattern="yyyy-MM-dd (E) HH:mm"/></a>
-					   </td>
-					   <td>
-							<a>${bb.viewcnt}</a>
-					   </td>
-					</tr>
+				    <sec:authorize access="isAuthenticated()">
+						<tr style="cursor:pointer;" onclick="location.href='${path}/board/detail?bno=${bb.bno}&uno=${bb.uno}&w_uno=${pinfo.user.uno}'">
+						   <td >
+								${bb.title}
+						   </td>
+						   <td >
+								${bb.writer}
+						   </td>
+						   <td>
+								<f:formatDate value="${bb.updateDate}" pattern="yy-MM-dd (E) HH:mm"/>
+						   </td>
+						   <td>
+								${bb.viewcnt}
+						   </td>
+						</tr>
+				    </sec:authorize>
+				    <sec:authorize access="isAnonymous()">
+						<tr style="cursor:pointer;" onclick="location.href='${path}/board/detail?bno=${bb.bno}&uno=${bb.uno}'">
+						   <td >
+								${bb.title}
+						   </td>
+						   <td >
+								${bb.writer}
+						   </td>
+						   <td>
+								<f:formatDate value="${bb.updateDate}" pattern="yy-MM-dd (E) HH:mm"/>
+						   </td>
+						   <td>
+								${bb.viewcnt}
+						   </td>
+						</tr>
+				    </sec:authorize>
 				</c:forEach>
 			</c:if>
 			<c:if test="${empty bblist}">
@@ -231,8 +250,8 @@
   
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingFour">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-      	 자주찾는 질문
+      <button style=" font-family: 'Gugi', cursive;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+      	 자주하는 질문(조회순)
       </button>
     </h2>
     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
@@ -240,12 +259,24 @@
 	      <table class="table table-hover">
 		    <c:if test="${!empty qlist}">
 		      <tr>
-		      	<th>제목</th>
+		    	<th>제목</th>
+		      	<th style="width:100px;">작성자</th>
+		      	<th style="width:200px;" class="firstnone">작성일</th>
+		      	<th style="width:100px;">조회수</th>
 		      </tr>
 				<c:forEach var="question" items="${qlist}">
 					<tr style="cursor:pointer; text-align:center;" onclick="location.href='${path}/qnaboard/detail?qno=${question.qno}'">
 					   <td>
-							<a>${question.title}</a>
+						${question.title}
+					   </td>
+					   <td>
+						${question.userNickname}
+					   </td>
+					   <td>
+						<f:formatDate value="${question.regdate}" pattern="yy-MM-dd (E) HH:mm"/>
+					   </td>
+					   <td>
+						${question.viewcnt}
 					   </td>
 					</tr>
 				</c:forEach>
@@ -261,7 +292,7 @@
   
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingFive">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+      <button style=" font-family: 'Gugi', cursive;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
       	 문의하기
       </button>
     </h2>

@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon-16x16.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,7 +108,7 @@
         </li>
         <li class="nav-item">
         <form action="${path}/home/myList" method="post" id="wishGo">
-          <a class="nav-link wish" href="#">찜목록</a>
+          <a class="nav-link wish" href="#">찜목록&#x2763;</a>
           <input type="hidden" name="uno" value="${user.uno}"/>
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>

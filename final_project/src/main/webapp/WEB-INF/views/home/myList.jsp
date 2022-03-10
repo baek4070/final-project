@@ -10,6 +10,7 @@
 	}
 	
 </style>
+	<h1 class="text-center" style="font-family: 'Gugi', cursive; margin-bottom:0px; height:80px;">나의 찜목록&#x2763;</h1>
  <sec:authorize access="isAuthenticated()">
 	<sec:authentication var="user" property="principal.user"/>
 		<c:choose>

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h1 class="text-center">공지사항</h1>
+	<h1 class="text-center" style="font-family: 'Gugi', cursive;">공지사항</h1>
 	<table class="table table-hover">
 		<tr>
 			<th>제목</th>

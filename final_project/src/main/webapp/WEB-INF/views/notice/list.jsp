@@ -68,12 +68,13 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2 class="text-center" style="font-family: 'Gugi', cursive;">공지사항</h2>
+	<h1 class="text-center" style="font-family: 'Gugi', cursive;">공지사항</h1>
 	<table class="table table-hover">
 		<tr style="font-family: 'Gugi', cursive;">
 			<th scope="row">번호</th>
 			<th>제목</th>
 			<th>작성일</th>
+			<th>조회수</th>
 		</tr>
 		<c:choose>
 			<c:when test="${!empty list}">
@@ -83,6 +84,7 @@
 						<td>${notice.nno}</td>
 						<td>${notice.title}</td>
 						<td><f:formatDate pattern="yyyy-MM-dd" value="${notice.updatedate}"/></td>
+						<td>${notice.viewcnt}</td>
 					</tr>
 				</c:forEach>
 			</c:when>

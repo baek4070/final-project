@@ -39,26 +39,26 @@
 			<input type="hidden" name="depth" value="${vo.depth}"/>
 			<input type="hidden" name="root" value="${vo.root}"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		<table border=1>
+		<table class="table table-hover">
 			<tr>
 				<td>제목</td>
-				<td><input type="text" name="title" value="----re---${vo.title}"required/></td>
+				<td><input class="form-control" type="text" name="title" value="re:${vo.title}"required/></td>
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name="userNickname" value="${pinfo.user.u_name}" readonly required/></td>
+				<td><input class="form-control" type="text" name="userNickname" value="${pinfo.user.u_name}" readonly required/></td>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea name="content" rows="30" cols="50"></textarea></td>
+				<td><textarea class="form-control" name="content" rows="30" cols="50"></textarea></td>
 			</tr>
 			<tr>
 				<td>첨부파일</td>
-				<td></td>
+				<td><input type="file" name="uploadFile" multiple/ ></td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="등록" />
+					<input class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right;" type="submit" value="답변달기" />
 				</td>
 			</tr>
 		</table>
