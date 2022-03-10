@@ -75,10 +75,10 @@
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
 		<c:if test="${ltt eq 'buy'}">
 			<h1 class="text-center" style="font-family: 'Gugi', cursive;" >
-			삽니다
+			필요해요
 			<c:if test="${lct eq 'one'}">(의류)</c:if>
 			<c:if test="${lct eq 'two'}">(식품)</c:if>
-			<c:if test="${lct eq 'three'}">(전자)</c:if>
+			<c:if test="${lct eq 'three'}">(전자기기)</c:if>
 			<c:if test="${lct eq 'four'}">(서적)</c:if>
 			<c:if test="${lct eq 'five'}">(기타)</c:if>
 			</h1>
@@ -118,13 +118,46 @@
 		</c:if>
 		<c:if test="${ltt eq 'sell'}">
 			<h1 class="text-center" style="font-family: 'Gugi', cursive;" >
-			팝니다
+			필요없어요
 			<c:if test="${lct eq 'one'}">(의류)</c:if>
 			<c:if test="${lct eq 'two'}">(식품)</c:if>
-			<c:if test="${lct eq 'three'}">(전자)</c:if>
+			<c:if test="${lct eq 'three'}">(전자기기)</c:if>
 			<c:if test="${lct eq 'four'}">(서적)</c:if>
 			<c:if test="${lct eq 'five'}">(기타)</c:if>
 			</h1>
+		<div class="row col-10">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light lownavbar" >
+			  <div class="container-fluid" style="background-color:rgb(220,20,60);">
+			    <a class="navbar-brand" href="${path}/board/list?tradeType=sell" style="font-family: 'Gugi', cursive;">필요 없어요</a>
+			    <div class="navbar-collapse" id="navbarColor03">
+			      <ul class="navbar-nav me-auto"  style="margin-left:3em; font-family: 'Gugi', cursive;">
+			        <li class="nav-item">
+			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=one">의류</a>
+			        </li>
+			        <li class="nav-item" style="margin-left:1em;">
+			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=two">식품</a>
+			        </li>
+			        <li class="nav-item" style="margin-left:1em;">
+			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=three">전자기기</a>
+			        </li>
+			        <li class="nav-item" style="margin-left:1em;">
+			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=four">서적</a>
+			        </li>
+			         <li class="nav-item" style="margin-left:1em;">
+			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=five">기타</a>
+			        </li>
+			      </ul>
+			        <form action="board/list" id="totalsell">
+						<div class="input-group mb-3" style="margin-top:16.2px;">
+				    		<input type="text" class="form-control" name="keyword" id="searchValue2" placeholder="필요한 사람 찾기" style="float:right" >
+				    		<input type="hidden" name="TradeType" value="sell">
+				    		<button class="btn btn-primary totalSearch2" type="button" id="button-addon2" style="float:right">검색</button>
+				    	</div>
+			    	</form>
+			    </div>
+			  </div>
+			</nav>
+		</div>
 		</c:if>
 		<c:if test="${ltt ne 'buy' and ltt ne 'sell'}">
 			<h1 class="text-center" style="font-family: 'Gugi', cursive;" >전체 물품</h1>
@@ -247,6 +280,7 @@
 			$(".pagination a").on("click", function(e){
 				e.preventDefault();
 				var targetPage = $(this).attr("href");
+				console.log(targetPage);
 				var listForm = $("#listForm");
 				listForm.find("[name='page']").val(targetPage);
 				listForm.attr("action", "list");
