@@ -4,31 +4,32 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
 	<form action="update" method="POST">
-		<table border=1>
+	<h2 class="text-center" style="font-family: 'Gugi', cursive;">질문 수정</h2>
+		<table class="table table-hover">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<input type="hidden" name="qno" value=${vo.qno} />
 			<tr>
-				<td>제목</td>
-				<td><input type="text" name="title"  value="${vo.title}" required/></td>
+				<th>제목</th>
+				<td><input class="form-control" type="text" name="title"  value="${vo.title}" required/></td>
 			</tr>
 			<tr>
-				<td>작성자</td>
-				<td><input type="text" name="userNickname" value="${vo.userNickname}" required/></td>
+				<th>작성자</th>
+				<td><input class="form-control" type="text" name="userNickname" value="${vo.userNickname}" readonly/></td>
 			</tr>
 			<tr>
-				<td>내용</td>
-				<td><textarea name="content" rows="30" cols="50" >${vo.content}</textarea></td>
+				<th>내용</th>
+				<td><textarea class="form-control" name="content" rows="20" cols="15" >${vo.content}</textarea></td>
 			</tr>
 			<tr>
-				<td>첨부파일</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" value="등록" />
+			<th>첨부파일</th>
+			<c:if test="${!empty vo.filename}">
+				<td >
+					<a id="img" href="${pageContext.request.contextPath}/resources/qna/${vo.filename}"> <img src="${path}/resources/img/file.png" style="width:25px; height:25px;" />${vo.filename} </a>
 				</td>
-			</tr>
+			</c:if>
+		</tr>
 		</table>
+					<input type="submit" value="수정" class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right; "/>
 	</form>
 </body>
 </html>

@@ -100,17 +100,16 @@
 									  <a class="dropbtn" style="cursor:pointer; text-decoration:none;">${qnaboard.userNickname}</a>
 								  <div class="dropdown-content" style="z-index:2; left:20px; width:120px; height:50px; background-color:rgba(123,123,123,1); position:absolute; display:none">
 								    <a href="${path}/message/msgWrite?userNickname=${qnaboard.userNickname}&uno=${qnaboard.uno}&suno=${user.uno}" onclick="window.open(this.href, '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600'); return false;" style="color:white;">쪽지 보내기</a><br/>
-								    <a href="writed?qno=${qnaboard.qno}" style="color:white;">작성 게시물 확인</a>
 								  </div>
 								</div>
 							</td>
 						</sec:authorize>
 						<c:choose >
 							<c:when test="${qnaboard.regdate eq qnaboard.updatedate}">
-								<td class="lownavbar"><f:formatDate pattern="yyyy-MM-dd HH:mm" value="${qnaboard.regdate}"/></td>
+								<td class="lownavbar"><f:formatDate pattern="yy-MM-dd HH:mm" value="${qnaboard.regdate}"/></td>
 							</c:when>
 							<c:otherwise>
-								<td class="lownavbar"><f:formatDate pattern="MM월dd일 HH시" value="${qnaboard.updatedate}"/></td>
+								<td class="lownavbar"><f:formatDate pattern="yy-MM-dd HH:mm" value="${qnaboard.updatedate}"/></td>
 							</c:otherwise>
 						</c:choose>
 						<c:choose >
