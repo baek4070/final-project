@@ -1,12 +1,14 @@
 package net.koreate.home.service;
 
 import java.util.List;
+
 import net.koreate.board.vo.BoardVO;
 import net.koreate.home.util.MessageCriteria;
 import net.koreate.home.util.MessagePageMaker;
 import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.MessageVO;
 import net.koreate.home.vo.WishVO;
+import net.koreate.notice.vo.NoticeVO;
 import net.koreate.qnaboard.vo.QnABoardVO;
 
 public interface HomeService {
@@ -50,6 +52,8 @@ public interface HomeService {
 	public List<MessageVO> messageNonCheckedList(MessageCriteria cri) throws Exception;
 	
 	public List<MessageVO> messageCheckedList(MessageCriteria cri) throws Exception;
+
+	public List<NoticeVO> nlist() throws Exception;
 
 
 

@@ -102,35 +102,39 @@
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
       <div class="accordion-body">
       
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=one'">
-	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=one">상품1</a>
-	      	</li>
-	      </ul>
-	      
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=two'">
-	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=two">상품2</a>
-	      	</li>
-	      </ul>
-	      
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=three'">
-	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=three">상품3</a>
-	      	</li>
-	      </ul>
-	      
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=four'">
-	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=four">상품4</a>
-	      	</li>
-	      </ul>
-	      
-	      <ul class="navbar-nav me-auto">
-	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=five'">
-	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=five">상품5</a>
-	      	</li>
-	      </ul>
+		<table class="table table-hover">
+		    <c:if test="${!empty nlist}">
+		      <tr>
+		      	<th>작성자</th>
+		      	<th>제목</th>
+		      	<th>내용</th>
+		      	<th>작성일</th>
+		      	<th>조회수</th>
+		      </tr>
+				<c:forEach var="ns" items="${nlist}">
+					<tr style="cursor:pointer;" onclick="location.href='${path}/notice/list?nno=${ns.nno}'">
+					   <td style="max-width:50px;">
+							<a>${ns.userNickname}</a>
+					   </td>
+					   <td style="max-width:100px;">
+							<a>${ns.title}</a>
+					   </td>
+					   <td>
+							<a>${ns.content}</a>
+					   </td>
+					   <td>
+							<a><f:formatDate value="${ns.updatedate}" pattern="yyyy-MM-dd (E) HH:mm"/></a>
+					   </td>
+					   <td>
+							<a>${ns.viewcnt}</a>
+					   </td>
+					</tr>
+				</c:forEach>
+			</c:if>
+			<c:if test="${empty nlist}">
+				<h3>내용이 없습니다.</h3>
+			</c:if>
+	      </table>
       
       </div>
     </div>
@@ -294,3 +298,33 @@ $(".totalSearch2").click(function(event){
 	$("#totalsell").submit();
 });
 </script>
+
+      <%-- <ul class="navbar-nav me-auto">
+	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=one'">
+	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=one">상품1</a>
+	      	</li>
+	      </ul>
+	      
+	      <ul class="navbar-nav me-auto">
+	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=two'">
+	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=two">상품2</a>
+	      	</li>
+	      </ul>
+	      
+	      <ul class="navbar-nav me-auto">
+	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=three'">
+	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=three">상품3</a>
+	      	</li>
+	      </ul>
+	      
+	      <ul class="navbar-nav me-auto">
+	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=four'">
+	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=four">상품4</a>
+	      	</li>
+	      </ul>
+	      
+	      <ul class="navbar-nav me-auto">
+	      	<li class="nav-item page-link mb-1" style="text-align:center;" onclick="location.href='${path}/board/list?tradeType=buy&category=five'">
+	      		<a class="nav-item" style="text-decoration:none;" href="${path}/board/list?tradeType=buy&category=five">상품5</a>
+	      	</li>
+	      </ul> --%>

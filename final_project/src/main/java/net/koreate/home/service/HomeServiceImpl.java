@@ -13,8 +13,8 @@ import net.koreate.home.util.MessagePageMaker;
 import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.MessageVO;
 import net.koreate.home.vo.WishVO;
+import net.koreate.notice.vo.NoticeVO;
 import net.koreate.qnaboard.vo.QnABoardVO;
-import net.koreate.user.vo.UserVO;
 
 @Service
 public class HomeServiceImpl implements HomeService {
@@ -149,6 +149,12 @@ public class HomeServiceImpl implements HomeService {
 	public List<MessageVO> messageCheckedList(MessageCriteria cri) throws Exception {
 		List<MessageVO> msgList = dao.CheckedmessageList(cri);
 		return msgList;
+	}
+
+	@Override
+	public List<NoticeVO> nlist() throws Exception {
+		List<NoticeVO> ntList = dao.nlist();
+		return ntList;
 	}
 
 

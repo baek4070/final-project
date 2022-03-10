@@ -14,11 +14,12 @@ import net.koreate.home.util.MessageCriteria;
 import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.MessageVO;
 import net.koreate.home.vo.WishVO;
+import net.koreate.notice.vo.NoticeVO;
 import net.koreate.qnaboard.vo.QnABoardVO;
 
 public interface HomeDAO {
 
-	@Select("SELECT * FROM qna_tbl ORDER BY viewcnt desc limit 1,10")
+	@Select("SELECT * FROM qna_tbl ORDER BY viewcnt desc limit 0,4")
 	List<QnABoardVO> QnaList() throws Exception;
 
 	/*
@@ -26,7 +27,7 @@ public interface HomeDAO {
 	 * BoardListSearch(BoardVO bvo);
 	 */
 
-	@Select("SELECT * FROM qna_tbl WHERE title LIKE CONCAT('%',#{title},'%') OR content LIKE CONCAT('%',#{content},'%') OR userNickname LIKE CONCAT('%',#{userNickname},'%') ORDER BY qno DESC limit 1,5")
+	@Select("SELECT * FROM qna_tbl WHERE title LIKE CONCAT('%',#{title},'%') OR content LIKE CONCAT('%',#{content},'%') OR userNickname LIKE CONCAT('%',#{userNickname},'%') ORDER BY qno DESC limit 0,4")
 	List<QnABoardVO> QnAListSearch(QnABoardVO qvo) throws Exception;
 
 	/*
@@ -36,7 +37,7 @@ public interface HomeDAO {
 	@Select("SELECT B.* FROM board AS B NATURAL JOIN wish AS W WHERE uno = #{uno}")
 	List<BoardVO> wish(WishVO wish) throws Exception;
 
-	@Select("SELECT * FROM ring_the_bell WHERE uno = #{uno} AND checked = 'n' GROUP BY bno, mno limit 1,5")
+	@Select("SELECT * FROM ring_the_bell WHERE uno = #{uno} AND checked = 'n' GROUP BY bno, mno limit 0,4")
 	List<BellVO> bellList(int uno) throws Exception;
 
 	// 알림용 보드 체크
@@ -87,10 +88,13 @@ public interface HomeDAO {
 	@SelectProvider(type=MessageQueryProvider.class, method="searchSelectSqlChecked")
 	List<MessageVO> CheckedmessageList(MessageCriteria cri) throws Exception;
 
-	@Select("SELECT * FROM board WHERE tradeType = #{tradeType} ORDER BY bno DESC limit 1,5")
-	List<BoardVO> BoardBuyListSearch(BoardVO tradeType);
+	@Select("SELECT * FROM board WHERE tradeType = #{tradeType} ORDER BY bno DESC limit 0,4")
+	List<BoardVO> BoardBuyListSearch(BoardVO tradeType) throws Exception;
 	
-	@Select("SELECT * FROM board WHERE tradeType = #{tradeType} ORDER BY bno DESC limit 1,5")
-	List<BoardVO> BoardSellListSearch(BoardVO tradeType);
+	@Select("SELECT * FROM board WHERE tradeType = #{tradeType} ORDER BY bno DESC limit 0,4")
+	List<BoardVO> BoardSellListSearch(BoardVO tradeType) throws Exception;
+
+	@Select("SELECT * FROM notice_tbl ORDER BY nno DESC limit 0,4")
+	List<NoticeVO> nlist() throws Exception;;
 }
 

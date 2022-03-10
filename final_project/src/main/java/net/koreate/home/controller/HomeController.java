@@ -43,6 +43,7 @@ public class HomeController {
 		model.addAttribute("bblist",hs.boardBuyListSearch(tradeType));
 		tradeType.setTradeType("sell");
 		model.addAttribute("bslist",hs.boardSellListSearch(tradeType));
+		model.addAttribute("nlist",hs.nlist());
 		return "home/home";
 	}
 	
