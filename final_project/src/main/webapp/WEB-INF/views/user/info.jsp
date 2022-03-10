@@ -24,10 +24,10 @@
 		border-spacing: 0 20px;
 	}
 </style>
-<h1 style="text-align:center;display:flex; justify-content:center; align-items:center;font-size:5.5em;font-weight:800;">내 정보 관리</h1>
+<h1 style="text-align:center;display:flex; justify-content:center; align-items:center;font-size:3em;font-weight:800; padding-top:25px; font-family: 'Gugi', cursive;">내 정보 관리</h1>
 <form id="signUpdateForm" action="${path}/user/signUpdatePost" method="POST">
 	<input type="hidden" name="uno" id="uno" value="${user.uno}"/>
-	<table id="table">
+	<table id="table" style="font-family: 'Gugi', cursive;">
 		<tr>
 			<td style="font-weight:700;font-size:1.2em;">아이디(email)</td>
 			<td style="font-size:1.5em;font-weight:600;">
@@ -55,7 +55,7 @@
 						<input type="text" class="form-control" name="u_addr_post" id="u_addr_post" value="${user.u_addr_post}" required style="font-size:1.5em;font-weight:600;"/>
 					</div>
 					<div class="col-md-4">
-						<input type="button" class="form-control btn btn-primary" onclick="sample6_execDaumPostcode();" value="주소찾기" style="border-radius:20px;"/>
+						<input type="button" class="form-control btn btn-primary" onclick="sample6_execDaumPostcode();" value="주소찾기" style="border-radius:20px;width:120px;height:45px;"/>
 					</div>
 				</div>
 				<br/>
@@ -78,10 +78,10 @@
 		</tr>
 		<tr>
 			<td colspan=2 >
-				<input type="button" class="btn-primary" value="홈" onclick="location.href='${path}/'" style="border-radius:35px; width:138px;height:60px;"/>
-				<input type="button" class="btn-primary" value="회원탈퇴" onclick="location.href='/user/withdraw';" style="border-radius:35px; width:138px;height:60px;"/>
-				<input type="button" class="btn-primary" id="update" value="수정하기" style="border-radius:35px; width:138px;height:60px;"/> 
-				<input type="button" class="btn-primary" value="관리자" onclick="location.href='/user/master';" style="border-radius:35px; width:138px;height:60px;"/>
+				<input type="button" class="btn-primary" value="홈" onclick="location.href='${path}/'" style="border-radius:35px; width:138px;height:60px;font-size:20px;"/>
+				<input type="button" class="btn-primary" value="회원탈퇴" onclick="location.href='/user/withdraw';" style="border-radius:35px; width:138px;height:60px;font-size:20px;"/>
+				<input type="button" class="btn-primary" id="update" value="수정하기" style="border-radius:35px; width:138px;height:60px;font-size:20px;"/> 
+				<input type="button" class="btn-primary" value="관리자" onclick="location.href='/user/master';" style="border-radius:35px; width:138px;height:60px;font-size:20px;"/>
 			</td>
 		</tr>
 	</table>

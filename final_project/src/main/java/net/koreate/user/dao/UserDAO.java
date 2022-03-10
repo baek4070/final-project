@@ -3,6 +3,7 @@ package net.koreate.user.dao;
 import java.util.List;
 
 import net.koreate.user.vo.AuthVO;
+import net.koreate.user.vo.SearchVO;
 import net.koreate.user.vo.UserVO;
 
 public interface UserDAO {
@@ -45,5 +46,8 @@ public interface UserDAO {
 
 	// 삭제 활성 비활성 
 	void deleteF(UserVO vo) throws Exception;
+	
+	// 관리자 검색 기능
+	List<UserVO> getSearchList(String u_name) throws Exception;
 
 }

@@ -3,6 +3,7 @@ package net.koreate.user.service;
 import java.util.List;
 
 import net.koreate.user.vo.AuthVO;
+import net.koreate.user.vo.SearchVO;
 import net.koreate.user.vo.UserVO;
 
 public interface UserService {
@@ -48,5 +49,9 @@ public interface UserService {
 	
 	// 활성 비활성 버튼
 	void deleteF(UserVO vo) throws Exception;
+	
+	// 사용자 이름으로 검색기능
+	List<UserVO> getSearchList(String word) throws Exception;
+
 	
 }

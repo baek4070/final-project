@@ -25,7 +25,6 @@
 	
 	<security:http auto-config="true">
 	
-	
 	<!-- 동시 접속 차단 -->
 		<security:access-denied-handler ref="accessdeniedHandler"/>
 	
@@ -58,7 +57,7 @@
 		
 		<security:logout logout-url="/user/signOut" logout-success-url="/" delete-cookies="userCookie"/>
 		
-		<security:intercept-url pattern="/user/**" access="permitAll"/>
+		<!-- <security:intercept-url pattern="/user/**" access="permitAll"/> -->
 		
 		<security:intercept-url pattern="/user/master" access="hasAnyRole('ROLE_MASTER','ROLE_ADMIN')"/>
 		

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.koreate.user.service.UserService;
 import net.koreate.user.vo.AuthVO;
+import net.koreate.user.vo.SearchVO;
 import net.koreate.user.vo.UserVO;
 
 @Controller
@@ -173,10 +174,12 @@ public class UserController {
 	}
 	
 	// 관리자 페이지 
-	@GetMapping("master")
-	public String master(Model model) throws Exception {
+	@GetMapping("/master")
+	public String master(Model model,String word) throws Exception {
 		List<UserVO> userList = us.getAll();
 		model.addAttribute("userList",userList);
+		List<UserVO> searchList = us.getSearchList(word);
+		model.addAttribute("searchList",searchList);
 		return "user/master";
 	}
 	

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.koreate.user.dao.UserDAO;
 import net.koreate.user.vo.AuthVO;
+import net.koreate.user.vo.SearchVO;
 import net.koreate.user.vo.UserVO;
 
 @Service
@@ -118,6 +119,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteF(UserVO vo) throws Exception {
 		ud.deleteF(vo);
+	}
+
+	@Override
+	public List<UserVO> getSearchList(String word) throws Exception {
+		String u_name = word;
+		List<UserVO> list = ud.getSearchList(u_name);
+		return list;
 	}
 
 	
