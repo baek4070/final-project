@@ -73,7 +73,23 @@
 					</c:choose>
 				</td>
 				<th style="font-family: 'Gugi', cursive;">카테고리</th>
-				<td><input type="text" class="form-control" name="category" value="${board.category}" readonly/></td>
+				<td>
+					<c:if test="${board.category eq 'one'}">
+						<input type="text" class="form-control" name="category" value="의류" readonly/>
+					</c:if>
+					<c:if test="${board.category eq 'two'}">
+						<input type="text" class="form-control" name="category" value="식품" readonly/>
+					</c:if>
+					<c:if test="${board.category eq 'three'}">
+						<input type="text" class="form-control" name="category" value="전자기기" readonly/>
+					</c:if>
+					<c:if test="${board.category eq 'four'}">
+						<input type="text" class="form-control" name="category" value="서적" readonly/>
+					</c:if>
+					<c:if test="${board.category eq 'five'}">
+						<input type="text" class="form-control" name="category" value="기타" readonly/>
+					</c:if>
+				</td>
 				<th class="title" style="font-family: 'Gugi', cursive;" >작성자</th>
 				<td>
 					<input type="text" class="form-control" name="writer" value="${board.writer}" readonly/>
@@ -218,38 +234,38 @@
 						switch(tradeType) {
 							case "buy":
 								switch(category) {
-									case "의류":
+									case "one":
 										location.href="${path}/board/list?tradeType=buy&category=one";
 										break;
-									case "식품":
+									case "two":
 										location.href="${path}/board/list?tradeType=buy&category=two";
 										break;
-									case "전자기기":
+									case "three":
 										location.href="${path}/board/list?tradeType=buy&category=three";
 										break;
-									case "서적":
+									case "four":
 										location.href="${path}/board/list?tradeType=buy&category=four";
 										break;
-									case "기타":
+									case "five":
 										location.href="${path}/board/list?tradeType=buy&category=five";
 										break;
 								}
 								break;
 							case "sell":
 								switch(category) {
-								case "의류":
+								case "one":
 									location.href="${path}/board/list?tradeType=sell&category=one";
 									break;
-								case "식품":
+								case "two":
 									location.href="${path}/board/list?tradeType=sell&category=two";
 									break;
-								case "전자기기":
+								case "three":
 									location.href="${path}/board/list?tradeType=sell&category=three";
 									break;
-								case "서적":
+								case "four":
 									location.href="${path}/board/list?tradeType=sell&category=four";
 									break;
-								case "기타":
+								case "five":
 									location.href="${path}/board/list?tradeType=sell&category=five";
 									break;
 								}

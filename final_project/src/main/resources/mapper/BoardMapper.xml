@@ -111,7 +111,14 @@
 			<when test="tradeType == '필요해요'">"buy",</when>
 			<when test="tradeType == '필요없어요'">"sell",</when>
 		</choose>
-		#{category})
+		<choose>
+			<when test="category == '의류'">one</when>
+			<when test="category == '식품'">two</when>
+			<when test="category == '전자기기'">three</when>
+			<when test="category == '서적'">four</when>
+			<when test="category == '기타'">five</when>
+		</choose>
+		)
 	</insert>
 	
 	<!-- 선택 -->
@@ -128,7 +135,13 @@
 			<when test="tradeType == '필요해요'">tradeType = "buy",</when>
 			<when test="tradeType == '필요없어요'">tradeType = "sell",</when>
 		</choose>
-		category = #{category},
+		<choose>
+			<when test="category == '의류'">one,</when>
+			<when test="category == '식품'">two,</when>
+			<when test="category == '전자기기'">three,</when>
+			<when test="category == '서적'">four,</when>
+			<when test="category == '기타'">five,</when>
+		</choose>
 		updateDate	= now()
 		WHERE bno = #{bno}
 	</update>
