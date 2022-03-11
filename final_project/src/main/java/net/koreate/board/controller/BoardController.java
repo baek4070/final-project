@@ -1,7 +1,6 @@
 package net.koreate.board.controller;
 
 import java.io.File;
-import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,8 +8,6 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +22,7 @@ import net.koreate.board.service.BoardService;
 import net.koreate.board.util.Criteria;
 import net.koreate.board.vo.BoardCommentVO;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.WishVO;
 
 @Controller
@@ -154,6 +152,11 @@ public class BoardController {
 		model.addAttribute("pm", service.getPageMaker(cri));
 		model.addAttribute("ltt",cri.getTradeType());
 		model.addAttribute("lct",cri.getCategory());
+		BellVO addRing = new BellVO();
+		addRing.setBno(board.getBno());
+		addRing.setUno(board.getUno());
+		System.out.println(board);
+		service.addRing(addRing);
 		return "redirect:/board/detail?bno="+bno;
 	}
 	

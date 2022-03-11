@@ -5,6 +5,7 @@ import net.koreate.board.util.Criteria;
 import net.koreate.board.util.PageMaker;
 import net.koreate.board.vo.BoardCommentVO;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.WishVO;
 
 public interface BoardService {
@@ -44,5 +45,8 @@ public interface BoardService {
 		
 	// 댓글 삭제
 	public String removeComment(BoardCommentVO board) throws Exception;
+	
+	// 알람 등록
+	public void addRing(BellVO addRing);
 	
 }

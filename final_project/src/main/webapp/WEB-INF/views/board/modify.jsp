@@ -17,68 +17,57 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2>BoardModify Page</h2>
+	<h2 class="text-center" style="font-family: 'Gugi', cursive;" >물품정보 수정</h2>
 	<form id="modifyForm" action="" method="get">
 		<sec:authentication property="principal" var="pinfo"/>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="hidden" name="writerId" value="${pinfo.username}"/>
+		<input type="hidden" name="bno" value="${board.bno}" />
 		<table class="table table-hover">
 			<tr>
-				<td>글번호</td>
-				<td><input type="text" class="form-control" name="bno" value="${board.bno}" readonly/></td>
+				<th style="font-family: 'Gugi', cursive;">제목</th>
+				<td colspan="5">
+					<input type="text" class="form-control" name="title" value="${board.title}"/>
+				</td>
 			</tr>
 			<tr>
-				<td>물품구분</td>
+				<th style="font-family: 'Gugi', cursive;">물품구분</th>
 				<td>
 					<select name="tradeType" class="form-select">
 						<option>필요해요</option>
 						<option>필요없어요</option>
 					</select>
 				</td>
-			</tr>
-			<tr>
-				<td>카테고리</td>
+				<th style="font-family: 'Gugi', cursive;">카테고리</th>
 				<td>
 					<select name="category" class="form-select">
-						<option>one</option>
-						<option>two</option>
-						<option>three</option>
-						<option>four</option>
-						<option>five</option>
+						<option>의류</option>
+						<option>식품</option>
+						<option>전자기기</option>
+						<option>서적</option>
+						<option>기타</option>
 					</select>
 				</td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td>
-					<input type="text" class="form-control" name="title" value="${board.title}"/>
-				</td>
-			</tr>
-			<tr>
-				<td>작성자</td>
+				<th style="font-family: 'Gugi', cursive;">작성자</th>
 				<td>
 					<input type="text" class="form-control" name="writer" value="${pinfo.user.u_name}" readonly/>
 				</td>
 			</tr>
 			<tr>
-				<td>내용</td>
-				<td>
-					<textarea class="form-control" name="content">${board.content}</textarea>
+				<th style="font-family: 'Gugi', cursive;">내용</th>
+				<td colspan="5">
+					<textarea class="form-control" rows="10" name="content">${board.content}</textarea>
 				</td>
 			</tr>
 			<tr>
-				<td>이미지</td>
-				<td>
+				<th style="font-family: 'Gugi', cursive;">이미지</th>
+				<td colspan="5">
 					<img id="img" alt="이미지" src="${pageContext.request.contextPath}/resources/img/${board.fileName}">
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2">
-					<button class="btn btn-primary" type="submit" data-oper="modify" style="border-radius: 0.25rem;">수정</button>
-					<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem;">목록</button>
-				</td>
-			</tr>
 		</table>
+		<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem; float: right">목록</button>
+		<button class="btn btn-primary" type="submit" data-oper="modify" style="border-radius: 0.25rem; float: right; margin-right: 3px;">수정</button>		
 		<input type="hidden" name="bno" value="${board.bno}"/>
 		<input type="hidden" name="page" value="${cri.page}"/> 
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>

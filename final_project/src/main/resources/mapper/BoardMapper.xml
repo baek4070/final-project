@@ -108,8 +108,8 @@
 		VALUES
 		(#{title},#{uno},#{content},#{writer},#{writerId},#{fileName},#{filePath},
 		<choose>
-			<when test="tradeType == '삽니다'">"buy",</when>
-			<when test="tradeType == '팝니다'">"sell",</when>
+			<when test="tradeType == '필요해요'">"buy",</when>
+			<when test="tradeType == '필요없어요'">"sell",</when>
 		</choose>
 		#{category})
 	</insert>
@@ -160,4 +160,10 @@
 		WHERE bno = #{bno}
 	</update>
 	
+	<!-- 알람 등록 -->
+	<insert id="addRing" parameterType="net.koreate.home.vo.BellVO">
+		INSERT INTO ring_the_bell (
+			bno,uno
+		) VALUES (#{bno},#{uno});
+	</insert>
 </mapper>

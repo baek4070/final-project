@@ -87,25 +87,25 @@
 	  <div class="container-fluid" style="background-color:#2ea65a;">
 	    <a class="navbar-brand " href="${path}/board/list?tradeType=buy" style="font-family: 'Gugi', cursive;">필요해요</a>
 	    <div class="navbar-collapse" id="navbarColor03">
-	      <ul class="navbar-nav me-auto " style="margin-left:3em; font-family: 'Gugi', cursive;" >
+	      <ul class="navbar-nav me-auto " style="font-family: 'Gugi', cursive;" >
 	        <li class="nav-item" >
 	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=one">의류</a>
 	        </li>
-	        <li class="nav-item" style="margin-left:1em;">
+	        <li class="nav-item">
 	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=two">식품</a>
 	        </li>
-	        <li class="nav-item" style="margin-left:1em;">
+	        <li class="nav-item">
 	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=three">전자기기</a>
 	        </li>
-	        <li class="nav-item" style="margin-left:1em;">
+	        <li class="nav-item">
 	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=four">서적</a>
 	        </li>
-	        <li class="nav-item" style="margin-left:1em;">
+	        <li class="nav-item">
 	          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=buy&category=five">기타</a>
 	        </li>
 	      </ul>
 	        <form action="board/list" id="totalbuy">
-				<div class="input-group mb-3 firstnone" style="margin-top:16.2px; ">
+				<div class="input-group mb-3" style="margin-top:16.2px; ">
 		    		<input type="text" class="form-control" name="keyword" id="searchValue1" placeholder="필요한 것 찾기" style=" float:right" >
 		    		<input type="hidden" name="TradeType" value="buy">
 		    		<button class="btn btn-primary totalSearch1" type="button" id="button-addon2" style="float:right;">검색</button>
@@ -130,20 +130,20 @@
 			  <div class="container-fluid" style="background-color:rgb(220,20,60);">
 			    <a class="navbar-brand" href="${path}/board/list?tradeType=sell" style="font-family: 'Gugi', cursive;">필요 없어요</a>
 			    <div class="navbar-collapse" id="navbarColor03">
-			      <ul class="navbar-nav me-auto"  style="margin-left:3em; font-family: 'Gugi', cursive;">
+			      <ul class="navbar-nav me-auto"  style="font-family: 'Gugi', cursive;">
 			        <li class="nav-item">
 			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=one">의류</a>
 			        </li>
-			        <li class="nav-item" style="margin-left:1em;">
+			        <li class="nav-item">
 			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=two">식품</a>
 			        </li>
-			        <li class="nav-item" style="margin-left:1em;">
+			        <li class="nav-item">
 			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=three">전자기기</a>
 			        </li>
-			        <li class="nav-item" style="margin-left:1em;">
+			        <li class="nav-item">
 			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=four">서적</a>
 			        </li>
-			         <li class="nav-item" style="margin-left:1em;">
+			         <li class="nav-item">
 			          <a style="color:white;" class="nav-link" href="${path}/board/list?tradeType=sell&category=five">기타</a>
 			        </li>
 			      </ul>
@@ -180,8 +180,8 @@
 								</c:otherwise>
 				  			</c:choose>
 						</div>
-		  				<div style="cursor:pointer; background-color: #ccc;" onclick="location.href='detail?bno=${board.bno}&uno=${board.uno}&w_uno=${pinfo.user.uno}'" >
-		  					<div>${board.title}</div>
+		  				<div style="cursor:pointer; background-color: #2ca7ff; text-align: right; font-family: 'Gugi', cursive;" onclick="location.href='detail?bno=${board.bno}&uno=${board.uno}&w_uno=${pinfo.user.uno}'" >
+		  					<div style="font-family: 'Gugi', cursive; text-align: center;">${board.title}</div>
 	  	 					${board.writer}
   	 					</div>
 	  	 			</sec:authorize>
@@ -204,7 +204,7 @@
 			  		</div>
 	  	 		</c:forEach>
 	  	 	<!-- 페이징 블럭 시작 -->
-	  	 	<ul class="pagination">
+	  	 	<ul class="pagination" style="font-family: 'Gugi', cursive;">
 				<c:if test="${pm.prev}">
 					<li class="page-item">
       					<a class="page-link" href="${pm.startPage-1}">&laquo;</a>
@@ -225,7 +225,7 @@
 	  	 	
 	  	 	</c:when>
 	  	 	<c:otherwise>
-	  	 		<h3>등록된 게시물이 없습니다.</h3>
+	  	 		<h3 class="text-center" style="font-family: 'Gugi', cursive;">등록된 게시물이 없습니다.</h3>
 	  	 	</c:otherwise>
    		</c:choose>
    		<!-- 로그인 된 사용자만 물품 등록 가능 -->
@@ -257,6 +257,8 @@
 	<form id="listForm">
 		<input type="hidden" name="page" value="${pm.cri.page}"/>
 		<input type="hidden" name="perPageNum" value="${pm.cri.perPageNum}"/>
+		<input type="hidden" name="tradeType" value="${ltt}"/>
+		<input type="hidden" name="category" value="${lct}"/>
 	</form>
 	</div>
 	<div id="test"></div>
@@ -280,9 +282,15 @@
 			$(".pagination a").on("click", function(e){
 				e.preventDefault();
 				var targetPage = $(this).attr("href");
+				var tradeType = '${ltt}';
+				var category = '${lct}';
 				console.log(targetPage);
+				console.log(tradeType);
+				console.log(category);
 				var listForm = $("#listForm");
 				listForm.find("[name='page']").val(targetPage);
+				listForm.find("[name='tradeType']").val(tradeType);
+				listForm.find("[name='category']").val(category);
 				listForm.attr("action", "list");
 				listForm.submit();
 			});

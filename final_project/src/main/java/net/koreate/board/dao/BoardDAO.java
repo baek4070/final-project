@@ -3,6 +3,7 @@ package net.koreate.board.dao;
 import java.util.List;
 import net.koreate.board.util.Criteria;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.WishVO;
 
 public interface BoardDAO {
@@ -36,5 +37,7 @@ public interface BoardDAO {
 	
 	// 조회수 증가
 	public int updateViewCount(int bno) throws Exception;
+
+	public void addRing(BellVO addRing);
 	
 }

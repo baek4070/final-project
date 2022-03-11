@@ -12,6 +12,7 @@ import net.koreate.board.util.Criteria;
 import net.koreate.board.util.PageMaker;
 import net.koreate.board.vo.BoardCommentVO;
 import net.koreate.board.vo.BoardVO;
+import net.koreate.home.vo.BellVO;
 import net.koreate.home.vo.WishVO;
 
 @Service
@@ -112,6 +113,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public WishVO getWish(WishVO wish) throws Exception {
 		return dao.getWish(wish);
+	}
+
+	@Override
+	public void addRing(BellVO addRing) {
+		dao.addRing(addRing);
+		
 	}
 
 	

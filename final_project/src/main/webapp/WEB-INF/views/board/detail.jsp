@@ -42,6 +42,10 @@
 					</c:otherwise>
 				</c:choose>
 			</c:if>
+			<a class="btn btn-primary" id="sendMsg"
+			style="border-radius: 0.25rem; float: right; margin-right:8px;"
+			href="${path}/message/msgWrite?userNickname=${board.writer}&uno=${board.uno}&suno=${pinfo.user.uno}";
+			onclick="window.open(this.href, '_blank', ' scrollbars=no, location=no,resizable=no, width=800, height=600'); return false;"><img width="25px" src="../resources/img/email.png"/></a>
 		</sec:authorize>
 		
 		
@@ -61,10 +65,10 @@
 				<td>
 					<c:choose>
 						<c:when test="${board.tradeType eq 'buy'}">
-							<input type="text" class="form-control" name="tradeType" value="삽니다" readonly/>
+							<input type="text" class="form-control" name="tradeType" value="필요해요" readonly/>
 						</c:when>
 						<c:otherwise>
-							<input type="text" class="form-control" name="tradeType" value="팝니다" readonly/>
+							<input type="text" class="form-control" name="tradeType" value="필요없어요" readonly/>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -92,14 +96,15 @@
 				</tr>
 			</c:if>
 		</table>
+					<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem; float:right; margin-left:3px; ">목록</button>
 					<sec:authorize access="isAuthenticated()">
 						<c:if test="${pinfo.user.u_id eq board.writerId or pinfo.user.u_id eq 'admin@admin' }">
-							<button class="btn btn-primary" type="submit" data-oper="modify" style="border-radius: 0.25rem; float:right; margin-left:3px; ">수정</button>
 							<button class="btn btn-primary" type="submit" data-oper="remove" style="border-radius: 0.25rem; float:right; margin-left:3px; ">삭제</button>
+							<button class="btn btn-primary" type="submit" data-oper="modify" style="border-radius: 0.25rem; float:right; margin-left:3px; ">수정</button>
 						</c:if>
 						<input type="hidden" name="w_uno" value="${pinfo.user.uno}"/>
 					</sec:authorize>
-					<button class="btn btn-primary" type="submit" data-oper="list" style="border-radius: 0.25rem; float:right; margin-left:3px; ">목록</button>
+					
 		<input type="hidden" name="uno" value="${board.uno}"/>
 		<input type="hidden" name="bno" value="${board.bno}"/>
 		<input type="hidden" name="page" value="${cri.page}"/> 
@@ -118,15 +123,15 @@
 				<sec:authorize access="isAuthenticated()">
 					<c:choose>
 						<c:when test="${pinfo.user.u_id eq commentList.writerId or pinfo.user.u_id eq 'admin@admin'}">
-							<td><textarea class="form-control" name="content">${commentList.content}</textarea></td>
+							<td><textarea class="form-control content" name="content">${commentList.content}</textarea></td>
 						</c:when>
 						<c:otherwise>
-							<td><textarea class="form-control" readonly>${commentList.content}</textarea></td>
+							<td><textarea class="form-control content" readonly>${commentList.content}</textarea></td>
 						</c:otherwise>
 					</c:choose>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
-					<td><textarea class="form-control" readonly>${commentList.content}</textarea></td>
+					<td><textarea class="form-control content" readonly>${commentList.content}</textarea></td>
 				</sec:authorize>
 				<th class="title" style="text-align:right; width:150px;"><f:formatDate value="${commentList.regdate}" pattern="yy-MM-dd HH:mm" /><br/>
 					<button id="modifyComment" class="btn btn-primary" type="submit" data-oper="modifyComment"
@@ -156,6 +161,7 @@
 		<form action="/board/registerComment" method="post" id="registerCommentForm">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<sec:authentication property="principal" var="pinfo"/>
+		<input type="hidden" name="uno" value="${board.uno}"/>
 		<input type="hidden" name="bno" value="${board.bno}"/>
 		<input type="hidden" name="page" value="${cri.page}"/> 
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
@@ -164,13 +170,13 @@
 			<input type="hidden" name="writerId" value="${pinfo.user.u_id}"/>
 			<table class="table table-hover">
 				<tr>
-					<th>작성자</th>
+					<th style="font-family: 'Gugi', cursive;">작성자</th>
 					<td>
 						<input type="text" class="form-control" name="writer" value="${pinfo.user.u_name}" readonly/>
 					</td>
 				</tr>
 				<tr>
-					<th>내용</th>
+					<th style="font-family: 'Gugi', cursive;">내용</th>
 					<td>
 						<textarea class="form-control" name="content"></textarea>
 					</td>
@@ -206,7 +212,49 @@
 						detailForm.attr("action", "/board/remove").attr("method", "post");
 						break;
 					case "list":
-						detailForm.attr("action", "/board/list").attr("method", "get");
+						//detailForm.attr("action", "/board/list").attr("method", "get");
+						var tradeType = '${board.tradeType}';
+						var category = '${board.category}';
+						switch(tradeType) {
+							case "buy":
+								switch(category) {
+									case "의류":
+										location.href="${path}/board/list?tradeType=buy&category=one";
+										break;
+									case "식품":
+										location.href="${path}/board/list?tradeType=buy&category=two";
+										break;
+									case "전자기기":
+										location.href="${path}/board/list?tradeType=buy&category=three";
+										break;
+									case "서적":
+										location.href="${path}/board/list?tradeType=buy&category=four";
+										break;
+									case "기타":
+										location.href="${path}/board/list?tradeType=buy&category=five";
+										break;
+								}
+								break;
+							case "sell":
+								switch(category) {
+								case "의류":
+									location.href="${path}/board/list?tradeType=sell&category=one";
+									break;
+								case "식품":
+									location.href="${path}/board/list?tradeType=sell&category=two";
+									break;
+								case "전자기기":
+									location.href="${path}/board/list?tradeType=sell&category=three";
+									break;
+								case "서적":
+									location.href="${path}/board/list?tradeType=sell&category=four";
+									break;
+								case "기타":
+									location.href="${path}/board/list?tradeType=sell&category=five";
+									break;
+								}
+								break;
+						}				
 						break;
 					case "addWishlist":
 						detailForm.attr("action", "/board/addWishlist").attr("method", "post");
@@ -225,7 +273,7 @@
 					
 				}
 				switch(operation) {
-					case "modify": case "remove": case "list": case "addWishlist": case "removeWishlist":
+					case "modify": case "remove": case "addWishlist": case "removeWishlist":
 						detailForm.submit();
 						break;
 					case "modifyComment": case "removeComment":

@@ -75,6 +75,7 @@
 			<tr>
 				<th style="font-family: 'Gugi', cursive;">상품설명</th>
 				<td><textarea class="form-control" name="content" required></textarea></td>
+				<td><input class="form-control" type="hidden" name="writer" value="${pinfo.user.u_name}"/></td>
 			</tr>
 			<tr>
 				<th style="font-family: 'Gugi', cursive;">이미지</th>
@@ -98,7 +99,6 @@
 		</table>
 		<input type="file" id="profileImage" name="uploadFile" accept="image/*" style="display: none;"/>
 		<input type="hidden" name="uimage" id="uimage"/>
-		<input class="form-control" type="hidden" name="writer" value="${pinfo.user.u_name}"/>
 	</form>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
