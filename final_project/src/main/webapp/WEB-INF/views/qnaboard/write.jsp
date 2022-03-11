@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="/WEB-INF/views/home/header.jsp"/>
-	<h2 class="text-center">질문하기</h2>
+	<h2 class="text-center" style="font-family: 'Gugi', cursive;">질문하기</h2>
 	<form action="resister" method="POST" enctype="multipart/form-data" >
 				<sec:authentication property="principal" var="pinfo"/>
 			<input type="hidden" name="userId" value="${pinfo.username}"/>

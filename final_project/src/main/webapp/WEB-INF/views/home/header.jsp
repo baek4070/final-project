@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
-<title>투레이do!</title>
+<title>투래이do!</title>
 <link href="${path}/resources/css/bootstrap.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <style>
@@ -52,7 +52,7 @@
 <div class="row col-10 offset-1">
   <div class="container-fluid ">
   		 <a class="navbar-brand text-center" href="/" style="font-family: 'Gugi', cursive; font-size:xx-large; " >
-	  		<span onmouseover="this.style.color='rgb(255,174,66)';" onMouseOut="this.style.color='white'">투</span><span onmouseover="this.style.color='#2ea65a';" onMouseOut="this.style.color='white'">레</span><span onmouseover="this.style.color='#187bcd';" onMouseOut="this.style.color='white'">이</span><span onmouseover="this.style.color='rgb(220,20,60)';" onMouseOut="this.style.color='white'">Do</span>
+	  		<span onmouseover="this.style.color='rgb(255,174,66)';" onMouseOut="this.style.color='white'">투</span><span onmouseover="this.style.color='#2ea65a';" onMouseOut="this.style.color='white'">래</span><span onmouseover="this.style.color='#187bcd';" onMouseOut="this.style.color='white'">이</span><span onmouseover="this.style.color='rgb(220,20,60)';" onMouseOut="this.style.color='white'">Do</span>
    		 </a> 
 	    
     <sec:authorize access="isAuthenticated()">

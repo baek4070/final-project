@@ -152,7 +152,7 @@
 						   <td >
 								${bs.writer}
 						   </td>
-						   <td>
+						   <td class="firstnone">
 								<f:formatDate value="${bs.updateDate}" pattern="yy-MM-dd (E) HH:mm"/>
 						   </td>
 						   <td>
@@ -168,7 +168,7 @@
 						   <td >
 								${bs.writer}
 						   </td>
-						   <td>
+						   <td class="firstnone">
 								<f:formatDate value="${bs.updateDate}" pattern="yy-MM-dd (E) HH:mm"/>
 						   </td>
 						   <td>
@@ -213,7 +213,7 @@
 						   <td >
 								${bb.writer}
 						   </td>
-						   <td>
+						   <td class="firstnone">
 								<f:formatDate value="${bb.updateDate}" pattern="yy-MM-dd (E) HH:mm"/>
 						   </td>
 						   <td>
@@ -229,7 +229,7 @@
 						   <td >
 								${bb.writer}
 						   </td>
-						   <td>
+						   <td class="firstnone">
 								<f:formatDate value="${bb.updateDate}" pattern="yy-MM-dd (E) HH:mm"/>
 						   </td>
 						   <td>
@@ -272,7 +272,7 @@
 					   <td>
 						${question.userNickname}
 					   </td>
-					   <td>
+					   <td class="firstnone">
 						<f:formatDate value="${question.regdate}" pattern="yy-MM-dd (E) HH:mm"/>
 					   </td>
 					   <td>
@@ -298,6 +298,10 @@
     </h2>
     <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
       <div class="accordion-body">
+      <a target="_blank" href="https://github.com/baek4070">백인광</a><br/>
+      <a target="_blank" href="https://github.com/gitgw016">박종혁</a><br/>
+      <a target="_blank" href="https://github.com/kmh1996">김명환</a><br/>
+      <a target="_blank" href="https://github.com/930521">김회진</a><br/>
       </div>
     </div>
   </div>
