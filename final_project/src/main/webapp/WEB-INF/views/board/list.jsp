@@ -196,8 +196,8 @@
 								</c:otherwise>
 				  			</c:choose>
 						</div>
-		  				<div style="cursor:pointer; background-color: #ccc;" onclick="location.href='detail?bno=${board.bno}'" >
-		  					<div>${board.title}</div>
+  	 					<div style="cursor:pointer; background-color: #2ca7ff; text-align: right; font-family: 'Gugi', cursive;" onclick="location.href='detail?bno=${board.bno}'" >
+		  					<div style="font-family: 'Gugi', cursive; text-align: center;">${board.title}</div>
 	  	 					${board.writer}
   	 					</div>
 	  	 			</sec:authorize>
