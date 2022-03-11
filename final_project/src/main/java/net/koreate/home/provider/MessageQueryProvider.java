@@ -13,6 +13,7 @@ public class MessageQueryProvider {
 		sql.SELECT("*");
 		sql.FROM("message");
 		getSearchWhere(cri,sql);
+		sql.ORDER_BY("mno DESC");
 		sql.LIMIT(cri.getStartRow()+","+cri.getPerPageNum());
 		String query =sql.toString();
 		System.out.println(query);
@@ -25,6 +26,7 @@ public class MessageQueryProvider {
 		sql.SELECT("*");
 		sql.FROM("message");
 		getSearchWhereNon(cri,sql);
+		sql.ORDER_BY("mno DESC");
 		sql.LIMIT(cri.getStartRow()+","+cri.getPerPageNum());
 		String query =sql.toString();
 		System.out.println(query);
@@ -37,6 +39,7 @@ public class MessageQueryProvider {
 		sql.SELECT("*");
 		sql.FROM("message");
 		getSearchWhereChecked(cri,sql);
+		sql.ORDER_BY("mno DESC");
 		sql.LIMIT(cri.getStartRow()+","+cri.getPerPageNum());
 		String query =sql.toString();
 		System.out.println(query);
@@ -74,18 +77,19 @@ public class MessageQueryProvider {
 	}
 	// WHERE 조건 절 추가
 		public void getSearchWhere(MessageCriteria cri, SQL sql) {
-			String uno = Integer.toString(cri.getUno());
+			String uno = "uno = "+ Integer.toString(cri.getUno());
+			System.out.println("중요!!!:"+ uno);
 			sql.WHERE(uno);
 		}
 		
 		public void getSearchWhereNon(MessageCriteria cri, SQL sql) {
-			String uno = Integer.toString(cri.getUno());
+			String uno = "uno = "+ Integer.toString(cri.getUno());
 			sql.WHERE(uno).AND().WHERE("checked='n'");
 
 		}
 		
 		public void getSearchWhereChecked(MessageCriteria cri, SQL sql) {
-			String uno = Integer.toString(cri.getUno());
+			String uno = "uno = "+ Integer.toString(cri.getUno());
 			sql.WHERE(uno).AND().WHERE("checked='y'");
 
 		}
