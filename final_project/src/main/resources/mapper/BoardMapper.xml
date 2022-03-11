@@ -112,11 +112,11 @@
 			<when test="tradeType == '필요없어요'">"sell",</when>
 		</choose>
 		<choose>
-			<when test="category == '의류'">one</when>
-			<when test="category == '식품'">two</when>
-			<when test="category == '전자기기'">three</when>
-			<when test="category == '서적'">four</when>
-			<when test="category == '기타'">five</when>
+			<when test="category == '의류'">"one"</when>
+			<when test="category == '식품'">"two"</when>
+			<when test="category == '전자기기'">"three"</when>
+			<when test="category == '서적'">"four"</when>
+			<when test="category == '기타'">"five"</when>
 		</choose>
 		)
 	</insert>
@@ -136,11 +136,11 @@
 			<when test="tradeType == '필요없어요'">tradeType = "sell",</when>
 		</choose>
 		<choose>
-			<when test="category == '의류'">one,</when>
-			<when test="category == '식품'">two,</when>
-			<when test="category == '전자기기'">three,</when>
-			<when test="category == '서적'">four,</when>
-			<when test="category == '기타'">five,</when>
+			<when test="category == '의류'">"one",</when>
+			<when test="category == '식품'">"two",</when>
+			<when test="category == '전자기기'">"three",</when>
+			<when test="category == '서적'">"four",</when>
+			<when test="category == '기타'">"five",</when>
 		</choose>
 		updateDate	= now()
 		WHERE bno = #{bno}
