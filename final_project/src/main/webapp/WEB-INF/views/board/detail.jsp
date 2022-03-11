@@ -150,21 +150,16 @@
 					<td><textarea class="form-control content" readonly>${commentList.content}</textarea></td>
 				</sec:authorize>
 				<th class="title" style="text-align:right; width:150px;"><f:formatDate value="${commentList.regdate}" pattern="yy-MM-dd HH:mm" /><br/>
-					<button id="modifyComment" class="btn btn-primary" type="submit" data-oper="modifyComment"
-					style="border-radius: 0.25rem;  margin-right: 5px;">수정</button>
-					<button id="removeComment" class="btn btn-outline-danger" type="submit" data-oper="removeComment"
-					style="border-radius: 0.25rem; ">삭제</button>
+					<sec:authorize access="isAuthenticated()">
+						<c:if test="${pinfo.user.u_id eq commentList.writerId or pinfo.user.u_id eq 'admin@admin'}">
+							<button id="modifyComment" class="btn btn-primary" type="submit" data-oper="modifyComment"
+							style="border-radius: 0.25rem;  margin-right: 5px;">수정</button>
+							<button id="removeComment" class="btn btn-outline-danger" type="submit" data-oper="removeComment"
+							style="border-radius: 0.25rem; ">삭제</button>
+						</c:if>
+					</sec:authorize>
 				</th>
 			</tr>
-			<sec:authorize access="isAuthenticated()">
-				<c:if test="${pinfo.user.u_id eq commentList.writerId or pinfo.user.u_id eq 'admin@admin'}">
-					<tr>
-						<td colspan="2">
-							
-						</td>
-					</tr>
-				</c:if>
-			</sec:authorize>
 		</table>
 		<div style="margin-top: 20px;"></div>
 		<input type="hidden" name="bno" value="${board.bno}"/>

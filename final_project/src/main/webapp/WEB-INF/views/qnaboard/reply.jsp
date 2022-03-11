@@ -53,10 +53,6 @@
 				<td><textarea class="form-control" name="content" rows="30" cols="50"></textarea></td>
 			</tr>
 			<tr>
-				<td>첨부파일</td>
-				<td><input type="file" name="uploadFile" multiple/ ></td>
-			</tr>
-			<tr>
 				<td colspan="2">
 					<input class="btn btn-outline-danger" style="border-radius: 0.25rem; float:right;" type="submit" value="답변달기" />
 				</td>
