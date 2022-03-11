@@ -33,8 +33,8 @@
 	</table>
 	<sec:authentication property="principal" var="pinfo"/>
 	<div style="float:right;">
-	<sec:authorize access="isAuthenticated()">
 	<a href="list" class="btn btn-outline-danger" style="border-radius: 0.25rem ; margin-left:3px; float:right;">목록으로</a>
+	<sec:authorize access="isAuthenticated()">
 	<c:if test="${pinfo.username eq vo.userId or pinfo.username eq 'qwe@qwe' }">
 	<a href="modify?qno=${vo.qno}" style="border-radius: 0.25rem ; margin-left:3px; float:right;" class="btn btn-outline-danger" >수정</a>
 	
