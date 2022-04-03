@@ -27,12 +27,15 @@ Trade + 鬬來二饾(만날 투, 올 래, 두 이, 늘어놓은 두)
 
 ## 담당 주요기능
 
-### 공지사항 게시판
+### 1. 공지사항 게시판
+<br/>
 ![공지사항](https://user-images.githubusercontent.com/87586153/161450290-ed271755-6f68-42bc-84dc-9caad719d997.PNG)
 ![공지사항2](https://user-images.githubusercontent.com/87586153/161450291-48f16be4-3a22-4afe-8191-2c4ee0420189.PNG)
 ![공지사항 3](https://user-images.githubusercontent.com/87586153/161450302-019fa564-c6d3-4ed9-92f7-b6d9787cdbdd.PNG)
-
-### QnA 게시판
+<br/>
+<br/>
+### 2. QnA 게시판
+<br/>
 ![QnA 1](https://user-images.githubusercontent.com/87586153/161450332-6988eea4-15a8-41cb-8c77-45ced3bc2473.PNG)
 ![QnA 2](https://user-images.githubusercontent.com/87586153/161450329-254c478c-47c3-41eb-9139-dd9fe0e6a56f.PNG)
 ![QnA 3](https://user-images.githubusercontent.com/87586153/161450330-c069852e-96ec-4160-b9d3-1c7107da3d30.PNG)
